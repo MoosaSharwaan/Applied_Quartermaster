@@ -1,0 +1,4 @@
+MOD ae2-toggleable-viewcell 26.1-1.0.1 -> AE2ToggleableViewCell-26.1-1.0.1.jar (requested)
+  needs ae2
+JAR ae2-toggleable-viewcell: modids=['ae2_toggleable_view_cell']
+  ITEM ae2_toggleable_view_cell:toggleable_view_cell=Toggleable View Cell
