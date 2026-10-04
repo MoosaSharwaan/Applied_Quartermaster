@@ -1,7 +1,12 @@
 package io.github.moosasharwaan.appliedquartermaster;
 
 import com.mojang.logging.LogUtils;
+import appeng.menu.locator.MenuLocators;
+import io.github.moosasharwaan.appliedquartermaster.network.ModNetwork;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModBlocks;
+import io.github.moosasharwaan.appliedquartermaster.registry.ModComponents;
+import io.github.moosasharwaan.appliedquartermaster.registry.ModMenus;
+import io.github.moosasharwaan.appliedquartermaster.tablet.TabletModuleLocator;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModCreativeTabs;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModItems;
 import net.minecraft.resources.Identifier;
@@ -14,8 +19,7 @@ import org.slf4j.Logger;
  * Applied Quartermaster: an AE2 addon with the ME Tablet, ME Library, ME Armory,
  * ME Tool Rack, ME Farm Controller and ME Redstone Plate.
  * <p>
- * This is the starting skeleton: items and blocks are registered so the mod loads in game.
- * Network behaviour, screens and the tablet features are added in later stages.
+ * Stage 1: the tablet screen with module tabs and the Inventory module (a real AE2 terminal).
  */
 @Mod(AppliedQuartermaster.MOD_ID)
 public final class AppliedQuartermaster {
@@ -27,6 +31,10 @@ public final class AppliedQuartermaster {
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModCreativeTabs.TABS.register(modBus);
+        ModComponents.COMPONENTS.register(modBus);
+        ModMenus.MENUS.register(modBus);
+        modBus.addListener(ModNetwork::register);
+        MenuLocators.register(TabletModuleLocator.class, TabletModuleLocator::writeToPacket, TabletModuleLocator::readFromPacket);
         LOGGER.info("Applied Quartermaster loaded");
     }
 

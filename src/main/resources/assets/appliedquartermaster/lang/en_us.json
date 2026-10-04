@@ -5,5 +5,11 @@
   "block.appliedquartermaster.me_library": "ME Library",
   "block.appliedquartermaster.me_armory": "ME Armory",
   "block.appliedquartermaster.me_tool_rack": "ME Tool Rack",
-  "block.appliedquartermaster.me_farm_controller": "ME Farm Controller"
+  "block.appliedquartermaster.me_farm_controller": "ME Farm Controller",
+  "gui.appliedquartermaster.tablet.modules": "Modules",
+  "gui.appliedquartermaster.tablet.empty_slot": "Empty",
+  "gui.appliedquartermaster.tablet.tab_open": "Click: open",
+  "gui.appliedquartermaster.tablet.tab_pin": "Right-click: pin as the tab that opens first",
+  "gui.appliedquartermaster.tablet.pin": "Pin: open this first",
+  "gui.appliedquartermaster.tablet.unpin": "Pinned: opens first (click to unpin)"
 }
