@@ -1,0 +1,23 @@
+# IDE
+.idea
+*.iml
+*.ipr
+*.iws
+out
+bin
+.vscode
+.settings
+.classpath
+.project
+
+# Gradle
+build
+.gradle
+
+# Run folders
+run/
+runs/
+run-data/
+
+# Art tool caches
+tools/art/__pycache__/

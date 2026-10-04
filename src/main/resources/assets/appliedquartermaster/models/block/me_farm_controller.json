@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "appliedquartermaster:block/me_farm_controller/front",
+    "north": "appliedquartermaster:block/me_farm_controller/front",
+    "south": "appliedquartermaster:block/me_farm_controller/network",
+    "east": "appliedquartermaster:block/me_farm_controller/farm",
+    "west": "appliedquartermaster:block/me_farm_controller/network",
+    "up": "appliedquartermaster:block/me_farm_controller/top",
+    "down": "appliedquartermaster:block/me_farm_controller/bottom"
+  }
+}
