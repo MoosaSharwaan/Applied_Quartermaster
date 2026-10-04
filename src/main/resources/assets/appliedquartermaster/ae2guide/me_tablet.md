@@ -30,6 +30,12 @@ The two upgrade slots take range upgrades: each <ItemLink id="ae2:wireless_boost
 again. With AEInfinityBooster installed, its Infinity Range Booster removes the range limit in the access point's
 dimension and its Dimension Card works from any dimension.
 
+## Opening it from anywhere
+
+Set a key for **Open ME Tablet** under Options, Controls, Key Binds. It opens the tablet wherever you carry it: in your
+hand, in your inventory, or worn in a Curios **curio** slot when Curios is installed. Sneak while pressing it to open
+the Modules page.
+
 ## Tabs that unlock
 
 The **Library**, **Armory**, **Tools** and **Automation** tabs appear while their block is on the linked network.

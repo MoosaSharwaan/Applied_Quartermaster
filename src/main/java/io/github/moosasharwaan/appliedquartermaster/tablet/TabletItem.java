@@ -26,26 +26,37 @@ public class TabletItem extends Item {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        var stack = player.getItemInHand(hand);
         int slot = findSlot(player, hand);
         if (slot < 0 || !(player instanceof ServerPlayer serverPlayer)) {
             return InteractionResult.FAIL;
         }
-        int pinned = TabletModules.getDefault(stack);
-        if (!player.isShiftKeyDown()) {
-            if (pinned >= 0 && pinned < TabletModules.SLOTS && openModule(serverPlayer, slot, pinned)) {
-                return InteractionResult.SUCCESS;
-            }
-            if (pinned >= TabletModules.PIN_STORAGE) {
-                openTablet(serverPlayer, slot, pinned - TabletModules.PIN_STORAGE);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        openTablet(serverPlayer, slot, TabletMenu.PAGE_MODULES);
+        open(serverPlayer, slot, player.isShiftKeyDown());
         return InteractionResult.SUCCESS;
     }
 
-    /** Opens the tablet screen for the tablet in the given player inventory slot. */
+    /**
+     * Opens the tablet in the given slot (inventory or Curios, see {@link TabletSlots}) the way right-click does:
+     * the pinned tab, or the Modules page when nothing is pinned or {@code modulesPage} is set.
+     */
+    public static void open(ServerPlayer player, int slot, boolean modulesPage) {
+        var stack = TabletSlots.tablet(player, slot);
+        if (stack.isEmpty()) {
+            return;
+        }
+        int pinned = TabletModules.getDefault(stack);
+        if (!modulesPage) {
+            if (pinned >= 0 && pinned < TabletModules.SLOTS && openModule(player, slot, pinned)) {
+                return;
+            }
+            if (pinned >= TabletModules.PIN_STORAGE) {
+                openTablet(player, slot, pinned - TabletModules.PIN_STORAGE);
+                return;
+            }
+        }
+        openTablet(player, slot, TabletMenu.PAGE_MODULES);
+    }
+
+    /** Opens the tablet screen for the tablet in the given slot (inventory or Curios). */
     public static void openTablet(ServerPlayer player, int tabletSlot, int page) {
         TabletModuleLocator.flush(player);
         player.openMenu(new SimpleMenuProvider(
@@ -54,14 +65,14 @@ public class TabletItem extends Item {
                 buf -> {
                     buf.writeVarInt(tabletSlot);
                     buf.writeVarInt(page + 1);
-                    buf.writeVarInt(player.getInventory().getItem(tabletSlot)
+                    buf.writeVarInt(TabletSlots.get(player, tabletSlot)
                             .getOrDefault(ModComponents.TABLET_VIEW_SIZES, 0));
                 });
     }
 
     /** Opens the module in the given slot. Terminal modules open the real AE2 terminal screen. */
     public static boolean openModule(ServerPlayer player, int tabletSlot, int moduleSlot) {
-        var tablet = player.getInventory().getItem(tabletSlot);
+        var tablet = TabletSlots.tablet(player, tabletSlot);
         var module = TabletModules.get(tablet, moduleSlot);
         if (module.getItem() instanceof WirelessTerminalItem terminal) {
             TabletModuleLocator.flush(player);

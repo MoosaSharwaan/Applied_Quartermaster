@@ -47,10 +47,22 @@ repositories {
         content { includeGroup 'mezz.jei' }
     }
     maven {
+        // Curios API (optional integration: wear the tablet in a curio slot)
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+        content { includeGroup 'top.theillusivec4.curios' }
+    }
+    maven {
         // Applied Energistics 2, GuideME and AE2 Wireless Terminals
         name = 'ModMaven'
         url = 'https://modmaven.dev/'
     }
+}
+
+configurations {
+    // Mods only loaded in development runs (not a dependency of the published mod).
+    localRuntime
+    runtimeClasspath.extendsFrom localRuntime
 }
 
 dependencies {
@@ -58,6 +70,8 @@ dependencies {
     implementation "org.appliedenergistics:guideme:${guideme_version}"
     compileOnly("de.mari_023:ae2wtlib_api:${ae2wtlib_version}") { transitive = false }
     compileOnly "mezz.jei:jei-${jei_minecraft_version}-neoforge-api:${jei_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    localRuntime "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {

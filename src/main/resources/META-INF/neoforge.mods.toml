@@ -39,3 +39,10 @@ issueTrackerURL="https://github.com/MoosaSharwaan/Applied_Quartermaster/issues"
     versionRange="[26.1.0-beta,)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="curios"
+    type="OPTIONAL"
+    versionRange="[15.0.0,)"
+    ordering="NONE"
+    side="BOTH"

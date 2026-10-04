@@ -226,6 +226,51 @@ public final class SelfTest {
             }));
             STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
         }
+        // Curios: wear the tablet in a curio slot, open it with the "Open ME Tablet" key's packet, use it, come back.
+        if (io.github.moosasharwaan.appliedquartermaster.integration.curios.CuriosCompat.isLoaded()) {
+            STEPS.add(new Step(5, () -> server(SelfTest::wearTablet)));
+            STEPS.add(new Step(10, () -> ClientPacketDistributor.sendToServer(
+                    new io.github.moosasharwaan.appliedquartermaster.network.OpenTabletPayload(true))));
+            STEPS.add(new Step(30, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST curios key opened: {}", Minecraft.getInstance().screen);
+                shot("11a_curios_tablet_modules");
+            }));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, curioSlot, TabletMenu.PAGE_DEVICES))));
+            STEPS.add(new Step(30, () -> shot("11b_curios_tablet_devices")));
+            STEPS.add(new Step(5, () -> server(p -> AppliedQuartermaster.LOGGER.info("SELFTEST curios terminal opened={}",
+                    TabletItem.openModule(p, curioSlot, 0)))));
+            STEPS.add(new Step(40, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST curios terminal screen: {}", Minecraft.getInstance().screen);
+                shot("11c_curios_terminal");
+            }));
+            STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
+            STEPS.add(new Step(30, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST curios back to tablet: {}", Minecraft.getInstance().screen);
+                shot("11d_curios_back_to_tablet");
+            }));
+            STEPS.add(new Step(5, () -> server(p -> {
+                var tablet = io.github.moosasharwaan.appliedquartermaster.tablet.TabletSlots.tablet(p, curioSlot);
+                AppliedQuartermaster.LOGGER.info("SELFTEST curios tablet still worn={} modules kept={}", !tablet.isEmpty(),
+                        !TabletModules.get(tablet, 0).isEmpty());
+                p.closeContainer();
+            })));
+            STEPS.add(new Step(5, () -> server(p -> p.setGameMode(GameType.SURVIVAL))));
+            STEPS.add(new Step(10, () -> {
+                // Press Curios' own "open curios inventory" key to show its slot panel.
+                for (var key : Minecraft.getInstance().options.keyMappings) {
+                    if (key.getName().contains("curios")) {
+                        AppliedQuartermaster.LOGGER.info("SELFTEST curios key {} = {}", key.getName(), key.getKey());
+                        net.minecraft.client.KeyMapping.click(key.getKey());
+                    }
+                }
+            }));
+            STEPS.add(new Step(30, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST curios screen: {}", Minecraft.getInstance().screen);
+                shot("11e_inventory_with_curios");
+            }));
+            STEPS.add(new Step(5, () -> Minecraft.getInstance().setScreen(null)));
+            STEPS.add(new Step(5, () -> server(p -> p.setGameMode(GameType.CREATIVE))));
+        }
         for (var page : List.of("applied_quartermaster", "me_tablet", "farm_automation", "recipes")) {
             STEPS.add(new Step(5, () -> guideme.GuidesCommon.openGuide(Minecraft.getInstance().player,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "guide"),
@@ -234,6 +279,23 @@ public final class SelfTest {
         }
         STEPS.add(new Step(5, () -> Minecraft.getInstance().setScreen(null)));
         STEPS.add(new Step(20, () -> Minecraft.getInstance().stop()));
+    }
+
+    private static int curioSlot = Integer.MIN_VALUE;
+
+    /** Moves the tablet from the hotbar into the player's "curio" slot. */
+    private static void wearTablet(ServerPlayer player) {
+        AppliedQuartermaster.LOGGER.info("SELFTEST curios slots: {}",
+                io.github.moosasharwaan.appliedquartermaster.integration.curios.CuriosCompat.describe(player));
+        var tablet = player.getInventory().getItem(tabletSlot).copy();
+        curioSlot = io.github.moosasharwaan.appliedquartermaster.integration.curios.CuriosCompat.equip(player, "curio", tablet);
+        if (curioSlot != Integer.MIN_VALUE) {
+            player.getInventory().setItem(tabletSlot, ItemStack.EMPTY);
+        }
+        AppliedQuartermaster.LOGGER.info("SELFTEST curios equipped in slot {}; key finds slot {}; curio slot accepts tablet={}",
+                curioSlot, io.github.moosasharwaan.appliedquartermaster.tablet.TabletSlots.find(player),
+                tablet.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("curios", "curio"))));
     }
 
     private static void server(java.util.function.Consumer<ServerPlayer> action) {

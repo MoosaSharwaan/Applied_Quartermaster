@@ -61,7 +61,19 @@ its flat icon.
 
 - **Right-click:** opens the *pinned* tab (see below). With nothing pinned, it opens the Modules page.
 - **Sneak + right-click:** always opens the Modules page.
+- **Open ME Tablet key:** opens the tablet from anywhere you carry it: your hand, your inventory or a Curios slot. It
+  behaves like right-click (sneak for the Modules page). It has no key by default, like AE2's terminal keys: set one
+  under *Options → Controls → Key Binds → Applied Quartermaster*.
 - **Esc** closes the tablet. In an AE2 terminal opened from the tablet, **Esc goes back to the tablet** instead.
+
+### Wearing it (Curios)
+
+With [Curios API](https://modrinth.com/mod/curios) installed, the tablet fits in the **curio** slot, the same slot
+AE2WTLib's terminals use. The mod adds one curio slot to players for it. Worn there, it does everything it does in your
+hand: open it with the **Open ME Tablet** key, and its terminals, Devices tab and storage tabs all work, with module
+changes saved back to the worn tablet.
+
+![The ME Tablet worn in the curio slot](docs/screenshots/tablet_curios.png)
 
 ### Modules page
 
@@ -265,6 +277,8 @@ Applied Quartermaster doesn't need any other addon, and doesn't change how they 
 
 - **Terminals:** any wireless terminal built on AE2's goes in a module slot and opens its own screen from the tablet,
   including AE2WTLib's (pattern access, pattern encoding, universal) and AdvancedAE's Wireless Quantum Crafter Terminal.
+- **Curios:** wear the tablet in the curio slot and open it with the Open ME Tablet key (see
+  [Wearing it](#wearing-it-curios)).
 - **Range upgrades:** AE2's Wireless Booster, and AEInfinityBooster's Infinity Range Booster and Dimension Card.
 - **Devices tab:** every addon machine on the network shows up with its own icon, state, channels and power.
   Multiblock parts (crafting units, AdvancedAE's quantum computer) appear once the multiblock is built, as in AE2.
@@ -312,6 +326,7 @@ Which items fit where is set by item tags, so other addons can be added with a d
 | Applied Energistics 2 | 26.1.8-alpha or newer |
 | AE2 Wireless Terminals (AE2WTLib) | Optional: more wireless terminals for the module slots |
 | AEInfinityBooster | Optional: unlimited range and cross-dimension cards for the upgrade slots |
+| Curios API | Optional: wear the tablet in a curio slot (15.0.0+26.1.2 or newer) |
 | JEI | Optional: drag items onto farms and plates to set their icons |
 
 ## Download

@@ -40,7 +40,7 @@ public record TabletModuleLocator(int tabletSlot, int moduleSlot) implements Ite
 
     @Override
     public ItemStack locateItem(Player player) {
-        var tablet = player.getInventory().getItem(tabletSlot);
+        var tablet = TabletSlots.get(player, tabletSlot);
         if (!tablet.is(ModItems.ME_TABLET.get())) {
             LIVE.remove(player);
             return ItemStack.EMPTY;
@@ -75,7 +75,7 @@ public record TabletModuleLocator(int tabletSlot, int moduleSlot) implements Ite
         if (live == null) {
             return;
         }
-        var tablet = player.getInventory().getItem(live.tabletSlot);
+        var tablet = TabletSlots.get(player, live.tabletSlot);
         if (tablet.is(ModItems.ME_TABLET.get())
                 && TabletModules.get(tablet, live.moduleSlot).is(live.stack.getItem())) {
             save(player, tablet, live);
@@ -88,9 +88,10 @@ public record TabletModuleLocator(int tabletSlot, int moduleSlot) implements Ite
     }
 
     @Override
-    public Integer getPlayerInventorySlot() {
+    public @Nullable Integer getPlayerInventorySlot() {
         // AE2 locks this slot while the terminal is open, so the tablet can't be moved away.
-        return tabletSlot;
+        // A tablet worn in a Curios slot isn't in the inventory, so there is nothing to lock.
+        return TabletSlots.isCurio(tabletSlot) ? null : tabletSlot;
     }
 
     public void writeToPacket(FriendlyByteBuf buf) {
@@ -104,6 +105,7 @@ public record TabletModuleLocator(int tabletSlot, int moduleSlot) implements Ite
 
     @Override
     public String toString() {
-        return "tablet in slot " + tabletSlot + ", module " + moduleSlot;
+        return (TabletSlots.isCurio(tabletSlot) ? "tablet in curio slot " + (-tabletSlot - 1) : "tablet in slot " + tabletSlot)
+                + ", module " + moduleSlot;
     }
 }

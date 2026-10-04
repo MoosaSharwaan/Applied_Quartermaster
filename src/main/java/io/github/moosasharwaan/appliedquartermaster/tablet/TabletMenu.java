@@ -155,7 +155,7 @@ public class TabletMenu extends AbstractContainerMenu {
     }
 
     public ItemStack getTablet() {
-        return playerInventory.getItem(tabletSlot);
+        return TabletSlots.get(playerInventory.player, tabletSlot);
     }
 
     public int getTabletSlot() {

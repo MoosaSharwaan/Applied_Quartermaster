@@ -11,6 +11,7 @@ public final class ModNetwork {
     public static void register(RegisterPayloadHandlersEvent event) {
         var registrar = event.registrar(AppliedQuartermaster.MOD_ID);
         registrar.playToServer(ReturnToTabletPayload.TYPE, ReturnToTabletPayload.STREAM_CODEC, ReturnToTabletPayload::handle);
+        registrar.playToServer(OpenTabletPayload.TYPE, OpenTabletPayload.STREAM_CODEC, OpenTabletPayload::handle);
         registrar.playToServer(TabletActionPayload.TYPE, TabletActionPayload.STREAM_CODEC, TabletActionPayload::handle);
         registrar.playToClient(TabletViewPayload.TYPE, TabletViewPayload.STREAM_CODEC,
                 (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onView(payload));
