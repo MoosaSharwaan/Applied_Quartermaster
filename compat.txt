@@ -1,0 +1,588 @@
+MOD applied-energistics-2-wireless-terminals 26.1.1-beta -> ae2wtlib-26.1.1-beta.jar (requested)
+  needs ae2
+MOD advancedae 26.1.7 -> AdvancedAE-26.1.7.jar (requested)
+  needs ae2
+  needs geckolib
+MOD geckolib 5.5.2 -> geckolib-neoforge-26.1.2-5.5.2.jar (dependency of advancedae)
+MOD ae2-import-export-card 26.1.2-2.3.1 -> ae2importexportcard-26.1.2-2.3.1.jar (requested)
+  needs ae2
+MOD aeinfinitybooster 26.1.2-1.0.0.57 -> aeinfinitybooster-neoforge-26.1.2-1.0.0.57.jar (requested)
+  needs ae2
+MOD ae2-omni-cells 1.1.7-26.1.2-neoforge -> ae2omnicells-26.1.2-neoforge-1.1.7.jar (requested)
+  needs ae2
+MOD ae2-crystal-science 26.1.2-1.1.12 -> ae2cs-26.1.2-neoforge-1.1.12.jar (requested)
+  needs ae2
+MOD ae2-toggleable-viewcell 26.1-1.0.1 -> AE2ToggleableViewCell-26.1-1.0.1.jar (requested)
+  needs ae2
+MOD me-placement-tool 2.1.3-beta1-neoforge26.1.2 -> meplacementtool-2.1.3-beta1-neoforge26.1.2.jar (requested)
+  needs ae2
+MOD myotus-lib 26.1.2-26.0.0 -> Myotus-26.1.2-26.0.0.jar (requested)
+  needs ae2
+MOD ae2-lightning-tech 1.0.1alpha-26.1.2neoforge -> ae2lt-1.0.1alpha-26.1.2neoforge.jar (requested)
+  needs ae2
+MOD bigger-ae2 26.1.2.1 -> bigger_ae2-26.1.2.1.jar (requested)
+  needs ae2
+JAR applied-energistics-2-wireless-terminals: modids=['ae2wtlib']
+  ITEM ae2wtlib:quantum_bridge_card=Quantum Bridge Card
+  ITEM ae2wtlib:magnet_card=Magnet Card
+  ITEM ae2wtlib:wireless_pattern_encoding_terminal=Wireless Pattern Encoding Terminal
+  ITEM ae2wtlib:wireless_pattern_access_terminal=Wireless Pattern Access Terminal
+  ITEM ae2wtlib:wireless_universal_terminal=Wireless Universal Terminal
+  TERMREF de/mari_023/ae2wtlib/AE2wtlib.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibCreativeTab.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibForge.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibItems.class
+  TERMREF de/mari_023/ae2wtlib/hotkeys/RestockHotkeyAction.class
+  TERMREF de/mari_023/ae2wtlib/wat/ItemWAT.class
+  TERMREF de/mari_023/ae2wtlib/wat/WATMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wct/ItemWCT.class
+  TERMREF de/mari_023/ae2wtlib/wct/WCTMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wet/ItemWET.class
+  TERMREF de/mari_023/ae2wtlib/wet/WETMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wut/recipe/Common.class
+  TAG data/curios/tags/item/
+  TAG data/curios/tags/item/curio.json
+JAR advancedae: modids=['advanced_ae']
+  ITEM advanced_ae:adv_pattern_provider=Advanced Extended Pattern Provider
+  ITEM advanced_ae:data_entangler=Quantum Data Entangler
+  ITEM advanced_ae:quantum_accelerator=Quantum Computer Accelerator
+  ITEM advanced_ae:quantum_alloy_block=Quantum Alloy Block
+  ITEM advanced_ae:quantum_alloy_slab=Quantum Alloy Slab
+  ITEM advanced_ae:quantum_alloy_stairs=Quantum Alloy Stairs
+  ITEM advanced_ae:quantum_alloy_wall=Quantum Alloy Wall
+  ITEM advanced_ae:quantum_core=Quantum Computer Core
+  ITEM advanced_ae:quantum_crafter=Quantum Crafter
+  ITEM advanced_ae:quantum_infusion_block=Quantum Infusion
+  ITEM advanced_ae:quantum_multi_threader=Quantum Computer Multi-Threader
+  ITEM advanced_ae:quantum_storage_128=128M Quantum Computer Storage
+  ITEM advanced_ae:quantum_storage_256=256M Quantum Computer Storage
+  ITEM advanced_ae:quantum_structure=Quantum Computer Structural Glass
+  ITEM advanced_ae:quantum_unit=Quantum Crafting Unit
+  ITEM advanced_ae:reaction_chamber=Reaction Chamber
+  ITEM advanced_ae:small_adv_pattern_provider=Advanced Pattern Provider
+  ITEM advanced_ae:adv_pattern_encoder=Advanced Pattern Encoder
+  ITEM advanced_ae:adv_pattern_provider_capacity_upgrade=Advanced Pattern Provider Capacity Upgrade
+  ITEM advanced_ae:adv_pattern_provider_part=Advanced Extended Pattern Provider
+  ITEM advanced_ae:adv_pattern_provider_upgrade=Advanced Pattern Provider Upgrade
+  ITEM advanced_ae:adv_processing_pattern=Advanced Processing Pattern
+  ITEM advanced_ae:advanced_io_bus_part=ME Advanced IO Bus
+  ITEM advanced_ae:attack_speed_card=Attack Speed Card
+  ITEM advanced_ae:auto_feeding_card=Auto Feeding Card
+  ITEM advanced_ae:auto_stock_card=Auto Stock Card
+  ITEM advanced_ae:camo_card=Camo Card
+  ITEM advanced_ae:evasion_card=Evasion Card
+  ITEM advanced_ae:flight_card=Flight Card
+  ITEM advanced_ae:flight_drift_card=Flight Drift Card
+  ITEM advanced_ae:hp_buffer_card=HP Buffer Card
+  ITEM advanced_ae:import_export_bus_part=ME Import Export Bus
+  ITEM advanced_ae:jump_height_card=Jump Height Card
+  ITEM advanced_ae:lava_immunity_card=Lava Immunity Card
+  ITEM advanced_ae:luck_card=Luck Card
+  ITEM advanced_ae:magnet_card=Magnet Card
+  ITEM advanced_ae:night_vision_card=Night Vision Card
+  ITEM advanced_ae:pick_craft_card=Pick Craft Card
+  ITEM advanced_ae:portable_workbench_card=Portable Workbench Card
+  ITEM advanced_ae:printed_quantum_processor=Printed Quantum Circuit
+  ITEM advanced_ae:quantum_alloy=Quantum Alloy
+  ITEM advanced_ae:quantum_alloy_plate=Quantum Alloy Plate
+  ITEM advanced_ae:quantum_boots=Quantum Boots
+  ITEM advanced_ae:quantum_chestplate=Quantum Chestplate
+  ITEM advanced_ae:quantum_crafter_terminal_part=Quantum Crafter Terminal
+  ITEM advanced_ae:quantum_helmet=Quantum Helmet
+  ITEM advanced_ae:quantum_infused_dust=Quantum Infused Dust
+  ITEM advanced_ae:quantum_infusion_bucket=Quantum Infusion Bucket
+  ITEM advanced_ae:quantum_leggings=Quantum Leggings
+  ITEM advanced_ae:quantum_processor=Quantum Processor
+  ITEM advanced_ae:quantum_processor_press=Inscriber Quantum Press
+  ITEM advanced_ae:quantum_storage_component=Quantum Storage Component
+  ITEM advanced_ae:quantum_upgrade_base=Quantum Upgrade Base Card
+  ITEM advanced_ae:reach_card=Reach Card
+  ITEM advanced_ae:recharging_card=ME Recharging Card
+  ITEM advanced_ae:regeneration_card=Regeneration Card
+  ITEM advanced_ae:shattered_singularity=Shattered Singularity
+  ITEM advanced_ae:small_adv_pattern_provider_part=Advanced Pattern Provider
+  ITEM advanced_ae:sprint_speed_card=Sprint Speed Card
+  ITEM advanced_ae:step_assist_card=Step Assist Card
+  ITEM advanced_ae:stock_export_bus_part=ME Stock Export Bus
+  ITEM advanced_ae:strength_card=Strength Card
+  ITEM advanced_ae:swim_speed_card=Swim Speed Card
+  ITEM advanced_ae:throughput_monitor=ME Throughput Monitor
+  ITEM advanced_ae:throughput_monitor_configurator=Throughput Monitor Configurator
+  ITEM advanced_ae:walk_speed_card=Walk Speed Card
+  ITEM advanced_ae:water_breathing_card=Water Breathing Card
+  ITEM advanced_ae:wireless_quantum_crafter_terminal=Wireless Quantum Crafter Terminal
+  TERMREF net/pedroksl/advanced_ae/AdvancedAE.class
+  TERMREF net/pedroksl/advanced_ae/common/helpers/QuantumCrafterWirelessTermMenuHost.class
+  TERMREF net/pedroksl/advanced_ae/common/items/QuantumCrafterWirelessTerminalItem.class
+  TERMREF net/pedroksl/advanced_ae/xmod/wtlib/AE2wtlibPlugin.class
+  TAG data/advanced_ae/tags/item/
+  TAG data/advanced_ae/tags/item/adv_pattern_provider.json
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/pattern_provider.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/armors.json
+  TAG data/c/tags/item/buckets.json
+  TAG data/c/tags/item/dusts.json
+  TAG data/c/tags/item/ingots.json
+  TAG data/c/tags/item/plates.json
+  TAG data/c/tags/item/storage_blocks.json
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/shattered_singularity.json
+  TAG data/c/tags/item/plates/
+  TAG data/c/tags/item/plates/quantum_alloy.json
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/quantum_alloy.json
+  TAG data/c/tags/item/tools/
+  TAG data/c/tags/item/tools/wrench.json
+  TAG data/curios/tags/item/
+  TAG data/curios/tags/item/adv_pattern_encoder.json
+  TAG data/minecraft/tags/item/
+  TAG data/minecraft/tags/item/chest_armor.json
+  TAG data/minecraft/tags/item/foot_armor.json
+  TAG data/minecraft/tags/item/head_armor.json
+  TAG data/minecraft/tags/item/leg_armor.json
+  TAG data/minecraft/tags/item/slabs.json
+  TAG data/minecraft/tags/item/stairs.json
+JAR geckolib: modids=[]
+JAR ae2-import-export-card: modids=['ae2importexportcard']
+  ITEM ae2importexportcard:import_card=Import Card
+  ITEM ae2importexportcard:export_card=Export Card
+  ITEM ae2importexportcard:block_picker_card=Block Picker Card
+  TERMREF com/ultramega/ae2importexportcard/compat/ae2wtlib/Ae2WtlibUtil.class
+  TERMREF com/ultramega/ae2importexportcard/mixin/WirelessTerminalItemMixin.class
+  TERMREF com/ultramega/ae2importexportcard/util/BlockPickerHandler.class
+JAR aeinfinitybooster: modids=['aeinfinitybooster']
+  ITEM aeinfinitybooster:infinity_card=Infinity Range Booster
+  ITEM aeinfinitybooster:dimension_card=Dimension Card
+JAR ae2-omni-cells: modids=['ae2omnicells']
+  ITEM ae2omnicells:ender_ingot=Ender Steel Ingot
+  ITEM ae2omnicells:ender_nugget=Ender Steel Nugget
+  ITEM ae2omnicells:charged_ender_ingot=Charged Ender Steel Ingot
+  ITEM ae2omnicells:omni_link_print_press=Omni Link Inscriber Press
+  ITEM ae2omnicells:complex_link_print_press=Complex Link Inscriber Press
+  ITEM ae2omnicells:multidimensional_expansion_print_press=Multidimensional Expansion Inscriber Press
+  ITEM ae2omnicells:omni_link_circuit_print=Omni Link Printed Circuit
+  ITEM ae2omnicells:complex_link_circuit_print=Complex Link Printed Circuit
+  ITEM ae2omnicells:multidimensional_expansion_circuit_print=Multidimensional Expansion Printed Circuit
+  ITEM ae2omnicells:omni_link_processor=Omni Link Processor
+  ITEM ae2omnicells:complex_link_processor=Complex Link Processor
+  ITEM ae2omnicells:multidimensional_expansion_processor=Multidimensional Expansion Processor
+  ITEM ae2omnicells:omni_cell_housing=OMNI Storage Cell Housing
+  ITEM ae2omnicells:complex_omni_cell_housing=Complex OMNI Storage Cell Housing
+  ITEM ae2omnicells:quantum_omni_cell_housing=Quantum Storage Cell Housing
+  ITEM ae2omnicells:omni_cell_component_1k=1k OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_4k=4k OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_16k=16k OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_64k=64k OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_256k=256k OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_1m=1M OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_4m=4M OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_16m=16M OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_64m=64M OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_component_256m=256M OMNI Storage Component
+  ITEM ae2omnicells:omni_cell_1k=1k OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_4k=4k OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_16k=16k OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_64k=64k OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_256k=256k OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_1m=1M OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_4m=4M OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_16m=16M OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_64m=64M OMNI Storage Cell
+  ITEM ae2omnicells:omni_cell_256m=256M OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_component_1k=1k Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_4k=4k Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_16k=16k Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_64k=64k Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_256k=256k Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_1m=1M Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_4m=4M Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_16m=16M Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_64m=64M Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_component_256m=256M Complex OMNI Storage Component
+  ITEM ae2omnicells:complex_omni_cell_1k=1k Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_4k=4k Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_16k=16k Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_64k=64k Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_256k=256k Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_1m=1M Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_4m=4M Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_16m=16M Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_64m=64M Complex OMNI Storage Cell
+  ITEM ae2omnicells:complex_omni_cell_256m=256M Complex OMNI Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_component_1k=1k Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_4k=4k Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_16k=16k Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_64k=64k Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_256k=256k Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_1m=1M Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_4m=4M Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_16m=16M Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_64m=64M Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_component_256m=256M Quantum Storage Component
+  ITEM ae2omnicells:quantum_omni_cell_1k=1k Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_4k=4k Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_16k=16k Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_64k=64k Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_256k=256k Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_1m=1M Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_4m=4M Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_16m=16M Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_64m=64M Quantum Storage Cell
+  ITEM ae2omnicells:quantum_omni_cell_256m=256M Quantum Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_1k=1k Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_4k=4k Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_16k=16k Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_64k=64k Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_256k=256k Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_1m=1M Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_4m=4M Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_16m=16M Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_64m=64M Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_omni_cell_256m=256M Portable OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_1k=1k Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_4k=4k Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_16k=16k Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_64k=64k Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_256k=256k Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_1m=1M Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_4m=4M Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_16m=16M Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_64m=64M Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_complex_omni_cell_256m=256M Portable Complex OMNI Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_1k=1k Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_4k=4k Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_16k=16k Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_64k=64k Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_256k=256k Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_1m=1M Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_4m=4M Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_16m=16M Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_64m=64M Portable Quantum Storage Cell
+  ITEM ae2omnicells:portable_quantum_omni_cell_256m=256M Portable Quantum Storage Cell
+  ITEM ae2omnicells:creative_ae_cell_long=LONG-tier Creative Storage Cell
+  ITEM ae2omnicells:creative_ae_cell_biginteger=BIG-INTEGER-tier Creative Storage Cell
+  ITEM ae2omnicells:type_fuzzy_card=Type Fuzzy Card
+  ITEM ae2omnicells:spent_nuclear_waste_cell=Spent Nuclear Storage Cell
+  ITEM ae2omnicells:spent_nuclear_waste_singularity=Spent Nuclear Singularity
+  ITEM ae2omnicells:spent_nuclear_waste_component=Spent Nuclear Storage Component
+  ITEM ae2omnicells:ender_ingot_block=Ender Steel Block
+  ITEM ae2omnicells:netherite_scrap_block=Netherite Scrap Block
+  ITEM ae2omnicells:singularity_block=Singularity Block
+  ITEM ae2omnicells:omni_crafting_unit_block=OMNI Crafting Unit
+  ITEM ae2omnicells:omni_crafting_monitor_block=OMNI Crafting Monitor
+  ITEM ae2omnicells:omni_crafting_storage_1k_block=1k OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_4k_block=4k OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_16k_block=16k OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_64k_block=64k OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_256k_block=256k OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_1m_block=1M OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_4m_block=4M OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_16m_block=16M OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_64m_block=64M OMNI Crafting Storage
+  ITEM ae2omnicells:omni_crafting_storage_256m_block=256M OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_unit_block=Complex OMNI Crafting Unit
+  ITEM ae2omnicells:complex_crafting_monitor_block=Complex OMNI Crafting Monitor
+  ITEM ae2omnicells:complex_crafting_storage_1k_block=1k Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_4k_block=4k Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_16k_block=16k Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_64k_block=64k Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_256k_block=256k Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_1m_block=1M Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_4m_block=4M Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_16m_block=16M Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_64m_block=64M Complex OMNI Crafting Storage
+  ITEM ae2omnicells:complex_crafting_storage_256m_block=256M Complex OMNI Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_unit_block=Quantum Crafting Unit
+  ITEM ae2omnicells:quantum_crafting_monitor_block=Quantum Crafting Monitor
+  ITEM ae2omnicells:quantum_crafting_storage_1k_block=1k Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_4k_block=4k Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_16k_block=16k Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_64k_block=64k Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_256k_block=256k Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_1m_block=1M Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_4m_block=4M Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_16m_block=16M Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_64m_block=64M Quantum Crafting Storage
+  ITEM ae2omnicells:quantum_crafting_storage_256m_block=256M Quantum Crafting Storage
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/ingots.json
+  TAG data/c/tags/item/nuggets.json
+  TAG data/c/tags/item/storage_blocks.json
+JAR ae2-crystal-science: modids=['ae2cs']
+  ITEM ae2cs:ender_quartz_block=Ender Quartz Block
+  ITEM ae2cs:resonating_crystal_block=Resonating Crystal Block
+  ITEM ae2cs:meteor_crystal_block=Meteor Crystal Block
+  ITEM ae2cs:redstone_crystal_block=Redstone Crystal Block
+  ITEM ae2cs:quantum_crystal_block=Quantum Crystal Block
+  ITEM ae2cs:rose_quartz_block=Rose Quartz Block
+  ITEM ae2cs:irradiated_crystal_block=Irradiated Crystal Block
+  ITEM ae2cs:silicon_block=Silicon Block
+  ITEM ae2cs:certus_quartz_ore=Certus Quartz Ore
+  ITEM ae2cs:deepslate_certus_quartz_ore=Deepslate Certus Quartz Ore
+  ITEM ae2cs:charged_certus_quartz_ore=Charged Certus Quartz Ore
+  ITEM ae2cs:deepslate_charged_certus_quartz_ore=Charged Deepslate Certus Quartz Ore
+  ITEM ae2cs:crystal_growth_chamber=Crystal Growth Chamber
+  ITEM ae2cs:circuit_etcher=Circuit Etcher
+  ITEM ae2cs:quartz_grindstone=Quartz Grindstone
+  ITEM ae2cs:crystal_pulverizer=Crystal Pulverizer
+  ITEM ae2cs:crystal_vibration_chamber=Crystal Vibration Chamber
+  ITEM ae2cs:crystal_aggregator=Crystal Aggregator
+  ITEM ae2cs:entropy_variation_reaction_chamber=Entropy Variation Chamber
+  ITEM ae2cs:ender_broadcaster=ME Ender Broadcaster
+  ITEM ae2cs:ender_emitter=ME Ender Emitter
+  ITEM ae2cs:ender_interface=ME Ender Interface
+  ITEM ae2cs:extended_ender_interface=Ex ME Ender Interface
+  ITEM ae2cs:integrated_interface=ME Integrated Interface
+  ITEM ae2cs:extended_integrated_interface=Ex ME Integrated Interface
+  ITEM ae2cs:resonating_pattern_provider=Resonating Pattern Provider
+  ITEM ae2cs:extended_resonating_pattern_provider=Ex Resonating Pattern Provider
+  ITEM ae2cs:simple_pattern_provider=Basic Pattern Provider
+  ITEM ae2cs:meteorite_pattern_provider=Meteorite Pattern Provider
+  ITEM ae2cs:quartz_oscillator_clock=Quartz Oscillator Clock
+  ITEM ae2cs:ender_interface_part=ME Ender Interface
+  ITEM ae2cs:extended_ender_interface_part=Ex ME Ender Interface
+  ITEM ae2cs:integrated_interface_part=ME Integrated Interface
+  ITEM ae2cs:extended_integrated_interface_part=Ex ME Integrated Interface
+  ITEM ae2cs:resonating_pattern_provider_part=Resonating Pattern Provider
+  ITEM ae2cs:extended_resonating_pattern_provider_part=Ex Resonating Pattern Provider
+  ITEM ae2cs:simple_pattern_provider_part=Basic Pattern Provider
+  ITEM ae2cs:meteorite_pattern_provider_part=Meteorite Pattern Provider
+  ITEM ae2cs:quartz_oscillator_clock_part=Quartz Oscillator Clock
+  ITEM ae2cs:purified_certus_quartz_crystal=Purified Certus Quartz Crystal
+  ITEM ae2cs:purified_fluix_crystal=Purified Fluix Crystal
+  ITEM ae2cs:purified_nether_quartz_crystal=Purified Nether Quartz Crystal
+  ITEM ae2cs:purified_ender_quartz=Purified Ender Quartz
+  ITEM ae2cs:purified_meteor_crystal=Purified Meteor Crystal
+  ITEM ae2cs:purified_resonating_crystal=Purified Resonating Crystal
+  ITEM ae2cs:purified_entro_crystal=Purified Entro Crystal
+  ITEM ae2cs:purified_redstone_crystal=Purified Redstone Crystal
+  ITEM ae2cs:purified_quantum_crystal=Purified Quantum Crystal
+  ITEM ae2cs:purified_rose_quartz=Purified Rose Quartz
+  ITEM ae2cs:purified_irradiated_crystal=Purified Irradiated Crystal
+  ITEM ae2cs:purified_ember_crystal=Purified Ember Crystal
+  ITEM ae2cs:certus_quartz_seed=Certus Quartz Seed
+  ITEM ae2cs:fluix_crystal_seed=Fluix Crystal Seed
+  ITEM ae2cs:nether_quartz_seed=Nether Quartz Seed
+  ITEM ae2cs:ender_quartz_seed=Ender Quartz Seed
+  ITEM ae2cs:meteor_seed=Meteor Seed
+  ITEM ae2cs:resonating_seed=Resonating Seed
+  ITEM ae2cs:entro_crystal_seed=Entro Crystal Seed
+  ITEM ae2cs:redstone_crystal_seed=Redstone Crystal Seed
+  ITEM ae2cs:quantum_crystal_seed=Quantum Crystal Seed
+  ITEM ae2cs:rose_quartz_seed=Rose Quartz Seed
+  ITEM ae2cs:irradiated_seed=Irradiated Crystal Seed
+  ITEM ae2cs:ember_seed=Ember Crystal Seed
+  ITEM ae2cs:nether_quartz_dust=Nether Quartz Dust
+  ITEM ae2cs:resonating_crystal_dust=Resonating Crystal Dust
+  ITEM ae2cs:redstone_crystal_dust=Redstone Crystal Dust
+  ITEM ae2cs:quantum_crystal_dust=Quantum Crystal Dust
+  ITEM ae2cs:irradiated_crystal_dust=Irradiated Crystal Dust
+  ITEM ae2cs:resonating_print_press=Inscriber Resonating Press
+  ITEM ae2cs:resonating_circuit_print=Resonating Circuit Print
+  ITEM ae2cs:resonating_processor=Resonating Processor
+  ITEM ae2cs:simple_circuit_print=Basic Circuit Print
+  ITEM ae2cs:simple_processor=Basic Processor
+  ITEM ae2cs:blank_print_press=Inscriber Blank Press
+  ITEM ae2cs:ender_blank_print_press=Inscriber Ender Blank Press
+  ITEM ae2cs:crystal_growth_card=Crystal Growth Card
+  ITEM ae2cs:ender_linker=Ender Linker
+  ITEM ae2cs:resonating_pattern=Resonating Pattern
+  ITEM ae2cs:resonating_pattern_converter=Resonating Pattern Converter
+  ITEM ae2cs:ender_crystal_sword=Ender Crystal Sword
+  ITEM ae2cs:ender_crystal_axe=Ender Crystal Axe
+  ITEM ae2cs:ender_crystal_pickaxe=Ender Crystal Pickaxe
+  ITEM ae2cs:ender_crystal_shovel=Ender Crystal Shovel
+  ITEM ae2cs:ender_crystal_hoe=Ender Crystal Hoe
+  ITEM ae2cs:meteor_crystal_sword=Meteor Crystal Sword
+  ITEM ae2cs:meteor_crystal_axe=Meteor Crystal Axe
+  ITEM ae2cs:meteor_crystal_pickaxe=Meteor Crystal Pickaxe
+  ITEM ae2cs:meteor_crystal_shovel=Meteor Crystal Shovel
+  ITEM ae2cs:meteor_crystal_hoe=Meteor Crystal Hoe
+  ITEM ae2cs:resonating_crystal_sword=Resonating Crystal Sword
+  ITEM ae2cs:resonating_crystal_axe=Resonating Crystal Axe
+  ITEM ae2cs:resonating_crystal_pickaxe=Resonating Crystal Pickaxe
+  ITEM ae2cs:resonating_crystal_shovel=Resonating Crystal Shovel
+  ITEM ae2cs:resonating_crystal_hoe=Resonating Crystal Hoe
+  ITEM ae2cs:flour=Flour
+  ITEM ae2cs:wooden_gear=Wooden Gear
+  ITEM ae2cs:extended_ender_interface_upgrade=Ex Ender Interface Upgrade
+  ITEM ae2cs:extended_integrated_interface_upgrade=Ex Integrated Interface Upgrade
+  ITEM ae2cs:extended_resonating_pattern_provider_upgrade=Ex Resonating Pattern Provider Upgrade
+  ITEM ae2cs:ender_interface_upgrade=Ender Interface Upgrade
+  ITEM ae2cs:integrated_interface_upgrade=Integrated Interface Upgrade
+  ITEM ae2cs:resonating_pattern_provider_upgrade=Resonating Pattern Provider Upgrade
+  ITEM ae2cs:pattern_provider_upgrade=Pattern Provider Upgrade
+  ITEM ae2cs:meteor_pattern_provider_upgrade=Self-Assembling Pattern Provider Upgrade
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/all_fluix.json
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/ae2cs/tags/item/
+  TAG data/ae2cs/tags/item/crystal_seeds.json
+  TAG data/ae2cs/tags/item/pure_crystal.json
+  TAG data/ae2cs/tags/item/aecs/
+  TAG data/ae2cs/tags/item/aecs/machine.json
+  TAG data/ae2cs/tags/item/aecs/part.json
+  TAG data/ae2cs/tags/item/pure_crystal/
+  TAG data/ae2cs/tags/item/pure_crystal/certus_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/ember_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/ender_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/entro_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/fluix.json
+  TAG data/ae2cs/tags/item/pure_crystal/irradiated_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/meteor_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/nether_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/quantum_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/redstone_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/resonating_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/rose_quartz.json
+  TAG data/ae2cs/tags/item/storage_blocks/
+  TAG data/ae2cs/tags/item/storage_blocks/pure_crystal.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/dusts.json
+  TAG data/c/tags/item/flours.json
+  TAG data/c/tags/item/gears.json
+  TAG data/c/tags/item/gems.json
+  TAG data/c/tags/item/ores.json
+  TAG data/c/tags/item/storage_blocks.json
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/quantum_alloy.json
+  TAG data/c/tags/item/dusts/quartz.json
+  TAG data/c/tags/item/dusts/redstone_crystal.json
+  TAG data/c/tags/item/dusts/resonating.json
+  TAG data/c/tags/item/flours/
+  TAG data/c/tags/item/flours/wheat.json
+  TAG data/c/tags/item/gears/
+  TAG data/c/tags/item/gears/wood.json
+JAR ae2-toggleable-viewcell: modids=['ae2_toggleable_view_cell']
+  ITEM ae2_toggleable_view_cell:toggleable_view_cell=Toggleable View Cell
+JAR me-placement-tool: modids=['meplacementtool']
+  ITEM meplacementtool:me_placement_tool=ME Placement Tool
+  ITEM meplacementtool:multiblock_placement_tool=ME Multiblock Placement Tool
+  ITEM meplacementtool:me_cable_placement_tool=ME Cable Placement Tool
+  ITEM meplacementtool:key_of_spectrum=§cK§6e§ey §ao§bf §dS§cp§6e§ec§at§br§du§cm
+  ITEM meplacementtool:prism_core=Prism Core
+  ITEM meplacementtool:moakiee_fumo=Moakiee Fumo
+  ITEM meplacementtool:cystrysu_fumo=Cystrysu Fumo
+JAR myotus-lib: modids=['myotus']
+  ITEM myotus:compat_processor=Compat Processor
+  ITEM myotus:printed_compat_processor=Printed Compat Processor
+  ITEM myotus:compat_press=Inscriber Compat Press
+  ITEM myotus:charged_ender_pearl=Charged Ender Pearl
+  ITEM myotus:ender_pearl_block=Ender Pearl Block
+  ITEM myotus:charged_ender_pearl_block=Charged Ender Pearl Block
+  ITEM myotus:myotus_upgrade_card=Myotus Upgrade Card
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/ender_pearl.json
+  TAG data/myotus/tags/item/
+  TAG data/myotus/tags/item/ae2cs/
+  TAG data/myotus/tags/item/ae2cs/blank_print_presses.json
+JAR ae2-lightning-tech: modids=['ae2lt']
+  ITEM ae2lt:lightning_storage_component_i=Lightning Storage Cell I
+  ITEM ae2lt:lightning_storage_component_ii=Lightning Storage Cell II
+  ITEM ae2lt:lightning_storage_component_iii=Lightning Storage Cell III
+  ITEM ae2lt:lightning_storage_component_iv=Lightning Storage Cell IV
+  ITEM ae2lt:lightning_storage_component_v=Lightning Storage Cell V
+  ITEM ae2lt:lightning_cell_component_i=Lightning Storage Component I
+  ITEM ae2lt:lightning_cell_component_ii=Lightning Storage Component II
+  ITEM ae2lt:lightning_cell_component_iii=Lightning Storage Component III
+  ITEM ae2lt:lightning_cell_component_iv=Lightning Storage Component IV
+  ITEM ae2lt:lightning_cell_component_v=Lightning Storage Component V
+  ITEM ae2lt:lightning_item_cell_housing=Lightning Item Cell Housing
+  ITEM ae2lt:overload_crystal=Overload Crystal
+  ITEM ae2lt:overload_crystal_dust=Overload Crystal Dust
+  ITEM ae2lt:unoverloaded_circuit_board=Unoverloaded Circuit Board
+  ITEM ae2lt:overload_circuit_board=Overload Circuit Board
+  ITEM ae2lt:overload_processor=Overload Processor
+  ITEM ae2lt:overload_inscriber_press=Overload Inscriber Press
+  ITEM ae2lt:overload_alloy=Overload Alloy
+  ITEM ae2lt:overload_alloy_blank=Overload Alloy Blank
+  ITEM ae2lt:overload_alloy_plate=Overload Alloy Plate
+  ITEM ae2lt:overload_singularity=Overload Singularity
+  ITEM ae2lt:ultimate_overload_core=Ultimate Overload Core
+  ITEM ae2lt:lightning_collapse_matrix=Lightning Collapse Matrix
+  ITEM ae2lt:debug_lightning_rod=Debug Lightning Rod
+  ITEM ae2lt:electro_chime_crystal=Electro-Chime Crystal
+  ITEM ae2lt:perfect_electro_chime_crystal=Perfect Electro-Chime Crystal
+  ITEM ae2lt:clear_condensate=Clear Condensate
+  ITEM ae2lt:rain_condensate=Rain Condensate
+  ITEM ae2lt:thunderstorm_condensate=Thunderstorm Condensate
+  ITEM ae2lt:overload_pattern=Overload Pattern
+  ITEM ae2lt:overload_pattern_encoder=Overload Pattern Encoder
+  ITEM ae2lt:overloaded_wireless_connect_tool=Overloaded Wireless Connect Tool
+  ITEM ae2lt:overload_crystal_block=Overload Crystal Block
+  ITEM ae2lt:silicon_block=Block of Silicon
+  ITEM ae2lt:overload_machine_frame=Overload Machine Frame
+  ITEM ae2lt:overload_tnt=Overload TNT
+  ITEM ae2lt:lightning_collector=Lightning Collector
+  ITEM ae2lt:atmospheric_ionizer=Atmospheric Ionizer
+  ITEM ae2lt:crystal_catalyzer=Crystal Catalyzer
+  ITEM ae2lt:tesla_coil=Tesla Coil
+  ITEM ae2lt:lightning_simulation_room=Lightning Simulation Room
+  ITEM ae2lt:lightning_assembly_chamber=Lightning Assembly Chamber
+  ITEM ae2lt:overload_processing_factory=Overload Processing Factory
+  ITEM ae2lt:flawless_budding_overload_crystal=Flawless Budding Overload Crystal
+  ITEM ae2lt:flawed_budding_overload_crystal=Flawed Budding Overload Crystal
+  ITEM ae2lt:cracked_budding_overload_crystal=Cracked Budding Overload Crystal
+  ITEM ae2lt:damaged_budding_overload_crystal=Damaged Budding Overload Crystal
+  ITEM ae2lt:small_overload_crystal_bud=Small Overload Crystal Bud
+  ITEM ae2lt:medium_overload_crystal_bud=Medium Overload Crystal Bud
+  ITEM ae2lt:large_overload_crystal_bud=Large Overload Crystal Bud
+  ITEM ae2lt:overload_crystal_cluster=Overload Crystal Cluster
+  ITEM ae2lt:overloaded_controller=Overloaded ME Controller
+  ITEM ae2lt:overloaded_pattern_provider=Overloaded Pattern Provider
+  ITEM ae2lt:overloaded_interface=Overloaded ME Interface
+  ITEM ae2lt:overloaded_cable=Fluix ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_white=White ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_orange=Orange ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_magenta=Magenta ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_light_blue=Light Blue ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_yellow=Yellow ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_lime=Lime ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_pink=Pink ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_gray=Gray ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_light_gray=Light Gray ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_cyan=Cyan ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_purple=Purple ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_blue=Blue ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_brown=Brown ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_green=Green ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_red=Red ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_black=Black ME Overloaded Cable
+  ITEM ae2lt:overloaded_filter_component=Overloaded Filter Component
+  ITEM ae2lt:infinite_storage_cell=Infinite Storage Cell
+  ITEM ae2lt:mysterious_cell=Mysterious Cell
+  ITEM ae2lt:research_note=Research Note
+  ITEM ae2lt:charred_ritual_fragment=Charred Ritual Fragment
+  ITEM ae2lt:moakiee_fumo=Moakiee Fumo
+  ITEM ae2lt:cystrysu_fumo=Cystrysu Fumo
+  ITEM ae2lt:pigmee_fumo=Pigmee Fumo
+  ITEM ae2lt:advanced_wireless_overloaded_controller=Advanced Wireless Overloaded Controller
+  ITEM ae2lt:wireless_overloaded_controller=Wireless Overloaded Controller
+  ITEM ae2lt:wireless_receiver=Wireless Receiver
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/ae2lt/tags/item/
+  TAG data/ae2lt/tags/item/overloaded_cable.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/amethyst.json
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/silicon.json
+JAR bigger-ae2: modids=['bigger_ae2']
+  ITEM bigger_ae2:1024_core_crafting_accelerator=1024 Core Crafting Accelerator
+  ITEM bigger_ae2:16_core_crafting_accelerator=16 Core Crafting Accelerator
+  ITEM bigger_ae2:256_core_crafting_accelerator=256 Core Crafting Accelerator
+  ITEM bigger_ae2:4_core_crafting_accelerator=4 Core Crafting Accelerator
+  ITEM bigger_ae2:64_core_crafting_accelerator=64 Core Crafting Accelerator
+  ITEM bigger_ae2:advanced_fluid_cell_housing=Advanced Fluid Cell Housing
+  ITEM bigger_ae2:advanced_item_cell_housing=Advanced Item Cell Housing
+  ITEM bigger_ae2:digital_singularity_cell_component=Digital Singularity Cell Component
+  ITEM bigger_ae2:digital_singularity_fluid_storage_cell=Digital Singularity Fluid Storage Cell
+  ITEM bigger_ae2:digital_singularity_item_storage_cell=Digital Singularity Item Storage Cell
+  ITEM bigger_ae2:quantum_cell_component=Quantum Cell Component
+  ITEM bigger_ae2:quantum_fluid_storage_cell=Quantum Fluid Storage Cell
+  ITEM bigger_ae2:quantum_item_storage_cell=Quantum Item Storage Cell
