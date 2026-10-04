@@ -1,0 +1,94 @@
+MOD ae2-lightning-tech 1.0.1alpha-26.1.2neoforge -> ae2lt-1.0.1alpha-26.1.2neoforge.jar (requested)
+  needs ae2
+JAR ae2-lightning-tech: modids=['ae2lt']
+  ITEM ae2lt:lightning_storage_component_i=Lightning Storage Cell I
+  ITEM ae2lt:lightning_storage_component_ii=Lightning Storage Cell II
+  ITEM ae2lt:lightning_storage_component_iii=Lightning Storage Cell III
+  ITEM ae2lt:lightning_storage_component_iv=Lightning Storage Cell IV
+  ITEM ae2lt:lightning_storage_component_v=Lightning Storage Cell V
+  ITEM ae2lt:lightning_cell_component_i=Lightning Storage Component I
+  ITEM ae2lt:lightning_cell_component_ii=Lightning Storage Component II
+  ITEM ae2lt:lightning_cell_component_iii=Lightning Storage Component III
+  ITEM ae2lt:lightning_cell_component_iv=Lightning Storage Component IV
+  ITEM ae2lt:lightning_cell_component_v=Lightning Storage Component V
+  ITEM ae2lt:lightning_item_cell_housing=Lightning Item Cell Housing
+  ITEM ae2lt:overload_crystal=Overload Crystal
+  ITEM ae2lt:overload_crystal_dust=Overload Crystal Dust
+  ITEM ae2lt:unoverloaded_circuit_board=Unoverloaded Circuit Board
+  ITEM ae2lt:overload_circuit_board=Overload Circuit Board
+  ITEM ae2lt:overload_processor=Overload Processor
+  ITEM ae2lt:overload_inscriber_press=Overload Inscriber Press
+  ITEM ae2lt:overload_alloy=Overload Alloy
+  ITEM ae2lt:overload_alloy_blank=Overload Alloy Blank
+  ITEM ae2lt:overload_alloy_plate=Overload Alloy Plate
+  ITEM ae2lt:overload_singularity=Overload Singularity
+  ITEM ae2lt:ultimate_overload_core=Ultimate Overload Core
+  ITEM ae2lt:lightning_collapse_matrix=Lightning Collapse Matrix
+  ITEM ae2lt:debug_lightning_rod=Debug Lightning Rod
+  ITEM ae2lt:electro_chime_crystal=Electro-Chime Crystal
+  ITEM ae2lt:perfect_electro_chime_crystal=Perfect Electro-Chime Crystal
+  ITEM ae2lt:clear_condensate=Clear Condensate
+  ITEM ae2lt:rain_condensate=Rain Condensate
+  ITEM ae2lt:thunderstorm_condensate=Thunderstorm Condensate
+  ITEM ae2lt:overload_pattern=Overload Pattern
+  ITEM ae2lt:overload_pattern_encoder=Overload Pattern Encoder
+  ITEM ae2lt:overloaded_wireless_connect_tool=Overloaded Wireless Connect Tool
+  ITEM ae2lt:overload_crystal_block=Overload Crystal Block
+  ITEM ae2lt:silicon_block=Block of Silicon
+  ITEM ae2lt:overload_machine_frame=Overload Machine Frame
+  ITEM ae2lt:overload_tnt=Overload TNT
+  ITEM ae2lt:lightning_collector=Lightning Collector
+  ITEM ae2lt:atmospheric_ionizer=Atmospheric Ionizer
+  ITEM ae2lt:crystal_catalyzer=Crystal Catalyzer
+  ITEM ae2lt:tesla_coil=Tesla Coil
+  ITEM ae2lt:lightning_simulation_room=Lightning Simulation Room
+  ITEM ae2lt:lightning_assembly_chamber=Lightning Assembly Chamber
+  ITEM ae2lt:overload_processing_factory=Overload Processing Factory
+  ITEM ae2lt:flawless_budding_overload_crystal=Flawless Budding Overload Crystal
+  ITEM ae2lt:flawed_budding_overload_crystal=Flawed Budding Overload Crystal
+  ITEM ae2lt:cracked_budding_overload_crystal=Cracked Budding Overload Crystal
+  ITEM ae2lt:damaged_budding_overload_crystal=Damaged Budding Overload Crystal
+  ITEM ae2lt:small_overload_crystal_bud=Small Overload Crystal Bud
+  ITEM ae2lt:medium_overload_crystal_bud=Medium Overload Crystal Bud
+  ITEM ae2lt:large_overload_crystal_bud=Large Overload Crystal Bud
+  ITEM ae2lt:overload_crystal_cluster=Overload Crystal Cluster
+  ITEM ae2lt:overloaded_controller=Overloaded ME Controller
+  ITEM ae2lt:overloaded_pattern_provider=Overloaded Pattern Provider
+  ITEM ae2lt:overloaded_interface=Overloaded ME Interface
+  ITEM ae2lt:overloaded_cable=Fluix ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_white=White ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_orange=Orange ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_magenta=Magenta ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_light_blue=Light Blue ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_yellow=Yellow ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_lime=Lime ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_pink=Pink ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_gray=Gray ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_light_gray=Light Gray ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_cyan=Cyan ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_purple=Purple ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_blue=Blue ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_brown=Brown ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_green=Green ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_red=Red ME Overloaded Cable
+  ITEM ae2lt:overloaded_cable_black=Black ME Overloaded Cable
+  ITEM ae2lt:overloaded_filter_component=Overloaded Filter Component
+  ITEM ae2lt:infinite_storage_cell=Infinite Storage Cell
+  ITEM ae2lt:mysterious_cell=Mysterious Cell
+  ITEM ae2lt:research_note=Research Note
+  ITEM ae2lt:charred_ritual_fragment=Charred Ritual Fragment
+  ITEM ae2lt:moakiee_fumo=Moakiee Fumo
+  ITEM ae2lt:cystrysu_fumo=Cystrysu Fumo
+  ITEM ae2lt:pigmee_fumo=Pigmee Fumo
+  ITEM ae2lt:advanced_wireless_overloaded_controller=Advanced Wireless Overloaded Controller
+  ITEM ae2lt:wireless_overloaded_controller=Wireless Overloaded Controller
+  ITEM ae2lt:wireless_receiver=Wireless Receiver
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/ae2lt/tags/item/
+  TAG data/ae2lt/tags/item/overloaded_cable.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/amethyst.json
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/silicon.json
