@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "f": "ae2:fluix_crystal",
+    "i": "#c:ingots/iron",
+    "t": "minecraft:redstone_torch"
+  },
+  "pattern": [
+    " f ",
+    "iti"
+  ],
+  "result": {
+    "id": "appliedquartermaster:me_redstone_plate",
+    "count": 2
+  }
+}

@@ -6,7 +6,9 @@ import io.github.moosasharwaan.appliedquartermaster.storage.StorageKind;
 import io.github.moosasharwaan.appliedquartermaster.tablet.TabletMenu;
 import io.github.moosasharwaan.appliedquartermaster.tablet.TabletModules;
 import io.github.moosasharwaan.appliedquartermaster.tablet.TabletNetwork;
+import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.BookViewScreen;
@@ -40,7 +42,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     // ---------------------------------------------------------------- layout
     private static final int W = 338;
     private static final int TAB_W = 26;
-    private static final int TAB_H = 20;
+    private static final int TAB_H = 22;
     private static final int PANEL_Y = TAB_H - 2;
     private static final int HEADER_H = 18;
     private static final int GRID_X = 8;
@@ -54,7 +56,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     /** Large, Medium, Small: columns, cell size, item scale, rows at most. */
     private static final int[] COLS = {5, 8, 17, 5};
     private static final int[] CELL_W = {61, 38, 18, 61};
-    private static final int[] CELL_H = {62, 38, 18, 72};
+    private static final int[] CELL_H = {66, 38, 18, 66};
     private static final int[] SCALE = {3, 2, 1, 3};
     private static final int[] MAX_ROWS = {3, 4, 10, 3};
     private static final int SIZE_AUTOMATION = 3;
@@ -161,8 +163,13 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         return rows * CELL_H[size()];
     }
 
+    /** The inventory sits at the left like in AE2's terminals; the info card fills the space to its right. */
     private int inventoryX() {
-        return (W - 162) / 2;
+        return 8;
+    }
+
+    private int infoX() {
+        return inventoryX() + 162 + 8;
     }
 
     private int inventoryY() {
@@ -374,11 +381,20 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         // Inactive tabs sit behind the panel.
         for (int t = 0; t < tabs.size(); t++) {
             if (!isOpen(tabs.get(t))) {
-                bevel(g, x + tabX(t), y + 2, TAB_W, TAB_H, TAB_IDLE);
+                bevel(g, x + tabX(t), y + 3, TAB_W, TAB_H - 1, TAB_IDLE);
             }
         }
         if (!isModulesPage()) {
-            bevel(g, x + gearX(), y + 2, TAB_W, TAB_H, TAB_IDLE);
+            bevel(g, x + gearX(), y + 3, TAB_W, TAB_H - 1, TAB_IDLE);
+        }
+        // AE2-style backing strip behind the left toolbar.
+        if (!isModulesPage()) {
+            int stripH = toolCount() * 20 + 6;
+            g.fill(x + TOOL_X - 3, y + PANEL_Y + 1, x + 1, y + PANEL_Y + 1 + stripH, OUTLINE);
+            g.fill(x + TOOL_X - 2, y + PANEL_Y + 2, x + 1, y + PANEL_Y + stripH, FACE);
+            g.fill(x + TOOL_X - 2, y + PANEL_Y + 2, x + 1, y + PANEL_Y + 3, LIGHT);
+            g.fill(x + TOOL_X - 2, y + PANEL_Y + 2, x + TOOL_X - 1, y + PANEL_Y + stripH - 1, LIGHT);
+            g.fill(x + TOOL_X - 1, y + PANEL_Y + stripH - 1, x + 1, y + PANEL_Y + stripH, SHADOW);
         }
 
         panel(g, x, y + PANEL_Y, W, panelH);
@@ -392,11 +408,11 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         if (isModulesPage()) {
             openTab(g, x + gearX(), y);
         }
-        gear(g, x + gearX() + 9, y + (isModulesPage() ? 6 : 8), 0xFF505050);
+        gear(g, x + gearX() + 9, y + (isModulesPage() ? 7 : 9), 0xFF505050);
 
         for (int t = 0; t < tabs.size(); t++) {
             var tab = tabs.get(t);
-            int ty = isOpen(tab) ? y + 3 : y + 5;
+            int ty = isOpen(tab) ? y + 3 : y + 4;
             g.item(tabStack(tab), x + tabX(t) + 5, ty);
             if (tab.pinValue() == pinned) {
                 pin(g, x + tabX(t) + TAB_W - 8, y + 3, true);
@@ -424,6 +440,8 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             drawStoragePage(g, x, y, mx, my);
         }
 
+        drawInfoCard(g, x, y);
+
         // Inventory.
         g.text(font, playerInventoryTitle, x + inventoryX(), y + inventoryY() - 10, TEXT, false);
         for (int row = 0; row < 3; row++) {
@@ -437,7 +455,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     }
 
     private void drawModulesPage(GuiGraphicsExtractor g, int x, int y, int pinned) {
-        g.text(font, Component.translatable("gui.appliedquartermaster.tablet.modules"), x + 8, y + PANEL_Y + 6, TEXT, false);
+        g.text(font, Component.translatable("gui.appliedquartermaster.tablet.modules"), x + 8, y + PANEL_Y + 7, TEXT, false);
         for (int i = 0; i < TabletModules.SLOTS; i++) {
             var slot = menu.slots.get(i);
             int bx = x + slot.x - (BOX - 16) / 2;
@@ -453,7 +471,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 centered(g, Component.translatable("gui.appliedquartermaster.tablet.empty_slot"), cx, by + BOX + 3, TEXT_DIM);
             } else {
                 pin(g, bx + BOX - 9, by + 2, i == pinned);
-                centered(g, shortName(module, BOX + 2), cx, by + BOX + 3, i == pinned ? GOLD_DARK : TEXT);
+                smallLines(g, module.getHoverName().getString(), cx, by + BOX + 3, BOX + 2, 2, i == pinned ? GOLD_DARK : TEXT);
             }
         }
     }
@@ -487,13 +505,13 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 int cy = gy + r * CELL_H[s];
                 int iconSize = 16 * SCALE[s];
                 int ix = cx + (CELL_W[s] - iconSize) / 2;
-                int iy = cy + (s == 0 ? 3 : (CELL_H[s] - iconSize) / 2);
+                int iy = cy + (s == 0 ? 2 : (CELL_H[s] - iconSize) / 2);
                 if (index == hovered) {
-                    g.fill(cx, cy, cx + CELL_W[s], cy + CELL_H[s], HOVER);
+                    g.fill(cx + 1, cy + 1, cx + CELL_W[s] - 1, cy + CELL_H[s] - 1, HOVER);
                 }
                 if (cell.entry() < 0) {
-                    // Only real free spots get a box.
-                    inset(g, ix - 1, iy - 1, iconSize + 2, iconSize + 2, SLOT);
+                    // Only real free spots get a box: a light, sunken outline the size of an item.
+                    freeSpot(g, ix, iy, iconSize);
                     continue;
                 }
                 g.pose().pushMatrix();
@@ -503,8 +521,8 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 g.itemDecorations(font, cell.stack(), 0, 0);
                 g.pose().popMatrix();
                 if (s == 0) {
-                    var name = shortName(cell.stack(), CELL_W[s] - 3);
-                    g.text(font, name, cx + (CELL_W[s] - font.width(name)) / 2, iy + iconSize + 3, TEXT, false);
+                    smallLines(g, cell.stack().getHoverName().getString(), cx + CELL_W[s] / 2, iy + iconSize + 2,
+                            CELL_W[s] - 2, 2, TEXT);
                 }
             }
         }
@@ -610,22 +628,28 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 int cx = gx + c * CELL_W[s];
                 int cy = gy + r * CELL_H[s];
                 int ix = cx + (CELL_W[s] - 48) / 2;
-                int iy = cy + 3;
+                int iy = cy + 2;
                 if (index == hovered) {
-                    g.fill(cx, cy, cx + CELL_W[s], cy + CELL_H[s], HOVER);
+                    g.fill(cx + 1, cy + 1, cx + CELL_W[s] - 1, cy + CELL_H[s] - 1, HOVER);
                 }
                 g.pose().pushMatrix();
                 g.pose().translate(ix, iy);
                 g.pose().scale(3, 3);
-                g.item(e.icon(), 0, 0);
+                if (inFarm && !e.customIcon()) {
+                    // A plate without its own icon shows its light ring in the current state.
+                    var face = AppliedQuartermaster.id("textures/part/redstone_plate_face_"
+                            + (e.state() == 2 ? "on" : e.state() == 1 ? "off" : "offline") + ".png");
+                    g.blit(RenderPipelines.GUI_TEXTURED, face, 0, 0, 0f, 0f, 16, 16, 16, 16);
+                } else {
+                    g.item(e.icon(), 0, 0);
+                }
                 g.pose().popMatrix();
                 // Status badge: green running, red off, dark offline.
                 int badge = inFarm
                         ? (e.state() == 2 ? 0xFF5AE66E : e.state() == 1 ? 0xFFEB3C32 : 0xFF46445A)
                         : (e.state() == 0 ? 0xFF46445A : e.on() > 0 ? 0xFF5AE66E : 0xFFEB3C32);
                 badge(g, ix + 36, iy + 36, badge);
-                var name = shortName(e.name(), CELL_W[s] - 3);
-                g.text(font, name, cx + (CELL_W[s] - font.width(name)) / 2, iy + 51, TEXT, false);
+                smallLines(g, e.name(), cx + CELL_W[s] / 2, iy + 50, CELL_W[s] - 2, 1, TEXT);
                 Component sub;
                 int color;
                 if (inFarm) {
@@ -646,8 +670,120 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                     sub = Component.translatable("gui.appliedquartermaster.automation.some_on", e.on(), e.total());
                     color = GREEN;
                 }
-                g.text(font, sub, cx + (CELL_W[s] - font.width(sub)) / 2, iy + 60, color, false);
+                smallLines(g, sub.getString(), cx + CELL_W[s] / 2, iy + 57, CELL_W[s] - 2, 1, color);
             }
+        }
+    }
+
+    private static final float SMALL = 0.75f;
+
+    /** Centered text at 3/4 size, wrapped to at most {@code maxLines} lines (the last one cut with an ellipsis). */
+    private void smallLines(GuiGraphicsExtractor g, String text, int centerX, int y, int width, int maxLines, int color) {
+        int scaledWidth = (int) (width / SMALL);
+        var lines = new ArrayList<String>();
+        var words = text.split(" ");
+        var line = new StringBuilder();
+        for (var word : words) {
+            String candidate = line.isEmpty() ? word : line + " " + word;
+            if (font.width(candidate) <= scaledWidth || line.isEmpty()) {
+                line.setLength(0);
+                line.append(candidate);
+            } else {
+                lines.add(line.toString());
+                line.setLength(0);
+                line.append(word);
+            }
+        }
+        if (!line.isEmpty()) {
+            lines.add(line.toString());
+        }
+        g.pose().pushMatrix();
+        g.pose().translate(centerX, y);
+        g.pose().scale(SMALL, SMALL);
+        for (int i = 0; i < Math.min(maxLines, lines.size()); i++) {
+            String l = lines.get(i);
+            boolean last = i == maxLines - 1 && lines.size() > maxLines;
+            if (font.width(l) > scaledWidth || last) {
+                l = font.plainSubstrByWidth(l, scaledWidth - font.width("…")) + "…";
+            }
+            g.text(font, l, -font.width(l) / 2, i * 9, color, false);
+        }
+        g.pose().popMatrix();
+    }
+
+    private static void freeSpot(GuiGraphicsExtractor g, int x, int y, int size) {
+        int pad = size >= 32 ? 6 : size >= 24 ? 3 : 0;
+        int x0 = x + pad;
+        int y0 = y + pad;
+        int s = size - pad * 2;
+        g.fill(x0, y0, x0 + s, y0 + s, 0xFFB3B6C8);
+        g.fill(x0, y0, x0 + s, y0 + 1, 0xFF9A9FB4);
+        g.fill(x0, y0, x0 + 1, y0 + s, 0xFF9A9FB4);
+        g.fill(x0 + 1, y0 + s - 1, x0 + s, y0 + s, 0xFFDCDDE6);
+        g.fill(x0 + s - 1, y0 + 1, x0 + s, y0 + s, 0xFFDCDDE6);
+    }
+
+    /** The card to the right of the inventory: network status and what this page can do. */
+    private void drawInfoCard(GuiGraphicsExtractor g, int x, int y) {
+        int cx = x + infoX();
+        int cy = y + inventoryY() - 11;
+        int cw = W - infoX() - 8;
+        int ch = 18 * 4 + 4 + 12;
+        inset(g, cx, cy, cw, ch, 0xFFC0C2CE);
+        String message = statusMessage();
+        boolean ok = message == null;
+        int dot = ok ? 0xFF5AE66E : 0xFFEB3C32;
+        g.fill(cx + 6, cy + 7, cx + 11, cy + 12, OUTLINE);
+        g.fill(cx + 7, cy + 8, cx + 10, cy + 11, dot);
+        g.text(font, Component.translatable(ok ? "gui.appliedquartermaster.info.connected" : "gui.appliedquartermaster.info.not_connected"),
+                cx + 15, cy + 6, TEXT, false);
+        var lines = new ArrayList<Component>();
+        if (!ok) {
+            lines.add(Component.translatable(message));
+        } else if (isModulesPage()) {
+            int count = 0;
+            for (int i = 0; i < TabletModules.SLOTS; i++) {
+                if (!menu.getModule(i).isEmpty()) {
+                    count++;
+                }
+            }
+            lines.add(Component.translatable("gui.appliedquartermaster.info.modules", count, TabletModules.SLOTS));
+            lines.add(Component.translatable("gui.appliedquartermaster.info.modules_hint"));
+        } else if (isAutomationPage()) {
+            var view = menu.getAutomation();
+            if (view != null && view.inFarm()) {
+                int on = 0;
+                for (var e : view.entries()) {
+                    if (e.state() == 2) {
+                        on++;
+                    }
+                }
+                lines.add(Component.translatable(view.farmOnline() ? "gui.appliedquartermaster.info.farm_online"
+                        : "gui.appliedquartermaster.info.farm_offline"));
+                lines.add(Component.translatable("gui.appliedquartermaster.info.plates_on", on, view.entries().size()));
+            } else {
+                lines.add(Component.translatable("gui.appliedquartermaster.info.farms_hint"));
+            }
+        } else {
+            int used = menu.getViewItems().size();
+            int total = used + menu.getViewFree();
+            lines.add(Component.translatable("gui.appliedquartermaster.info.blocks", total / 8, used, total));
+            lines.add(Component.translatable("gui.appliedquartermaster.info.store_hint"));
+        }
+        int ty = cy + 19;
+        for (var line : lines) {
+            for (var part : font.split(line, (int) ((cw - 12) / SMALL))) {
+                g.pose().pushMatrix();
+                g.pose().translate(cx + 6, ty);
+                g.pose().scale(SMALL, SMALL);
+                g.text(font, part, 0, 0, TEXT_DIM, false);
+                g.pose().popMatrix();
+                ty += 7;
+                if (ty > cy + ch - 8) {
+                    return;
+                }
+            }
+            ty += 3;
         }
     }
 
@@ -1066,7 +1202,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         double rx = mx - xo;
         double ry = my - yo;
         boolean inPanel = rx >= 0 && ry >= 0 && rx < W && ry < PANEL_Y + panelH;
-        boolean inToolbar = !isModulesPage() && rx >= TOOL_X && rx < 0 && ry >= PANEL_Y && ry < PANEL_Y + 64;
+        boolean inToolbar = !isModulesPage() && rx >= TOOL_X - 3 && rx < 0 && ry >= PANEL_Y && ry < PANEL_Y + toolCount() * 20 + 8;
         return !inPanel && !inToolbar;
     }
 

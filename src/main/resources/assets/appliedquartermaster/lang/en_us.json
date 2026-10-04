@@ -70,5 +70,15 @@
   "gui.appliedquartermaster.side.north": "North",
   "gui.appliedquartermaster.side.south": "South",
   "gui.appliedquartermaster.side.east": "East",
-  "gui.appliedquartermaster.side.west": "West"
+  "gui.appliedquartermaster.side.west": "West",
+  "gui.appliedquartermaster.info.connected": "Network connected",
+  "gui.appliedquartermaster.info.not_connected": "Not connected",
+  "gui.appliedquartermaster.info.modules": "%s of %s module slots in use.",
+  "gui.appliedquartermaster.info.modules_hint": "Put wireless terminals here: each one adds a tab. Right-click a tab to pin it as the one that opens first.",
+  "gui.appliedquartermaster.info.blocks": "%s blocks · %s of %s spots used.",
+  "gui.appliedquartermaster.info.store_hint": "Shift-click an item below to store it. Shift-click an item above to take it.",
+  "gui.appliedquartermaster.info.farms_hint": "Click a farm to see its plates. Hold an item and click to set an icon.",
+  "gui.appliedquartermaster.info.farm_online": "Farm Controller online.",
+  "gui.appliedquartermaster.info.farm_offline": "Farm Controller offline: no power or channel.",
+  "gui.appliedquartermaster.info.plates_on": "%s of %s plates on. Scroll over a plate to change its strength."
 }

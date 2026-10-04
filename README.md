@@ -3,7 +3,7 @@
 An addon for [Applied Energistics 2](https://github.com/AppliedEnergistics/Applied-Energistics-2) that puts your whole ME network in your hands.
 The **ME Tablet** is a handheld hub with a tab for each part of your base, and four new blocks give your guide books, weapons, tools and farms a proper home on the network.
 
-> **Status: early development.** The tablet, its modules, the Library, Armory and Tool Rack, and farm automation all work on an AE2 network. Recipes and polish are next. See the roadmap below.
+> **Status: beta.** Everything in the design works on an AE2 network: the tablet and its modules, the Library, Armory and Tool Rack, and farm automation, with crafting recipes and pages in AE2's guide. Feedback welcome in Issues.
 
 ![ME Tablet and its app icons](docs/images/preview_sheet.png)
 
@@ -75,7 +75,12 @@ The jar appears in `build/libs/`. Put it in your mods folder next to AE2.
 1. ~~Tablet item, tabs, Modules page, Inventory module (opens the AE2 terminal).~~ Done.
 2. ~~ME Library and the Library tab; ME Armory, ME Tool Rack and their tabs.~~ Done.
 3. ~~ME Farm Controller, ME Redstone Plate and the Automation tab.~~ Done.
-4. Recipes, guide pages and polish.
+4. ~~Recipes, guide pages and polish.~~ Done.
+
+## Recipes and guide
+
+All items and blocks are craftable with AE2 parts (processors, fluix glass cable, wireless receiver and so on); JEI or EMI
+shows the recipes. The mod also adds an **Applied Quartermaster** section to AE2's in-game guide.
 
 ## Development self-test
 

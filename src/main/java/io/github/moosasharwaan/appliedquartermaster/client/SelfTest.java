@@ -111,6 +111,15 @@ public final class SelfTest {
             player.setXRot(15f);
         }));
         STEPS.add(new Step(40, () -> shot("01_world")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().player.setXRot(55f)));
+        STEPS.add(new Step(10, () -> shot("01b_tablet_in_hand")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().player.setXRot(10f)));
+        STEPS.add(new Step(10, () -> shot("01c_tablet_in_hand_level")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_FRONT)));
+        STEPS.add(new Step(15, () -> shot("01d_tablet_third_person")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_BACK)));
+        STEPS.add(new Step(15, () -> shot("01e_tablet_third_person_back")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON)));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_MODULES))));
         STEPS.add(new Step(30, () -> shot("02_modules")));
         for (var kind : StorageKind.values()) {
@@ -307,6 +316,12 @@ public final class SelfTest {
             }
         }
         // Store and take through the network directly, the same way the tablet does.
+        for (var name : List.of("me_tablet", "me_library", "me_armory", "me_tool_rack", "me_farm_controller", "me_redstone_plate")) {
+            var key = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    AppliedQuartermaster.id(name));
+            AppliedQuartermaster.LOGGER.info("SELFTEST recipe {} loaded={}", name,
+                    player.level().getServer().getRecipeManager().byKey(key).isPresent());
+        }
         AppliedQuartermaster.LOGGER.info("SELFTEST library accepts written book={} enchanted book={} sword={}",
                 StorageKind.LIBRARY.accepts(new ItemStack(Items.WRITTEN_BOOK)),
                 StorageKind.LIBRARY.accepts(new ItemStack(Items.ENCHANTED_BOOK)),

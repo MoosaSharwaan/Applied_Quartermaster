@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": "#c:ingots/iron",
+    "w": "ae2:certus_quartz_wrench",
+    "b": "minecraft:iron_bars",
+    "c": "ae2:fluix_glass_cable",
+    "e": "ae2:engineering_processor"
+  },
+  "pattern": [
+    "iwi",
+    "cec",
+    "ibi"
+  ],
+  "result": {
+    "id": "appliedquartermaster:me_tool_rack"
+  }
+}

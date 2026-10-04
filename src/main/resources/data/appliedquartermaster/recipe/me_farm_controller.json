@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": "#c:ingots/iron",
+    "r": "minecraft:repeater",
+    "l": "ae2:logic_processor",
+    "c": "ae2:fluix_glass_cable",
+    "p": "minecraft:comparator"
+  },
+  "pattern": [
+    "iri",
+    "clc",
+    "ipi"
+  ],
+  "result": {
+    "id": "appliedquartermaster:me_farm_controller"
+  }
+}

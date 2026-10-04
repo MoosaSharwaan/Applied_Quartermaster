@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": "#c:ingots/iron",
+    "s": "minecraft:iron_sword",
+    "h": "minecraft:shield",
+    "c": "ae2:fluix_glass_cable",
+    "e": "ae2:engineering_processor"
+  },
+  "pattern": [
+    "isi",
+    "cec",
+    "ihi"
+  ],
+  "result": {
+    "id": "appliedquartermaster:me_armory"
+  }
+}

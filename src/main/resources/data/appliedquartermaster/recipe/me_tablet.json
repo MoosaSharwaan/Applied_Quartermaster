@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": "ae2:quartz_glass",
+    "w": "ae2:wireless_receiver",
+    "l": "ae2:logic_processor",
+    "e": "ae2:engineering_processor",
+    "i": "#c:ingots/iron",
+    "c": "ae2:energy_cell"
+  },
+  "pattern": [
+    "gwg",
+    "lel",
+    "ici"
+  ],
+  "result": {
+    "id": "appliedquartermaster:me_tablet"
+  }
+}
