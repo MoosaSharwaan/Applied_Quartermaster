@@ -1,7 +1,244 @@
 {
   "variants": {
-    "": {
+    "down=false,facing=north,left=false,right=false,up=false": {
       "model": "appliedquartermaster:block/me_tool_rack"
+    },
+    "down=false,facing=east,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_r"
+    },
+    "down=false,facing=east,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_r",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_r",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_r",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_l"
+    },
+    "down=false,facing=east,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_l",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_l",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_l",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_lr"
+    },
+    "down=false,facing=east,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_lr",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_lr",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_lr",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_d"
+    },
+    "down=true,facing=east,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_d",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_d",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_d",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dr"
+    },
+    "down=true,facing=east,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dr",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dr",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dr",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dl"
+    },
+    "down=true,facing=east,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dl",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dl",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dl",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dlr"
+    },
+    "down=true,facing=east,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dlr",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dlr",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_tool_rack_dlr",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_u"
+    },
+    "down=false,facing=east,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_u",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_u",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_u",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ur"
+    },
+    "down=false,facing=east,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ur",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ur",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ur",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ul"
+    },
+    "down=false,facing=east,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ul",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ul",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ul",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ulr"
+    },
+    "down=false,facing=east,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ulr",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ulr",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ulr",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ud"
+    },
+    "down=true,facing=east,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ud",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ud",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_ud",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udr"
+    },
+    "down=true,facing=east,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udr",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udr",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udr",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udl"
+    },
+    "down=true,facing=east,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udl",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udl",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udl",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udlr"
+    },
+    "down=true,facing=east,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udlr",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udlr",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_tool_rack_udlr",
+      "y": 270
     }
   }
 }

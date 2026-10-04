@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "appliedquartermaster:block/me_armory/front_dlr",
+    "north": "appliedquartermaster:block/me_armory/front_dlr",
+    "south": "appliedquartermaster:block/me_armory/side_dlr",
+    "east": "appliedquartermaster:block/me_armory/side_d",
+    "west": "appliedquartermaster:block/me_armory/side_d",
+    "up": "appliedquartermaster:block/me_armory/top_lr",
+    "down": "appliedquartermaster:block/me_armory/bottom"
+  }
+}

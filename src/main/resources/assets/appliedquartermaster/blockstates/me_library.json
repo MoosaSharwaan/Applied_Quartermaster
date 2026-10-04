@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "appliedquartermaster:block/me_library"
+    },
+    "facing=east": {
+      "model": "appliedquartermaster:block/me_library",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "appliedquartermaster:block/me_library",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "appliedquartermaster:block/me_library",
+      "y": 270
     }
   }
 }
