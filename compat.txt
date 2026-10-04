@@ -1,0 +1,10 @@
+MOD me-placement-tool 2.1.3-beta1-neoforge26.1.2 -> meplacementtool-2.1.3-beta1-neoforge26.1.2.jar (requested)
+  needs ae2
+JAR me-placement-tool: modids=['meplacementtool']
+  ITEM meplacementtool:me_placement_tool=ME Placement Tool
+  ITEM meplacementtool:multiblock_placement_tool=ME Multiblock Placement Tool
+  ITEM meplacementtool:me_cable_placement_tool=ME Cable Placement Tool
+  ITEM meplacementtool:key_of_spectrum=§cK§6e§ey §ao§bf §dS§cp§6e§ec§at§br§du§cm
+  ITEM meplacementtool:prism_core=Prism Core
+  ITEM meplacementtool:moakiee_fumo=Moakiee Fumo
+  ITEM meplacementtool:cystrysu_fumo=Cystrysu Fumo
