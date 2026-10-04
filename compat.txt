@@ -1,0 +1,5 @@
+MOD aeinfinitybooster 26.1.2-1.0.0.57 -> aeinfinitybooster-neoforge-26.1.2-1.0.0.57.jar (requested)
+  needs ae2
+JAR aeinfinitybooster: modids=['aeinfinitybooster']
+  ITEM aeinfinitybooster:infinity_card=Infinity Range Booster
+  ITEM aeinfinitybooster:dimension_card=Dimension Card
