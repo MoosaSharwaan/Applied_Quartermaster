@@ -111,6 +111,14 @@ public final class SelfTest {
             player.setXRot(15f);
         }));
         STEPS.add(new Step(40, () -> shot("01_world")));
+        // Overview of the whole test base for the README, without the HUD.
+        STEPS.add(new Step(5, () -> server(p -> p.connection.teleport(origin.getX() - 3.2, origin.getY() + 1.2,
+                origin.getZ() + 4.6, -128f, 24f))));
+        STEPS.add(new Step(10, () -> Minecraft.getInstance().options.hideGui = true));
+        STEPS.add(new Step(30, () -> shot("00_overview")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.hideGui = false));
+        STEPS.add(new Step(5, () -> server(p -> p.connection.teleport(origin.getX() - 3 + 0.5, origin.getY(),
+                origin.getZ() + 0.5, -90f, 15f))));
         STEPS.add(new Step(5, () -> Minecraft.getInstance().player.setXRot(55f)));
         STEPS.add(new Step(10, () -> shot("01b_tablet_in_hand")));
         STEPS.add(new Step(5, () -> Minecraft.getInstance().player.setXRot(10f)));
@@ -155,7 +163,9 @@ public final class SelfTest {
             player.setYRot(-140f);
             player.setXRot(18f);
         }));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.hideGui = true));
         STEPS.add(new Step(30, () -> shot("05f_world_farm")));
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().options.hideGui = false));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openModule(p, tabletSlot, 0))));
         STEPS.add(new Step(40, () -> shot("06_terminal_from_tablet")));
         STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
@@ -170,6 +180,13 @@ public final class SelfTest {
         STEPS.add(new Step(30, () -> shot("08_library_block_screen")));
         STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
         STEPS.add(new Step(10, () -> server(SelfTest::report)));
+        for (var page : List.of("applied_quartermaster", "me_tablet", "farm_automation", "recipes")) {
+            STEPS.add(new Step(5, () -> guideme.GuidesCommon.openGuide(Minecraft.getInstance().player,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "guide"),
+                    guideme.PageAnchor.page(AppliedQuartermaster.id(page + ".md")))));
+            STEPS.add(new Step(40, () -> shot("09_guide_" + page)));
+        }
+        STEPS.add(new Step(5, () -> Minecraft.getInstance().setScreen(null)));
         STEPS.add(new Step(20, () -> Minecraft.getInstance().stop()));
     }
 
@@ -230,6 +247,9 @@ public final class SelfTest {
         }
         var tablet = new ItemStack(ModItems.ME_TABLET.get());
         TabletModules.set(tablet, 0, terminal);
+        var upgrades = TabletModules.readUpgrades(tablet);
+        upgrades.set(0, new ItemStack(AEItems.WIRELESS_BOOSTER, 2));
+        TabletModules.writeUpgrades(tablet, upgrades);
         tabletSlot = player.getInventory().getSelectedSlot();
         player.getInventory().setItem(tabletSlot, tablet);
         player.getInventory().setItem(9, new ItemStack(Items.ENCHANTED_BOOK));

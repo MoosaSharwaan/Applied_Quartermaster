@@ -23,3 +23,4 @@ farms a home on the network.
 * [ME Library](me_library.md): guide books on the network
 * [ME Armory and ME Tool Rack](me_armory.md): weapons, mining tools and utility tools
 * [Farm automation](farm_automation.md): the ME Farm Controller and ME Redstone Plates
+* [Recipes](recipes.md): how to craft everything

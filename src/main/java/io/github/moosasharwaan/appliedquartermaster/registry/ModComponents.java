@@ -29,6 +29,11 @@ public final class ModComponents {
     public static final DataComponentType<Integer> TABLET_VIEW_SIZES = register("tablet_view_sizes",
             builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    /** The tablet's upgrade cards (wireless boosters). */
+    public static final DataComponentType<ItemContainerContents> TABLET_UPGRADES = register("tablet_upgrades",
+            builder -> builder.persistent(ItemContainerContents.CODEC)
+                    .networkSynchronized(ItemContainerContents.STREAM_CODEC));
+
     private ModComponents() {
     }
 

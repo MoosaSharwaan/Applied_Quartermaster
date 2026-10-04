@@ -47,17 +47,20 @@ public final class TabletNetwork {
                 continue;
             }
             anyLinked = true;
-            if (inRange(player, grid)) {
+            if (inRange(player, grid, TabletModules.boosters(tablet), TabletModules.hasInfiniteRange(tablet))) {
                 return new Result(grid, OK);
             }
         }
         return new Result(null, !anyTerminal ? NO_TERMINAL : !anyLinked ? NOT_LINKED : OUT_OF_RANGE);
     }
 
-    private static boolean inRange(Player player, IGrid grid) {
+    private static boolean inRange(Player player, IGrid grid, int boosters, boolean infinite) {
         for (var wap : grid.getMachines(WirelessAccessPointBlockEntity.class)) {
             if (!wap.isActive()) {
                 continue;
+            }
+            if (infinite) {
+                return true;
             }
             var location = wap.getLocation();
             if (location.getLevel() != player.level()) {
@@ -67,7 +70,7 @@ public final class TabletNetwork {
             double dx = pos.getX() + 0.5 - player.getX();
             double dy = pos.getY() + 0.5 - player.getY();
             double dz = pos.getZ() + 0.5 - player.getZ();
-            double range = wap.getRange();
+            double range = wap.getRange() * (1 + boosters);
             if (dx * dx + dy * dy + dz * dz < range * range) {
                 return true;
             }

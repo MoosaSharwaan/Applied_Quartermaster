@@ -52,6 +52,8 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     private static final int BOX = 36;
     private static final int MODULES_CONTENT_H = 62;
     private static final int TOOL_X = -22;
+    private static final int UPGRADE_X = 196;
+    private static final int BATTERY_X = 276;
 
     /** Large, Medium, Small: columns, cell size, item scale, rows at most. */
     private static final int[] COLS = {5, 8, 17, 5};
@@ -193,23 +195,28 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         leftPos = (width - W) / 2;
         topPos = Math.max(2, (height - totalH) / 2);
 
-        int moduleX0 = (W - (TabletModules.SLOTS * 40 - 4)) / 2 + (BOX - 16) / 2;
+        int moduleX0 = 14 + (BOX - 16) / 2;
         for (int i = 0; i < TabletModules.SLOTS; i++) {
             var slot = menu.slots.get(i);
             slot.x = moduleX0 + i * 40;
+            slot.y = PANEL_Y + HEADER_H + (BOX - 16) / 2 + 4;
+        }
+        for (int i = 0; i < TabletModules.UPGRADE_SLOTS; i++) {
+            var slot = menu.slots.get(TabletModules.SLOTS + i);
+            slot.x = UPGRADE_X + i * 20;
             slot.y = PANEL_Y + HEADER_H + (BOX - 16) / 2 + 4;
         }
         int ix = inventoryX();
         int iy = inventoryY();
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                var slot = menu.slots.get(TabletModules.SLOTS + row * 9 + col);
+                var slot = menu.slots.get(TabletMenu.FIRST_PLAYER_SLOT + row * 9 + col);
                 slot.x = ix + col * 18;
                 slot.y = iy + row * 18;
             }
         }
         for (int col = 0; col < 9; col++) {
-            var slot = menu.slots.get(TabletModules.SLOTS + 27 + col);
+            var slot = menu.slots.get(TabletMenu.FIRST_PLAYER_SLOT + 27 + col);
             slot.x = ix + col * 18;
             slot.y = iy + 58;
         }
@@ -474,6 +481,47 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 smallLines(g, module.getHoverName().getString(), cx, by + BOX + 3, BOX + 2, 2, i == pinned ? GOLD_DARK : TEXT);
             }
         }
+        // Upgrades (wireless boosters) and the terminal battery.
+        var first = menu.slots.get(TabletModules.SLOTS);
+        int ux = x + first.x;
+        int uy = y + first.y;
+        centered(g, Component.translatable("gui.appliedquartermaster.tablet.upgrades"), ux + 18, uy - 21, TEXT);
+        for (int i = 0; i < TabletModules.UPGRADE_SLOTS; i++) {
+            var slot = menu.slots.get(TabletModules.SLOTS + i);
+            inset(g, x + slot.x - 1, y + slot.y - 1, 18, 18, SLOT);
+        }
+        smallLines(g, rangeText(), ux + 19, uy + 21, 60, 2, TEXT_DIM);
+        int bx = x + BATTERY_X;
+        centered(g, Component.translatable("gui.appliedquartermaster.tablet.battery"), bx + 6, uy - 21, TEXT);
+        double level = batteryLevel();
+        inset(g, bx, uy - 10, 12, 38, 0xFF2A2938);
+        if (level >= 0) {
+            int h = (int) Math.round(36 * level);
+            int color = level > 0.5 ? 0xFF5AE66E : level > 0.15 ? 0xFFE8B53A : 0xFFEB3C32;
+            g.fill(bx + 1, uy - 9 + 36 - h, bx + 11, uy + 27, color);
+        }
+        smallLines(g, level < 0 ? "-" : Math.round(level * 100) + "%", bx + 6, uy + 31, 40, 1, TEXT_DIM);
+    }
+
+    /** Charge of the first terminal module (0..1), or -1 without one. */
+    private double batteryLevel() {
+        for (int i = 0; i < TabletModules.SLOTS; i++) {
+            var module = menu.getModule(i);
+            if (module.getItem() instanceof appeng.items.tools.powered.powersink.AEBasePoweredItem powered) {
+                double max = powered.getAEMaxPower(module);
+                return max <= 0 ? 0 : Math.min(1, powered.getAECurrentPower(module) / max);
+            }
+        }
+        return -1;
+    }
+
+    private String rangeText() {
+        var tablet = menu.getTablet();
+        if (TabletModules.hasInfiniteRange(tablet)) {
+            return Component.translatable("gui.appliedquartermaster.tablet.range_infinite").getString();
+        }
+        int boosters = TabletModules.boosters(tablet);
+        return Component.translatable("gui.appliedquartermaster.tablet.range", 1 + boosters).getString();
     }
 
     private void drawStoragePage(GuiGraphicsExtractor g, int x, int y, int mx, int my) {
@@ -915,6 +963,14 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                 }
             }
         } else {
+            var first = menu.slots.get(TabletModules.SLOTS);
+            if (inside(mx, my, BATTERY_X, first.y - 10, 12, 38)) {
+                return List.of(Component.translatable("gui.appliedquartermaster.tablet.battery_tooltip"));
+            }
+            if (menu.getCarried().isEmpty() && inside(mx, my, first.x - 1, first.y - 1, 40, 18)
+                    && menu.slots.get(TabletModules.SLOTS + (mx - first.x + 1) / 20).getItem().isEmpty()) {
+                return List.of(Component.translatable("gui.appliedquartermaster.tablet.upgrades_tooltip"));
+            }
             for (int i = 0; i < TabletModules.SLOTS; i++) {
                 if (!menu.getModule(i).isEmpty() && onModulePin(mx, my, i)) {
                     return List.of(Component.translatable(i == pinned
@@ -1103,6 +1159,48 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         }
         playClick();
         return true;
+    }
+
+    /** A farm or plate (entry, or -1 for the open farm's title) that can take an icon dragged from JEI. */
+    public record IconTarget(int entry, net.minecraft.client.renderer.Rect2i area) {
+    }
+
+    /** Screen areas outside the panel (the left toolbar), for JEI. */
+    public List<net.minecraft.client.renderer.Rect2i> getExtraAreas() {
+        if (isModulesPage()) {
+            return List.of();
+        }
+        return List.of(new net.minecraft.client.renderer.Rect2i(leftPos + TOOL_X - 3, topPos + PANEL_Y, -TOOL_X + 3,
+                toolCount() * 20 + 8));
+    }
+
+    public List<IconTarget> getIconTargets() {
+        var view = menu.getAutomation();
+        var list = new ArrayList<IconTarget>();
+        if (!isAutomationPage() || view == null) {
+            return list;
+        }
+        int s = SIZE_AUTOMATION;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < COLS[s]; c++) {
+                int index = (scroll + r) * COLS[s] + c;
+                if (index >= cells.size()) {
+                    break;
+                }
+                list.add(new IconTarget(cells.get(index).entry(), new net.minecraft.client.renderer.Rect2i(
+                        leftPos + GRID_X + c * CELL_W[s], topPos + gridY() + r * CELL_H[s], CELL_W[s], CELL_H[s])));
+            }
+        }
+        if (view.inFarm()) {
+            list.add(new IconTarget(-1, new net.minecraft.client.renderer.Rect2i(leftPos + BACK_X + BACK_W, topPos + PANEL_Y + 4,
+                    allOnX() - BACK_X - BACK_W - 4, 13)));
+        }
+        return list;
+    }
+
+    /** Sets a farm or plate icon to the given item (from JEI); the item is not used up. */
+    public void setIconFromItem(int entry, ItemStack stack) {
+        send(TabletActionPayload.SET_ICON, entry, stack.copyWithCount(1), 0);
     }
 
     private void startRename(int entry, String current) {

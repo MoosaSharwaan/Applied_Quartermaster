@@ -75,10 +75,16 @@
   "gui.appliedquartermaster.info.not_connected": "Not connected",
   "gui.appliedquartermaster.info.modules": "%s of %s module slots in use.",
   "gui.appliedquartermaster.info.modules_hint": "Put wireless terminals here: each one adds a tab. Right-click a tab to pin it as the one that opens first.",
-  "gui.appliedquartermaster.info.blocks": "%s blocks · %s of %s spots used.",
+  "gui.appliedquartermaster.info.blocks": "Blocks: %s · %s of %s spots used.",
   "gui.appliedquartermaster.info.store_hint": "Shift-click an item below to store it. Shift-click an item above to take it.",
   "gui.appliedquartermaster.info.farms_hint": "Click a farm to see its plates. Hold an item and click to set an icon.",
   "gui.appliedquartermaster.info.farm_online": "Farm Controller online.",
   "gui.appliedquartermaster.info.farm_offline": "Farm Controller offline: no power or channel.",
-  "gui.appliedquartermaster.info.plates_on": "%s of %s plates on. Scroll over a plate to change its strength."
+  "gui.appliedquartermaster.info.plates_on": "%s of %s plates on. Scroll over a plate to change its strength.",
+  "gui.appliedquartermaster.tablet.upgrades": "Upgrades",
+  "gui.appliedquartermaster.tablet.battery": "Battery",
+  "gui.appliedquartermaster.tablet.range": "Range ×%s",
+  "gui.appliedquartermaster.tablet.range_infinite": "Unlimited range",
+  "gui.appliedquartermaster.tablet.battery_tooltip": "Charge of your terminal module. Charge the terminal in an AE2 Charger.",
+  "gui.appliedquartermaster.tablet.upgrades_tooltip": "Wireless Booster: adds the access point's range again (up to 4 per slot). Infinity Booster Card (AE2WTLib): unlimited range."
 }

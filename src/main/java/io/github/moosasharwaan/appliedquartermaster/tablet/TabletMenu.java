@@ -56,7 +56,17 @@ public class TabletMenu extends AbstractContainerMenu {
             onModulesChanged(this);
         }
     };
+    private final SimpleContainer upgrades = new SimpleContainer(TabletModules.UPGRADE_SLOTS) {
+        @Override
+        public void setChanged() {
+            super.setChanged();
+            onUpgradesChanged();
+        }
+    };
     private boolean loading;
+
+    /** Menu index of the first player inventory slot (after the module and upgrade slots). */
+    public static final int FIRST_PLAYER_SLOT = TabletModules.SLOTS + TabletModules.UPGRADE_SLOTS;
     private int page;
     private final int initialViewSizes;
 
@@ -104,10 +114,17 @@ public class TabletMenu extends AbstractContainerMenu {
         for (int i = 0; i < TabletModules.SLOTS; i++) {
             modules.setItem(i, stored.get(i));
         }
+        var storedUpgrades = TabletModules.readUpgrades(getTablet());
+        for (int i = 0; i < TabletModules.UPGRADE_SLOTS; i++) {
+            upgrades.setItem(i, storedUpgrades.get(i));
+        }
         loading = false;
 
         for (int i = 0; i < TabletModules.SLOTS; i++) {
             addSlot(new ModuleSlot(modules, i, moduleSlotX(i), MODULE_Y));
+        }
+        for (int i = 0; i < TabletModules.UPGRADE_SLOTS; i++) {
+            addSlot(new UpgradeSlot(upgrades, i, 200 + i * 20, MODULE_Y));
         }
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -222,6 +239,26 @@ public class TabletMenu extends AbstractContainerMenu {
             list.set(i, modules.getItem(i).copy());
         }
         TabletModules.write(tablet, list);
+        lastSent = null;
+    }
+
+    public ItemStack getUpgrade(int i) {
+        return upgrades.getItem(i);
+    }
+
+    private void onUpgradesChanged() {
+        if (loading || playerInventory.player.level().isClientSide()) {
+            return;
+        }
+        var tablet = getTablet();
+        if (!tablet.is(ModItems.ME_TABLET.get())) {
+            return;
+        }
+        var list = TabletModules.readUpgrades(tablet);
+        for (int i = 0; i < TabletModules.UPGRADE_SLOTS; i++) {
+            list.set(i, upgrades.getItem(i).copy());
+        }
+        TabletModules.writeUpgrades(tablet, list);
         lastSent = null;
     }
 
@@ -379,10 +416,12 @@ public class TabletMenu extends AbstractContainerMenu {
                 }
             }
             case TabletActionPayload.SET_ICON -> {
+                // An item dragged from JEI comes with the action; otherwise use the item on the cursor.
+                var icon = action.expected().isEmpty() ? getCarried() : action.expected();
                 if (plate != null) {
-                    plate.setIcon(getCarried());
+                    plate.setIcon(icon);
                 } else if (farm != null) {
-                    farm.setIcon(getCarried());
+                    farm.setIcon(icon);
                 }
             }
             case TabletActionPayload.RENAME -> {
@@ -543,7 +582,7 @@ public class TabletMenu extends AbstractContainerMenu {
             return ItemStack.EMPTY;
         }
         var stack = slot.getItem();
-        int moduleEnd = TabletModules.SLOTS;
+        int moduleEnd = FIRST_PLAYER_SLOT;
         var kind = getPageKind();
         if (index >= moduleEnd && kind != null) {
             // Storage page: shift-click from the inventory stores the item on the network.
@@ -560,7 +599,11 @@ public class TabletMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else if (TabletModules.isModule(stack)) {
-            if (!moveItemStackTo(stack, 0, moduleEnd, false)) {
+            if (!moveItemStackTo(stack, 0, TabletModules.SLOTS, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (TabletModules.isUpgrade(stack)) {
+            if (!moveItemStackTo(stack, TabletModules.SLOTS, FIRST_PLAYER_SLOT, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
@@ -602,6 +645,32 @@ public class TabletMenu extends AbstractContainerMenu {
         @Override
         public int getMaxStackSize() {
             return 1;
+        }
+    }
+
+    private class UpgradeSlot extends Slot {
+        UpgradeSlot(Container container, int index, int x, int y) {
+            super(container, index, x, y);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return page == PAGE_MODULES && TabletModules.isUpgrade(stack);
+        }
+
+        @Override
+        public boolean mayPickup(Player player) {
+            return page == PAGE_MODULES;
+        }
+
+        @Override
+        public boolean isActive() {
+            return page == PAGE_MODULES;
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 4;
         }
     }
 

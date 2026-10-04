@@ -16,6 +16,50 @@ public final class TabletModules {
     private TabletModules() {
     }
 
+    /** Number of upgrade slots (wireless boosters). */
+    public static final int UPGRADE_SLOTS = 2;
+
+    private static final net.minecraft.resources.Identifier AE2_BOOSTER =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "wireless_booster");
+    private static final net.minecraft.resources.Identifier INFINITY_BOOSTER =
+            net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2wtlib", "infinity_booster_card");
+
+    /** AE2's Wireless Booster (each one adds the base range again) or AE2WTLib's Infinity Booster Card (no limit). */
+    public static boolean isUpgrade(ItemStack stack) {
+        var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return AE2_BOOSTER.equals(id) || INFINITY_BOOSTER.equals(id);
+    }
+
+    public static NonNullList<ItemStack> readUpgrades(ItemStack tablet) {
+        var list = NonNullList.withSize(UPGRADE_SLOTS, ItemStack.EMPTY);
+        tablet.getOrDefault(ModComponents.TABLET_UPGRADES, ItemContainerContents.EMPTY).copyInto(list);
+        return list;
+    }
+
+    public static void writeUpgrades(ItemStack tablet, NonNullList<ItemStack> upgrades) {
+        tablet.set(ModComponents.TABLET_UPGRADES, ItemContainerContents.fromItems(upgrades));
+    }
+
+    /** Number of AE2 Wireless Boosters installed. */
+    public static int boosters(ItemStack tablet) {
+        int n = 0;
+        for (var stack : readUpgrades(tablet)) {
+            if (AE2_BOOSTER.equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+                n += stack.getCount();
+            }
+        }
+        return n;
+    }
+
+    public static boolean hasInfiniteRange(ItemStack tablet) {
+        for (var stack : readUpgrades(tablet)) {
+            if (INFINITY_BOOSTER.equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Only terminals go in module slots: AE2 Wireless, Wireless Crafting and universal terminals. */
     public static boolean isModule(ItemStack stack) {
         return stack.getItem() instanceof WirelessTerminalItem;
