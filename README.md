@@ -73,7 +73,6 @@ Open it with the **gear** at the top right.
   into the module.
 - **Pin:** click the small pin on a module (or right-click any tab) to make it the tab that opens first. The pinned tab
   has a gold pin. Click again to unpin.
-- **Info card** (bottom right on every page): shows whether the network is connected, with short hints for the page.
 
 #### Upgrades and battery
 
@@ -127,9 +126,7 @@ grouped by kind, much like AE2's Network Status screen, but you can look inside 
 
 * Each kind shows its icon, how many there are, and a status light: green when all are working, red when any are
   offline (the count of offline ones is shown).
-* The info card on the right shows the network's stored energy as a bar, the energy figures, power use and gain, and
-  whether the ME Controller is online with how many channels are in use.
-* Click a kind to list each device of it: its position (and dimension when not the Overworld), a state chip
+* Click a kind to list each device of it: its position (and dimension when not the Overworld), a state light
   (**Active**, **No channel**, **No power** or **Starting**), the channels it carries and its power use in AE/t.
   Hover a row for full details.
 

@@ -181,13 +181,9 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         return rows * CELL_H[size()];
     }
 
-    /** The inventory sits at the left like in AE2's terminals; the info card fills the space to its right. */
+    /** The player inventory, centred under the page. */
     private int inventoryX() {
-        return 8;
-    }
-
-    private int infoX() {
-        return inventoryX() + 162 + 8;
+        return (W - 162) / 2;
     }
 
     private int inventoryY() {
@@ -501,8 +497,6 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         } else {
             drawStoragePage(g, x, y, mx, my);
         }
-
-        drawInfoCard(g, x, y);
 
         // Inventory.
         g.text(font, playerInventoryTitle, x + inventoryX(), y + inventoryY() - 10, TEXT, false);
@@ -989,88 +983,6 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     }
 
     /** The card to the right of the inventory: network status and what this page can do. */
-    private void drawInfoCard(GuiGraphicsExtractor g, int x, int y) {
-        int cx = x + infoX();
-        int cy = y + inventoryY() - 11;
-        int cw = W - infoX() - 8;
-        int ch = 18 * 4 + 4 + 12;
-        inset(g, cx, cy, cw, ch, 0xFFC0C2CE);
-        String message = statusMessage();
-        boolean ok = message == null;
-        dot(g, cx + 8.5f, cy + 9.5f, 6, ok);
-        g.text(font, Component.translatable(ok ? "gui.appliedquartermaster.info.connected" : "gui.appliedquartermaster.info.not_connected"),
-                cx + 15, cy + 6, TEXT, false);
-        var lines = new ArrayList<Component>();
-        if (!ok) {
-            lines.add(Component.translatable(message));
-        } else if (isModulesPage()) {
-            int count = 0;
-            for (int i = 0; i < TabletModules.SLOTS; i++) {
-                if (!menu.getModule(i).isEmpty()) {
-                    count++;
-                }
-            }
-            lines.add(Component.translatable("gui.appliedquartermaster.info.modules", count, TabletModules.SLOTS));
-            lines.add(Component.translatable("gui.appliedquartermaster.info.modules_hint"));
-        } else if (isDevicesPage()) {
-            var view = menu.getDevices();
-            if (view != null) {
-                var sum = view.summary();
-                // Energy bar
-                int bx = cx + 6;
-                int by = cy + 19;
-                int bw = cw - 12;
-                g.fill(bx, by, bx + bw, by + 6, OUTLINE);
-                g.fill(bx + 1, by + 1, bx + bw - 1, by + 5, 0xFF2A2938);
-                int filled = sum.maxStored() <= 0 ? 0 : (int) Math.round((bw - 2) * Math.min(1, sum.stored() / sum.maxStored()));
-                g.fill(bx + 1, by + 1, bx + 1 + filled, by + 5, 0xFF8E6BD9);
-                lines.add(Component.translatable("gui.appliedquartermaster.devices.energy",
-                        formatAe(sum.stored()), formatAe(sum.maxStored())));
-                lines.add(Component.translatable("gui.appliedquartermaster.devices.power",
-                        formatAe(sum.usage()), formatAe(sum.injection())));
-                lines.add(Component.translatable("gui.appliedquartermaster.devices.controller."
-                        + (sum.controller() == DevicesViewPayload.CONTROLLER_ONLINE ? "online"
-                        : sum.controller() == DevicesViewPayload.CONTROLLER_CONFLICT ? "conflict" : "none"),
-                        sum.channels()));
-            }
-        } else if (isAutomationPage()) {
-            var view = menu.getAutomation();
-            if (view != null && view.inFarm()) {
-                int on = 0;
-                for (var e : view.entries()) {
-                    if (e.state() == 2) {
-                        on++;
-                    }
-                }
-                lines.add(Component.translatable(view.farmOnline() ? "gui.appliedquartermaster.info.farm_online"
-                        : "gui.appliedquartermaster.info.farm_offline"));
-                lines.add(Component.translatable("gui.appliedquartermaster.info.plates_on", on, view.entries().size()));
-            } else {
-                lines.add(Component.translatable("gui.appliedquartermaster.info.farms_hint"));
-            }
-        } else {
-            int used = menu.getViewItems().size();
-            int total = used + menu.getViewFree();
-            lines.add(Component.translatable("gui.appliedquartermaster.info.blocks", total / 8, used, total));
-            lines.add(Component.translatable("gui.appliedquartermaster.info.store_hint"));
-        }
-        int ty = cy + (ok && isDevicesPage() && menu.getDevices() != null ? 29 : 19);
-        for (var line : lines) {
-            for (var part : font.split(line, (int) ((cw - 12) / SMALL))) {
-                g.pose().pushMatrix();
-                g.pose().translate(cx + 6, ty);
-                g.pose().scale(SMALL, SMALL);
-                g.text(font, part, 0, 0, TEXT_DIM, false);
-                g.pose().popMatrix();
-                ty += 7;
-                if (ty > cy + ch - 8) {
-                    return;
-                }
-            }
-            ty += 3;
-        }
-    }
-
     private void smallButton(GuiGraphicsExtractor g, int x, int y, int w, String label, boolean hover) {
         g.fill(x, y, x + w, y + 13, OUTLINE);
         g.fill(x + 1, y + 1, x + w - 1, y + 12, hover ? BUTTON_HOVER : BUTTON);
