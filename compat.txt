@@ -1,0 +1,9 @@
+MOD ae2-import-export-card 26.1.2-2.3.1 -> ae2importexportcard-26.1.2-2.3.1.jar (requested)
+  needs ae2
+JAR ae2-import-export-card: modids=['ae2importexportcard']
+  ITEM ae2importexportcard:import_card=Import Card
+  ITEM ae2importexportcard:export_card=Export Card
+  ITEM ae2importexportcard:block_picker_card=Block Picker Card
+  TERMREF com/ultramega/ae2importexportcard/compat/ae2wtlib/Ae2WtlibUtil.class
+  TERMREF com/ultramega/ae2importexportcard/mixin/WirelessTerminalItemMixin.class
+  TERMREF com/ultramega/ae2importexportcard/util/BlockPickerHandler.class
