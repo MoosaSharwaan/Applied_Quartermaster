@@ -1,0 +1,8 @@
+{
+  "model": {
+    "type": "ae2:status_indicator",
+    "active": "appliedquartermaster:part/me_redstone_plate_on",
+    "powered": "appliedquartermaster:part/me_redstone_plate_off",
+    "unpowered": "appliedquartermaster:part/me_redstone_plate_offline"
+  }
+}

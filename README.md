@@ -3,7 +3,7 @@
 An addon for [Applied Energistics 2](https://github.com/AppliedEnergistics/Applied-Energistics-2) that puts your whole ME network in your hands.
 The **ME Tablet** is a handheld hub with a tab for each part of your base, and four new blocks give your guide books, weapons, tools and farms a proper home on the network.
 
-> **Status: early development.** The tablet, its modules and the Library, Armory and Tool Rack work on an AE2 network. Farm automation and recipes are next. See the roadmap below.
+> **Status: early development.** The tablet, its modules, the Library, Armory and Tool Rack, and farm automation all work on an AE2 network. Recipes and polish are next. See the roadmap below.
 
 ![ME Tablet and its app icons](docs/images/preview_sheet.png)
 
@@ -34,9 +34,10 @@ Swap any of them into your hand from the tablet. Frames merge when you stack the
 ![ME Armory and ME Tool Rack](docs/images/armory_and_tool_rack_v2.png)
 
 ### Farm automation
-- **ME Farm Controller:** one per farm; its switchboard shows each switch's state. Network side joins your ME network, farm side runs the farm's own cables.
+- **ME Farm Controller:** one per farm. The cyan **network ports** (back and left, seen from the front) join your ME network and use one channel; the red **farm port** (right) takes the farm's own cables. Name it in an anvil or from the tablet.
 - **ME Redstone Plate:** a cable part like a P2P tunnel, up to 4 around one cable (6 with top and bottom). Green when on, red when off, dark when offline.
-- From the tablet: turn plates on and off, set signal strength, and give farms and plates item icons.
+- **In the world:** right-click a plate to switch it, sneak-right-click to change its strength; right-click the controller for the farm's status.
+- **From the tablet (Automation tab):** see every farm, open one to see its plates, click to switch, scroll for strength, All on / All off, right-click to rename, and click while holding any item to use it as the icon.
 
 ![Farm Controller and Redstone Plate](docs/images/automation_final.png)
 ![Automation screen](docs/images/automation_view_icons.png)
@@ -73,7 +74,7 @@ The jar appears in `build/libs/`. Put it in your mods folder next to AE2.
 
 1. ~~Tablet item, tabs, Modules page, Inventory module (opens the AE2 terminal).~~ Done.
 2. ~~ME Library and the Library tab; ME Armory, ME Tool Rack and their tabs.~~ Done.
-3. ME Farm Controller, ME Redstone Plate and the Automation tab.
+3. ~~ME Farm Controller, ME Redstone Plate and the Automation tab.~~ Done.
 4. Recipes, guide pages and polish.
 
 ## Development self-test

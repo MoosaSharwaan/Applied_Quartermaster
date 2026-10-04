@@ -2,7 +2,7 @@ package io.github.moosasharwaan.appliedquartermaster.registry;
 
 import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
 import io.github.moosasharwaan.appliedquartermaster.block.ConnectedMachineBlock;
-import io.github.moosasharwaan.appliedquartermaster.block.FacingMachineBlock;
+import io.github.moosasharwaan.appliedquartermaster.block.FarmControllerBlock;
 import io.github.moosasharwaan.appliedquartermaster.block.LibraryBlock;
 import io.github.moosasharwaan.appliedquartermaster.storage.ArmoryBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.ToolRackBlockEntity;
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
 
-/** All Applied Quartermaster blocks. Library, Armory and Tool Rack join the AE2 network; the Farm Controller comes in stage 3. */
+/** All Applied Quartermaster blocks. Library, Armory, Tool Rack and Farm Controller all join the AE2 network. */
 public final class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(AppliedQuartermaster.MOD_ID);
@@ -28,7 +28,7 @@ public final class ModBlocks {
     /** Stores up to 8 utility tools (wrenches, memory cards...); unlocks the Tools tab. */
     public static final DeferredBlock<ConnectedMachineBlock> ME_TOOL_RACK = machine("me_tool_rack", p -> new ConnectedMachineBlock(p, ToolRackBlockEntity::new));
     /** Groups the Redstone Plates of one farm; unlocks the Automation tab. */
-    public static final DeferredBlock<FacingMachineBlock> ME_FARM_CONTROLLER = machine("me_farm_controller", FacingMachineBlock::new);
+    public static final DeferredBlock<FarmControllerBlock> ME_FARM_CONTROLLER = machine("me_farm_controller", FarmControllerBlock::new);
 
     private ModBlocks() {
     }

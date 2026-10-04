@@ -14,5 +14,7 @@ public final class ModNetwork {
         registrar.playToServer(TabletActionPayload.TYPE, TabletActionPayload.STREAM_CODEC, TabletActionPayload::handle);
         registrar.playToClient(TabletViewPayload.TYPE, TabletViewPayload.STREAM_CODEC,
                 (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onView(payload));
+        registrar.playToClient(AutomationViewPayload.TYPE, AutomationViewPayload.STREAM_CODEC,
+                (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onAutomation(payload));
     }
 }

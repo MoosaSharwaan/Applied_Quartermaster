@@ -1,6 +1,8 @@
 package io.github.moosasharwaan.appliedquartermaster.registry;
 
+import appeng.items.parts.PartItem;
 import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
+import io.github.moosasharwaan.appliedquartermaster.automation.RedstonePlatePart;
 import io.github.moosasharwaan.appliedquartermaster.tablet.TabletItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -20,9 +22,10 @@ public final class ModItems {
     public static final DeferredItem<TabletItem> ME_TABLET = ITEMS.register("me_tablet",
             key -> new TabletItem(new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, key))));
 
-    /** The ME Redstone Plate. Becomes an AE2 cable part (like a P2P tunnel) in a later stage. */
-    public static final DeferredItem<Item> ME_REDSTONE_PLATE = ITEMS.register("me_redstone_plate",
-            key -> new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, key))));
+    /** The ME Redstone Plate: an AE2 cable part, placed on a farm's cables like a P2P tunnel. */
+    public static final DeferredItem<PartItem<RedstonePlatePart>> ME_REDSTONE_PLATE = ITEMS.register("me_redstone_plate",
+            key -> new PartItem<>(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, key)),
+                    RedstonePlatePart.class, RedstonePlatePart::new));
 
     public static final DeferredItem<BlockItem> ME_LIBRARY = blockItem("me_library", ModBlocks.ME_LIBRARY);
     public static final DeferredItem<BlockItem> ME_ARMORY = blockItem("me_armory", ModBlocks.ME_ARMORY);

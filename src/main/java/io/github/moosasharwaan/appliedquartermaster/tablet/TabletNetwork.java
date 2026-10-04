@@ -3,6 +3,7 @@ package io.github.moosasharwaan.appliedquartermaster.tablet;
 import appeng.api.networking.IGrid;
 import appeng.blockentity.networking.WirelessAccessPointBlockEntity;
 import appeng.items.tools.powered.WirelessTerminalItem;
+import io.github.moosasharwaan.appliedquartermaster.automation.FarmControllerBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.ArmoryBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.LibraryBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.StorageBlockEntity;
@@ -85,6 +86,18 @@ public final class TabletNetwork {
     /** True when at least one block of this kind is on the grid (unlocks its tab). */
     public static boolean present(IGrid grid, StorageKind kind) {
         return grid.getMachineNodes(blockEntityClass(kind)).iterator().hasNext();
+    }
+
+    /** True when at least one Farm Controller is on the grid (unlocks the Automation tab). */
+    public static boolean farmsPresent(IGrid grid) {
+        return grid.getMachineNodes(FarmControllerBlockEntity.class).iterator().hasNext();
+    }
+
+    /** All Farm Controllers on the grid (online or not), in a stable order. */
+    public static List<FarmControllerBlockEntity> farms(IGrid grid) {
+        var list = new ArrayList<FarmControllerBlockEntity>(grid.getMachines(FarmControllerBlockEntity.class));
+        list.sort(Comparator.comparingLong((FarmControllerBlockEntity be) -> be.getBlockPos().asLong()));
+        return list;
     }
 
     /** Active (powered, with a channel) blocks of this kind on the grid, in a stable order. */

@@ -1,5 +1,8 @@
 package io.github.moosasharwaan.appliedquartermaster.tablet;
 
+import io.github.moosasharwaan.appliedquartermaster.automation.FarmControllerBlockEntity;
+import io.github.moosasharwaan.appliedquartermaster.automation.RedstonePlatePart;
+import io.github.moosasharwaan.appliedquartermaster.network.AutomationViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModItems;
@@ -32,6 +35,7 @@ import java.util.List;
 public class TabletMenu extends AbstractContainerMenu {
 
     public static final int PAGE_MODULES = -1;
+    public static final int PAGE_AUTOMATION = StorageKind.values().length;
 
     public static final int BUTTON_OPEN = 0;
     public static final int BUTTON_PIN = 100;
@@ -62,6 +66,15 @@ public class TabletMenu extends AbstractContainerMenu {
 
     private final List<Ref> refs = new ArrayList<>();
     private TabletViewPayload lastSent;
+
+    // Server: Automation page.
+    private final List<FarmControllerBlockEntity> farmRefs = new ArrayList<>();
+    private final List<RedstonePlatePart> plateRefs = new ArrayList<>();
+    private FarmControllerBlockEntity selectedFarm;
+    private AutomationViewPayload lastAutomation;
+
+    // Client: Automation page.
+    private AutomationViewPayload automation;
     private int ticks;
 
     // Client: the latest view from the server.
@@ -151,7 +164,11 @@ public class TabletMenu extends AbstractContainerMenu {
     }
 
     public boolean isUnlocked(StorageKind kind) {
-        return (unlockMask & (1 << kind.ordinal())) != 0;
+        return isPageUnlocked(kind.ordinal());
+    }
+
+    public boolean isPageUnlocked(int page) {
+        return page >= 0 && (unlockMask & (1 << page)) != 0;
     }
 
     public int getStatus() {
@@ -169,6 +186,15 @@ public class TabletMenu extends AbstractContainerMenu {
     /** Increases whenever new view data arrives, so the screen knows to rebuild its grid. */
     public int getViewVersion() {
         return viewVersion;
+    }
+
+    public AutomationViewPayload getAutomation() {
+        return automation;
+    }
+
+    public void receiveAutomation(AutomationViewPayload payload) {
+        this.automation = payload;
+        this.viewVersion++;
     }
 
     public void receiveView(TabletViewPayload payload) {
@@ -204,11 +230,12 @@ public class TabletMenu extends AbstractContainerMenu {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return false;
         }
-        if (id >= BUTTON_PAGE - 1 && id <= BUTTON_PAGE + StorageKind.values().length) {
+        if (id >= BUTTON_PAGE - 1 && id <= BUTTON_PAGE + TabletModules.PAGES) {
             int newPage = id - BUTTON_PAGE - 1;
-            if (newPage >= PAGE_MODULES && newPage < StorageKind.values().length) {
+            if (newPage >= PAGE_MODULES && newPage < TabletModules.PAGES) {
                 page = newPage;
                 lastSent = null;
+                lastAutomation = null;
                 return true;
             }
             return false;
@@ -246,6 +273,9 @@ public class TabletMenu extends AbstractContainerMenu {
                     mask |= 1 << kind.ordinal();
                 }
             }
+            if (TabletNetwork.farmsPresent(network.grid())) {
+                mask |= 1 << PAGE_AUTOMATION;
+            }
             var kind = getPageKind();
             if (kind != null) {
                 for (var be : TabletNetwork.blocks(network.grid(), kind)) {
@@ -266,6 +296,106 @@ public class TabletMenu extends AbstractContainerMenu {
             lastSent = payload;
             PacketDistributor.sendToPlayer(player, payload);
         }
+        if (page == PAGE_AUTOMATION) {
+            var view = buildAutomation(network.grid());
+            if (!view.sameAs(lastAutomation)) {
+                lastAutomation = view;
+                PacketDistributor.sendToPlayer(player, view);
+            }
+        }
+    }
+
+    private AutomationViewPayload buildAutomation(appeng.api.networking.IGrid grid) {
+        farmRefs.clear();
+        plateRefs.clear();
+        var entries = new ArrayList<AutomationViewPayload.Entry>();
+        if (grid == null) {
+            selectedFarm = null;
+            return new AutomationViewPayload(containerId, false, "", ItemStack.EMPTY, false, entries);
+        }
+        var farms = TabletNetwork.farms(grid);
+        if (selectedFarm != null && (selectedFarm.isRemoved() || !farms.contains(selectedFarm))) {
+            selectedFarm = null;
+        }
+        if (selectedFarm == null) {
+            for (var farm : farms) {
+                farmRefs.add(farm);
+                var plates = farm.getPlates();
+                int on = 0;
+                for (var plate : plates) {
+                    if (plate.isOn()) {
+                        on++;
+                    }
+                }
+                var icon = farm.getIcon();
+                entries.add(new AutomationViewPayload.Entry(icon.isEmpty() ? new ItemStack(ModItems.ME_FARM_CONTROLLER.get()) : icon,
+                        !icon.isEmpty(), farm.getDisplayName().getString(),
+                        farm.isOnline() ? 1 : AutomationViewPayload.OFFLINE, on, plates.size(), 0));
+            }
+            return new AutomationViewPayload(containerId, false, "", ItemStack.EMPTY, false, entries);
+        }
+        boolean online = selectedFarm.isOnline();
+        for (var plate : selectedFarm.getPlates()) {
+            plateRefs.add(plate);
+            var icon = plate.getIcon();
+            int state = !online || !plate.isOnline() ? AutomationViewPayload.OFFLINE
+                    : plate.isOn() ? AutomationViewPayload.ON : AutomationViewPayload.OFF;
+            entries.add(new AutomationViewPayload.Entry(icon.isEmpty() ? new ItemStack(ModItems.ME_REDSTONE_PLATE.get()) : icon,
+                    !icon.isEmpty(), plate.getLabel().getString(), state, plate.isOn() ? 1 : 0, 1, plate.getStrength()));
+        }
+        var farmIcon = selectedFarm.getIcon();
+        return new AutomationViewPayload(containerId, true, selectedFarm.getDisplayName().getString(),
+                farmIcon.isEmpty() ? new ItemStack(ModItems.ME_FARM_CONTROLLER.get()) : farmIcon, online, entries);
+    }
+
+    private void handleAutomationAction(ServerPlayer player, TabletActionPayload action) {
+        int entry = action.entry();
+        var plate = selectedFarm != null && entry >= 0 && entry < plateRefs.size() ? plateRefs.get(entry) : null;
+        var farm = selectedFarm == null && entry >= 0 && entry < farmRefs.size() ? farmRefs.get(entry) : null;
+        if (entry == -1) {
+            farm = selectedFarm;
+        }
+        switch (action.action()) {
+            case TabletActionPayload.OPEN_FARM -> {
+                if (farm != null) {
+                    selectedFarm = farm;
+                }
+            }
+            case TabletActionPayload.BACK -> selectedFarm = null;
+            case TabletActionPayload.TOGGLE -> {
+                if (plate != null) {
+                    plate.setOn(!plate.isOn());
+                }
+            }
+            case TabletActionPayload.STRENGTH -> {
+                if (plate != null) {
+                    plate.setStrength(plate.getStrength() + action.arg());
+                }
+            }
+            case TabletActionPayload.ALL_ON, TabletActionPayload.ALL_OFF -> {
+                var target = farm != null ? farm : selectedFarm;
+                if (target != null) {
+                    target.setAll(action.action() == TabletActionPayload.ALL_ON);
+                }
+            }
+            case TabletActionPayload.SET_ICON -> {
+                if (plate != null) {
+                    plate.setIcon(getCarried());
+                } else if (farm != null) {
+                    farm.setIcon(getCarried());
+                }
+            }
+            case TabletActionPayload.RENAME -> {
+                if (plate != null) {
+                    plate.setLabel(action.text());
+                } else if (farm != null) {
+                    farm.setName(action.text());
+                }
+            }
+            default -> {
+            }
+        }
+        lastAutomation = null;
     }
 
     private static boolean same(TabletViewPayload a, TabletViewPayload b) {
@@ -284,6 +414,11 @@ public class TabletMenu extends AbstractContainerMenu {
     // ------------------------------------------------------------------ server actions
 
     public void handleAction(ServerPlayer player, TabletActionPayload action) {
+        if (page == PAGE_AUTOMATION && action.action() >= TabletActionPayload.OPEN_FARM) {
+            handleAutomationAction(player, action);
+            broadcastChanges();
+            return;
+        }
         var kind = getPageKind();
         if (action.action() == TabletActionPayload.SET_VIEW) {
             var target = StorageKind.byIndex(action.entry());

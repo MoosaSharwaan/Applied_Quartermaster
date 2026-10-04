@@ -3,7 +3,13 @@ package io.github.moosasharwaan.appliedquartermaster.client;
 import appeng.api.config.Actionable;
 import appeng.api.ids.AEComponents;
 import appeng.core.definitions.AEBlocks;
+import appeng.api.parts.PartHelper;
+import appeng.api.util.AEColor;
 import appeng.core.definitions.AEItems;
+import appeng.core.definitions.AEParts;
+import io.github.moosasharwaan.appliedquartermaster.automation.FarmControllerBlockEntity;
+import io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload;
+import net.minecraft.world.level.block.Blocks;
 import appeng.items.tools.powered.WirelessTerminalItem;
 import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
 import io.github.moosasharwaan.appliedquartermaster.block.FacingMachineBlock;
@@ -98,6 +104,7 @@ public final class SelfTest {
     private static void plan() {
         STEPS.clear();
         STEPS.add(new Step(0, () -> server(SelfTest::build)));
+        STEPS.add(new Step(10, () -> server(SelfTest::buildFarm)));
         STEPS.add(new Step(80, () -> {
             var player = Minecraft.getInstance().player;
             player.setYRot(-90f);
@@ -126,6 +133,20 @@ public final class SelfTest {
         })));
         STEPS.add(new Step(20, () -> server(SelfTest::interact)));
         STEPS.add(new Step(30, () -> shot("05b_armory_after_take_and_store")));
+        STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_AUTOMATION))));
+        STEPS.add(new Step(30, () -> shot("05c_automation_farms")));
+        STEPS.add(new Step(5, () -> server(p -> automation(p, TabletActionPayload.OPEN_FARM, 0))));
+        STEPS.add(new Step(30, () -> shot("05d_automation_plates")));
+        STEPS.add(new Step(5, () -> server(p -> automation(p, TabletActionPayload.TOGGLE, 0))));
+        STEPS.add(new Step(30, () -> shot("05e_automation_plate_on")));
+        STEPS.add(new Step(5, () -> server(SelfTest::reportFarm)));
+        STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
+        STEPS.add(new Step(5, () -> {
+            var player = Minecraft.getInstance().player;
+            player.setYRot(-140f);
+            player.setXRot(18f);
+        }));
+        STEPS.add(new Step(30, () -> shot("05f_world_farm")));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openModule(p, tabletSlot, 0))));
         STEPS.add(new Step(40, () -> shot("06_terminal_from_tablet")));
         STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
@@ -225,14 +246,53 @@ public final class SelfTest {
         }
         menu.broadcastChanges();
         var first = new ItemStack(Items.DIAMOND_SWORD);
-        menu.handleAction(player, new io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload(
-                menu.containerId, io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload.TAKE, 0, first, 0));
+        menu.handleAction(player, new TabletActionPayload(
+                menu.containerId, TabletActionPayload.TAKE, 0, first, 0));
         AppliedQuartermaster.LOGGER.info("SELFTEST take: inventory has diamond sword={}",
                 player.getInventory().contains(new ItemStack(Items.DIAMOND_SWORD)));
         menu.setCarried(new ItemStack(Items.GOLDEN_SWORD));
-        menu.handleAction(player, new io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload(
-                menu.containerId, io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload.STORE, -1, ItemStack.EMPTY, 0));
+        menu.handleAction(player, new TabletActionPayload(
+                menu.containerId, TabletActionPayload.STORE, -1, ItemStack.EMPTY, 0));
         AppliedQuartermaster.LOGGER.info("SELFTEST store: carried now={}", menu.getCarried());
+    }
+
+    private static void automation(ServerPlayer player, int action, int entry) {
+        if (player.containerMenu instanceof TabletMenu menu) {
+            menu.broadcastChanges();
+            menu.handleAction(player, new TabletActionPayload(menu.containerId, action, entry, ItemStack.EMPTY, 0));
+        }
+    }
+
+    /** A farm: controller touching the creative cell, its farm cable with two plates and a lamp in front of each. */
+    private static void buildFarm(ServerPlayer player) {
+        var level = (net.minecraft.server.level.ServerLevel) player.level();
+        var controller = origin.north(2);
+        level.setBlock(controller, facingWest(ModBlocks.ME_FARM_CONTROLLER.get().defaultBlockState()), 3);
+        var cable = origin.north(3);
+        PartHelper.setPart(level, cable, null, player, AEParts.GLASS_CABLE.item(AEColor.TRANSPARENT));
+        PartHelper.setPart(level, cable, Direction.WEST, player, ModItems.ME_REDSTONE_PLATE.get());
+        PartHelper.setPart(level, cable, Direction.UP, player, ModItems.ME_REDSTONE_PLATE.get());
+        level.setBlock(cable.above(), Blocks.REDSTONE_LAMP.defaultBlockState(), 3);
+        if (level.getBlockEntity(controller) instanceof FarmControllerBlockEntity farm) {
+            farm.setName("Mob Grinder");
+            farm.setIcon(new ItemStack(Items.ROTTEN_FLESH));
+        }
+    }
+
+    private static void reportFarm(ServerPlayer player) {
+        var level = player.level();
+        var controller = origin.north(2);
+        if (level.getBlockEntity(controller) instanceof FarmControllerBlockEntity farm) {
+            AppliedQuartermaster.LOGGER.info("SELFTEST farm online={} plates={} state={}", farm.isOnline(),
+                    farm.getPlates().size(), level.getBlockState(controller));
+            for (var plate : farm.getPlates()) {
+                AppliedQuartermaster.LOGGER.info("SELFTEST plate side={} on={} online={} strength={}", plate.getSide(),
+                        plate.isOn(), plate.isOnline(), plate.getStrength());
+            }
+        }
+        var cable = origin.north(3);
+        AppliedQuartermaster.LOGGER.info("SELFTEST lamp west={} lamp up={}", level.getBlockState(cable.west()),
+                level.getBlockState(cable.above()));
     }
 
     private static void report(ServerPlayer player) {

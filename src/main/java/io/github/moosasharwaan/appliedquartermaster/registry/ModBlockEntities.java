@@ -1,6 +1,7 @@
 package io.github.moosasharwaan.appliedquartermaster.registry;
 
 import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
+import io.github.moosasharwaan.appliedquartermaster.automation.FarmControllerBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.ArmoryBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.LibraryBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.storage.ToolRackBlockEntity;
@@ -20,6 +21,9 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("me_armory", () -> new BlockEntityType<>(ArmoryBlockEntity::new, ModBlocks.ME_ARMORY.get()));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ToolRackBlockEntity>> TOOL_RACK =
             BLOCK_ENTITIES.register("me_tool_rack", () -> new BlockEntityType<>(ToolRackBlockEntity::new, ModBlocks.ME_TOOL_RACK.get()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FarmControllerBlockEntity>> FARM_CONTROLLER =
+            BLOCK_ENTITIES.register("me_farm_controller", () -> new BlockEntityType<>(FarmControllerBlockEntity::new, ModBlocks.ME_FARM_CONTROLLER.get()));
 
     private ModBlockEntities() {
     }

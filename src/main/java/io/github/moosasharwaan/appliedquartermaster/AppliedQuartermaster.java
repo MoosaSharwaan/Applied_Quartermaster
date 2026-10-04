@@ -23,7 +23,7 @@ import org.slf4j.Logger;
  * Applied Quartermaster: an AE2 addon with the ME Tablet, ME Library, ME Armory,
  * ME Tool Rack, ME Farm Controller and ME Redstone Plate.
  * <p>
- * Stage 2: the tablet, its modules, and the Library, Armory and Tool Rack on the AE2 network.
+ * The tablet and its modules, the Library, Armory and Tool Rack, and farm automation on the AE2 network.
  */
 @Mod(AppliedQuartermaster.MOD_ID)
 public final class AppliedQuartermaster {
@@ -49,6 +49,7 @@ public final class AppliedQuartermaster {
         for (var type : List.of(ModBlockEntities.LIBRARY.get(), ModBlockEntities.ARMORY.get(), ModBlockEntities.TOOL_RACK.get())) {
             event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, type, (be, context) -> be);
         }
+        event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, ModBlockEntities.FARM_CONTROLLER.get(), (be, context) -> be);
     }
 
     public static Identifier id(String path) {

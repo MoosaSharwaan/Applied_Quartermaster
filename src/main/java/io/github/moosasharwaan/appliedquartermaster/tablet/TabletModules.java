@@ -51,6 +51,9 @@ public final class TabletModules {
     /** Pin value for a storage tab (Library, Armory, Tools); module slots use 0..3. */
     public static final int PIN_STORAGE = 10;
 
+    /** Number of pages after the Modules page: Library, Armory, Tools and Automation. */
+    public static final int PAGES = StorageKind.values().length + 1;
+
     /**
      * @return the pinned tab: 0..3 for a module slot, {@link #PIN_STORAGE} + kind for a storage tab, or -1 if none.
      */
@@ -62,7 +65,7 @@ public final class TabletModules {
         if (value >= 0 && value < SLOTS) {
             return value;
         }
-        if (value >= PIN_STORAGE && value < PIN_STORAGE + StorageKind.values().length) {
+        if (value >= PIN_STORAGE && value < PIN_STORAGE + PAGES) {
             return value;
         }
         return -1;
@@ -71,7 +74,7 @@ public final class TabletModules {
     /** Pins the tab, or unpins it if it was already pinned. */
     public static void togglePin(ItemStack tablet, int pin) {
         boolean validModule = pin >= 0 && pin < SLOTS && !get(tablet, pin).isEmpty();
-        boolean validStorage = pin >= PIN_STORAGE && pin < PIN_STORAGE + StorageKind.values().length;
+        boolean validStorage = pin >= PIN_STORAGE && pin < PIN_STORAGE + PAGES;
         if (getDefault(tablet) == pin || (!validModule && !validStorage)) {
             tablet.remove(ModComponents.TABLET_DEFAULT_MODULE);
         } else {
