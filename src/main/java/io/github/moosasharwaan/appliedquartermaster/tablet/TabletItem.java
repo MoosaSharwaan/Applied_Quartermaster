@@ -11,8 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 /**
- * The ME Tablet. Right-click opens the pinned tab (for a terminal module, the real AE2 terminal);
- * with nothing pinned, or while sneaking, it opens the tablet screen.
+ * The ME Tablet. Right-click opens the pinned tab (for a terminal module, the real AE2 terminal; for a
+ * storage tab, that page of the tablet); with nothing pinned, or while sneaking, it opens the Modules page.
  */
 public class TabletItem extends Item {
 
@@ -31,20 +31,29 @@ public class TabletItem extends Item {
             return InteractionResult.FAIL;
         }
         int pinned = TabletModules.getDefault(stack);
-        if (pinned >= 0 && !player.isShiftKeyDown() && openModule(serverPlayer, slot, pinned)) {
-            return InteractionResult.SUCCESS;
+        if (!player.isShiftKeyDown()) {
+            if (pinned >= 0 && pinned < TabletModules.SLOTS && openModule(serverPlayer, slot, pinned)) {
+                return InteractionResult.SUCCESS;
+            }
+            if (pinned >= TabletModules.PIN_STORAGE) {
+                openTablet(serverPlayer, slot, pinned - TabletModules.PIN_STORAGE);
+                return InteractionResult.SUCCESS;
+            }
         }
-        openTablet(serverPlayer, slot);
+        openTablet(serverPlayer, slot, TabletMenu.PAGE_MODULES);
         return InteractionResult.SUCCESS;
     }
 
     /** Opens the tablet screen for the tablet in the given player inventory slot. */
-    public static void openTablet(ServerPlayer player, int tabletSlot) {
+    public static void openTablet(ServerPlayer player, int tabletSlot, int page) {
         TabletModuleLocator.flush(player);
         player.openMenu(new SimpleMenuProvider(
-                        (id, inventory, p) -> new TabletMenu(id, inventory, tabletSlot),
+                        (id, inventory, p) -> new TabletMenu(id, inventory, tabletSlot, page),
                         Component.translatable("item.appliedquartermaster.me_tablet")),
-                buf -> buf.writeVarInt(tabletSlot));
+                buf -> {
+                    buf.writeVarInt(tabletSlot);
+                    buf.writeVarInt(page + 1);
+                });
     }
 
     /** Opens the module in the given slot. Terminal modules open the real AE2 terminal screen. */

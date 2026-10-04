@@ -1,243 +1,483 @@
 {
   "variants": {
-    "down=false,facing=north,left=false,right=false,up=false": {
+    "down=false,facing=north,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory"
     },
-    "down=false,facing=east,left=false,right=false,up=false": {
+    "down=false,facing=east,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory",
       "y": 90
     },
-    "down=false,facing=south,left=false,right=false,up=false": {
+    "down=false,facing=south,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory",
       "y": 180
     },
-    "down=false,facing=west,left=false,right=false,up=false": {
+    "down=false,facing=west,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory",
       "y": 270
     },
-    "down=false,facing=north,left=false,right=true,up=false": {
+    "down=false,facing=north,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_off"
+    },
+    "down=false,facing=east,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_r"
     },
-    "down=false,facing=east,left=false,right=true,up=false": {
+    "down=false,facing=east,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_r",
       "y": 90
     },
-    "down=false,facing=south,left=false,right=true,up=false": {
+    "down=false,facing=south,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_r",
       "y": 180
     },
-    "down=false,facing=west,left=false,right=true,up=false": {
+    "down=false,facing=west,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_r",
       "y": 270
     },
-    "down=false,facing=north,left=true,right=false,up=false": {
+    "down=false,facing=north,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_r_off"
+    },
+    "down=false,facing=east,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_r_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_r_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_r_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_l"
     },
-    "down=false,facing=east,left=true,right=false,up=false": {
+    "down=false,facing=east,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_l",
       "y": 90
     },
-    "down=false,facing=south,left=true,right=false,up=false": {
+    "down=false,facing=south,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_l",
       "y": 180
     },
-    "down=false,facing=west,left=true,right=false,up=false": {
+    "down=false,facing=west,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_l",
       "y": 270
     },
-    "down=false,facing=north,left=true,right=true,up=false": {
+    "down=false,facing=north,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_l_off"
+    },
+    "down=false,facing=east,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_l_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_l_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_l_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_lr"
     },
-    "down=false,facing=east,left=true,right=true,up=false": {
+    "down=false,facing=east,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_lr",
       "y": 90
     },
-    "down=false,facing=south,left=true,right=true,up=false": {
+    "down=false,facing=south,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_lr",
       "y": 180
     },
-    "down=false,facing=west,left=true,right=true,up=false": {
+    "down=false,facing=west,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_lr",
       "y": 270
     },
-    "down=true,facing=north,left=false,right=false,up=false": {
+    "down=false,facing=north,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_lr_off"
+    },
+    "down=false,facing=east,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_lr_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_lr_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_lr_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_d"
     },
-    "down=true,facing=east,left=false,right=false,up=false": {
+    "down=true,facing=east,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_d",
       "y": 90
     },
-    "down=true,facing=south,left=false,right=false,up=false": {
+    "down=true,facing=south,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_d",
       "y": 180
     },
-    "down=true,facing=west,left=false,right=false,up=false": {
+    "down=true,facing=west,left=false,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_d",
       "y": 270
     },
-    "down=true,facing=north,left=false,right=true,up=false": {
+    "down=true,facing=north,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_d_off"
+    },
+    "down=true,facing=east,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_d_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_d_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_d_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dr"
     },
-    "down=true,facing=east,left=false,right=true,up=false": {
+    "down=true,facing=east,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dr",
       "y": 90
     },
-    "down=true,facing=south,left=false,right=true,up=false": {
+    "down=true,facing=south,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dr",
       "y": 180
     },
-    "down=true,facing=west,left=false,right=true,up=false": {
+    "down=true,facing=west,left=false,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dr",
       "y": 270
     },
-    "down=true,facing=north,left=true,right=false,up=false": {
+    "down=true,facing=north,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dr_off"
+    },
+    "down=true,facing=east,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dr_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dr_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dr_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_dl"
     },
-    "down=true,facing=east,left=true,right=false,up=false": {
+    "down=true,facing=east,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_dl",
       "y": 90
     },
-    "down=true,facing=south,left=true,right=false,up=false": {
+    "down=true,facing=south,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_dl",
       "y": 180
     },
-    "down=true,facing=west,left=true,right=false,up=false": {
+    "down=true,facing=west,left=true,powered=true,right=false,up=false": {
       "model": "appliedquartermaster:block/me_armory_dl",
       "y": 270
     },
-    "down=true,facing=north,left=true,right=true,up=false": {
+    "down=true,facing=north,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dl_off"
+    },
+    "down=true,facing=east,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dl_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dl_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,powered=false,right=false,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dl_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dlr"
     },
-    "down=true,facing=east,left=true,right=true,up=false": {
+    "down=true,facing=east,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dlr",
       "y": 90
     },
-    "down=true,facing=south,left=true,right=true,up=false": {
+    "down=true,facing=south,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dlr",
       "y": 180
     },
-    "down=true,facing=west,left=true,right=true,up=false": {
+    "down=true,facing=west,left=true,powered=true,right=true,up=false": {
       "model": "appliedquartermaster:block/me_armory_dlr",
       "y": 270
     },
-    "down=false,facing=north,left=false,right=false,up=true": {
+    "down=true,facing=north,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dlr_off"
+    },
+    "down=true,facing=east,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dlr_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dlr_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,powered=false,right=true,up=false": {
+      "model": "appliedquartermaster:block/me_armory_dlr_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_u"
     },
-    "down=false,facing=east,left=false,right=false,up=true": {
+    "down=false,facing=east,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_u",
       "y": 90
     },
-    "down=false,facing=south,left=false,right=false,up=true": {
+    "down=false,facing=south,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_u",
       "y": 180
     },
-    "down=false,facing=west,left=false,right=false,up=true": {
+    "down=false,facing=west,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_u",
       "y": 270
     },
-    "down=false,facing=north,left=false,right=true,up=true": {
+    "down=false,facing=north,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_u_off"
+    },
+    "down=false,facing=east,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_u_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_u_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_u_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ur"
     },
-    "down=false,facing=east,left=false,right=true,up=true": {
+    "down=false,facing=east,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ur",
       "y": 90
     },
-    "down=false,facing=south,left=false,right=true,up=true": {
+    "down=false,facing=south,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ur",
       "y": 180
     },
-    "down=false,facing=west,left=false,right=true,up=true": {
+    "down=false,facing=west,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ur",
       "y": 270
     },
-    "down=false,facing=north,left=true,right=false,up=true": {
+    "down=false,facing=north,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ur_off"
+    },
+    "down=false,facing=east,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ur_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ur_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ur_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ul"
     },
-    "down=false,facing=east,left=true,right=false,up=true": {
+    "down=false,facing=east,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ul",
       "y": 90
     },
-    "down=false,facing=south,left=true,right=false,up=true": {
+    "down=false,facing=south,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ul",
       "y": 180
     },
-    "down=false,facing=west,left=true,right=false,up=true": {
+    "down=false,facing=west,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ul",
       "y": 270
     },
-    "down=false,facing=north,left=true,right=true,up=true": {
+    "down=false,facing=north,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ul_off"
+    },
+    "down=false,facing=east,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ul_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ul_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ul_off",
+      "y": 270
+    },
+    "down=false,facing=north,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ulr"
     },
-    "down=false,facing=east,left=true,right=true,up=true": {
+    "down=false,facing=east,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ulr",
       "y": 90
     },
-    "down=false,facing=south,left=true,right=true,up=true": {
+    "down=false,facing=south,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ulr",
       "y": 180
     },
-    "down=false,facing=west,left=true,right=true,up=true": {
+    "down=false,facing=west,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_ulr",
       "y": 270
     },
-    "down=true,facing=north,left=false,right=false,up=true": {
+    "down=false,facing=north,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ulr_off"
+    },
+    "down=false,facing=east,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ulr_off",
+      "y": 90
+    },
+    "down=false,facing=south,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ulr_off",
+      "y": 180
+    },
+    "down=false,facing=west,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ulr_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ud"
     },
-    "down=true,facing=east,left=false,right=false,up=true": {
+    "down=true,facing=east,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ud",
       "y": 90
     },
-    "down=true,facing=south,left=false,right=false,up=true": {
+    "down=true,facing=south,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ud",
       "y": 180
     },
-    "down=true,facing=west,left=false,right=false,up=true": {
+    "down=true,facing=west,left=false,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_ud",
       "y": 270
     },
-    "down=true,facing=north,left=false,right=true,up=true": {
+    "down=true,facing=north,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ud_off"
+    },
+    "down=true,facing=east,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ud_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ud_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_ud_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udr"
     },
-    "down=true,facing=east,left=false,right=true,up=true": {
+    "down=true,facing=east,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udr",
       "y": 90
     },
-    "down=true,facing=south,left=false,right=true,up=true": {
+    "down=true,facing=south,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udr",
       "y": 180
     },
-    "down=true,facing=west,left=false,right=true,up=true": {
+    "down=true,facing=west,left=false,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udr",
       "y": 270
     },
-    "down=true,facing=north,left=true,right=false,up=true": {
+    "down=true,facing=north,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udr_off"
+    },
+    "down=true,facing=east,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udr_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udr_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=false,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udr_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_udl"
     },
-    "down=true,facing=east,left=true,right=false,up=true": {
+    "down=true,facing=east,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_udl",
       "y": 90
     },
-    "down=true,facing=south,left=true,right=false,up=true": {
+    "down=true,facing=south,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_udl",
       "y": 180
     },
-    "down=true,facing=west,left=true,right=false,up=true": {
+    "down=true,facing=west,left=true,powered=true,right=false,up=true": {
       "model": "appliedquartermaster:block/me_armory_udl",
       "y": 270
     },
-    "down=true,facing=north,left=true,right=true,up=true": {
+    "down=true,facing=north,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udl_off"
+    },
+    "down=true,facing=east,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udl_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udl_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,powered=false,right=false,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udl_off",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udlr"
     },
-    "down=true,facing=east,left=true,right=true,up=true": {
+    "down=true,facing=east,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udlr",
       "y": 90
     },
-    "down=true,facing=south,left=true,right=true,up=true": {
+    "down=true,facing=south,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udlr",
       "y": 180
     },
-    "down=true,facing=west,left=true,right=true,up=true": {
+    "down=true,facing=west,left=true,powered=true,right=true,up=true": {
       "model": "appliedquartermaster:block/me_armory_udlr",
+      "y": 270
+    },
+    "down=true,facing=north,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udlr_off"
+    },
+    "down=true,facing=east,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udlr_off",
+      "y": 90
+    },
+    "down=true,facing=south,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udlr_off",
+      "y": 180
+    },
+    "down=true,facing=west,left=true,powered=false,right=true,up=true": {
+      "model": "appliedquartermaster:block/me_armory_udlr_off",
       "y": 270
     }
   }

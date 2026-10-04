@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:written_book",
+    "minecraft:writable_book",
+    "minecraft:knowledge_book",
+    {
+      "id": "ae2:guide",
+      "required": false
+    },
+    {
+      "id": "guideme:guide",
+      "required": false
+    },
+    {
+      "id": "patchouli:guide_book",
+      "required": false
+    },
+    {
+      "id": "modonomicon:modonomicon",
+      "required": false
+    }
+  ]
+}

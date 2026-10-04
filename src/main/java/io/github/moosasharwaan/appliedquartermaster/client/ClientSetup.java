@@ -23,6 +23,7 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenus.TABLET.get(), TabletScreen::new);
+        event.register(ModMenus.STORAGE.get(), StorageScreen::new);
     }
 
     /** Esc in an AE2 terminal that was opened from the tablet goes back to the tablet instead of closing. */

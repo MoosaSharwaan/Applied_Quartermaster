@@ -2,6 +2,7 @@ package io.github.moosasharwaan.appliedquartermaster.tablet;
 
 import appeng.items.tools.powered.WirelessTerminalItem;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModComponents;
+import io.github.moosasharwaan.appliedquartermaster.storage.StorageKind;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -36,7 +37,7 @@ public final class TabletModules {
     public static void write(ItemStack tablet, NonNullList<ItemStack> modules) {
         tablet.set(ModComponents.TABLET_MODULES, ItemContainerContents.fromItems(modules));
         var pinned = getDefault(tablet);
-        if (pinned >= 0 && modules.get(pinned).isEmpty()) {
+        if (pinned >= 0 && pinned < SLOTS && modules.get(pinned).isEmpty()) {
             tablet.remove(ModComponents.TABLET_DEFAULT_MODULE);
         }
     }
@@ -47,18 +48,47 @@ public final class TabletModules {
         write(tablet, modules);
     }
 
-    /** @return the pinned module slot, or -1 if none. */
+    /** Pin value for a storage tab (Library, Armory, Tools); module slots use 0..3. */
+    public static final int PIN_STORAGE = 10;
+
+    /**
+     * @return the pinned tab: 0..3 for a module slot, {@link #PIN_STORAGE} + kind for a storage tab, or -1 if none.
+     */
     public static int getDefault(ItemStack tablet) {
         Integer value = tablet.get(ModComponents.TABLET_DEFAULT_MODULE);
-        return value == null || value < 0 || value >= SLOTS ? -1 : value;
+        if (value == null) {
+            return -1;
+        }
+        if (value >= 0 && value < SLOTS) {
+            return value;
+        }
+        if (value >= PIN_STORAGE && value < PIN_STORAGE + StorageKind.values().length) {
+            return value;
+        }
+        return -1;
     }
 
-    /** Pins the module slot, or unpins it if it was already pinned. */
-    public static void togglePin(ItemStack tablet, int slot) {
-        if (getDefault(tablet) == slot || get(tablet, slot).isEmpty()) {
+    /** Pins the tab, or unpins it if it was already pinned. */
+    public static void togglePin(ItemStack tablet, int pin) {
+        boolean validModule = pin >= 0 && pin < SLOTS && !get(tablet, pin).isEmpty();
+        boolean validStorage = pin >= PIN_STORAGE && pin < PIN_STORAGE + StorageKind.values().length;
+        if (getDefault(tablet) == pin || (!validModule && !validStorage)) {
             tablet.remove(ModComponents.TABLET_DEFAULT_MODULE);
         } else {
-            tablet.set(ModComponents.TABLET_DEFAULT_MODULE, slot);
+            tablet.set(ModComponents.TABLET_DEFAULT_MODULE, pin);
         }
+    }
+
+    /** View size per storage tab: 0 = Large, 1 = Medium, 2 = Small. */
+    public static int getViewSize(ItemStack tablet, StorageKind kind) {
+        int packed = tablet.getOrDefault(ModComponents.TABLET_VIEW_SIZES, 0);
+        return Math.min(2, (packed >> (kind.ordinal() * 2)) & 3);
+    }
+
+    public static void setViewSize(ItemStack tablet, StorageKind kind, int size) {
+        int packed = tablet.getOrDefault(ModComponents.TABLET_VIEW_SIZES, 0);
+        int shift = kind.ordinal() * 2;
+        packed = (packed & ~(3 << shift)) | ((Math.max(0, Math.min(2, size)) & 3) << shift);
+        tablet.set(ModComponents.TABLET_VIEW_SIZES, packed);
     }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "appliedquartermaster:block/me_library/tapestry_off",
+    "north": "appliedquartermaster:block/me_library/tapestry_off",
+    "south": "appliedquartermaster:block/me_library/tapestry_off",
+    "east": "appliedquartermaster:block/me_library/shelf_4_off",
+    "west": "appliedquartermaster:block/me_library/shelf_4_off",
+    "up": "appliedquartermaster:block/me_library/top_off",
+    "down": "appliedquartermaster:block/me_library/bottom"
+  }
+}

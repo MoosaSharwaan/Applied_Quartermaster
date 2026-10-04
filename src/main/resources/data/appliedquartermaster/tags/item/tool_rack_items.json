@@ -1,0 +1,45 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:tools/wrench",
+      "required": false
+    },
+    {
+      "id": "ae2:network_tool",
+      "required": false
+    },
+    {
+      "id": "ae2:memory_card",
+      "required": false
+    },
+    {
+      "id": "ae2:certus_quartz_wrench",
+      "required": false
+    },
+    {
+      "id": "ae2:nether_quartz_wrench",
+      "required": false
+    },
+    {
+      "id": "ae2:color_applicator",
+      "required": false
+    },
+    {
+      "id": "ae2:entropy_manipulator",
+      "required": false
+    },
+    {
+      "id": "ae2:charged_staff",
+      "required": false
+    },
+    {
+      "id": "ae2:matter_cannon",
+      "required": false
+    },
+    {
+      "id": "ae2:meteorite_compass",
+      "required": false
+    }
+  ]
+}
