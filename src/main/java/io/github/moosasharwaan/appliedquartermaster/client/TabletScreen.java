@@ -1,5 +1,6 @@
 package io.github.moosasharwaan.appliedquartermaster.client;
 
+import io.github.moosasharwaan.appliedquartermaster.network.DevicesViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModItems;
 import io.github.moosasharwaan.appliedquartermaster.storage.StorageKind;
@@ -56,12 +57,14 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     private static final int BATTERY_X = 276;
 
     /** Large, Medium, Small: columns, cell size, item scale, rows at most. */
-    private static final int[] COLS = {5, 8, 17, 5};
-    private static final int[] CELL_W = {61, 38, 18, 61};
-    private static final int[] CELL_H = {66, 38, 18, 66};
-    private static final int[] SCALE = {3, 2, 1, 3};
-    private static final int[] MAX_ROWS = {3, 4, 10, 3};
+    /** Index 3: Automation and the Devices overview (big icons). Index 4: the device list (one row per device). */
+    private static final int[] COLS = {5, 8, 17, 5, 1};
+    private static final int[] CELL_W = {61, 38, 18, 61, 17 * 18};
+    private static final int[] CELL_H = {66, 38, 18, 66, 20};
+    private static final int[] SCALE = {3, 2, 1, 3, 1};
+    private static final int[] MAX_ROWS = {3, 4, 10, 3, 9};
     private static final int SIZE_AUTOMATION = 3;
+    private static final int SIZE_LIST = 4;
     private static final int GREEN = 0xFF2E9A44;
     private static final int RED = 0xFFBE2828;
     private static final String[] SIZE_KEYS = {"large", "medium", "small"};
@@ -110,6 +113,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     private String builtSearch = "";
     private EditBox search;
     private EditBox rename;
+    private int lastDeviceSize = -1;
     /** What the rename box renames: an entry index, -1 for the open farm. */
     private int renameEntry = Integer.MIN_VALUE;
 
@@ -149,9 +153,21 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         return menu.getPage() == TabletMenu.PAGE_AUTOMATION;
     }
 
+    private boolean isDevicesPage() {
+        return menu.getPage() == TabletMenu.PAGE_DEVICES;
+    }
+
+    private boolean inDeviceList() {
+        var view = menu.getDevices();
+        return isDevicesPage() && view != null && view.inType();
+    }
+
     private int size() {
         if (isAutomationPage()) {
             return SIZE_AUTOMATION;
+        }
+        if (isDevicesPage()) {
+            return inDeviceList() ? SIZE_LIST : SIZE_AUTOMATION;
         }
         var kind = kind();
         return kind == null ? 0 : viewSize[kind.ordinal()];
@@ -263,14 +279,19 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             case 0 -> ModItems.ME_LIBRARY.get();
             case 1 -> ModItems.ME_ARMORY.get();
             case 2 -> ModItems.ME_TOOL_RACK.get();
-            default -> ModItems.ME_FARM_CONTROLLER.get();
+            case 3 -> ModItems.ME_FARM_CONTROLLER.get(); // Automation
+            default -> appeng.core.definitions.AEBlocks.CONTROLLER.asItem();
         };
         return new ItemStack(item);
     }
 
     private static Component pageTitle(int page) {
         var kind = StorageKind.byIndex(page);
-        return kind != null ? kind.title() : Component.translatable("gui.appliedquartermaster.tab.automation");
+        if (kind != null) {
+            return kind.title();
+        }
+        return Component.translatable(page == TabletMenu.PAGE_DEVICES
+                ? "gui.appliedquartermaster.tab.devices" : "gui.appliedquartermaster.tab.automation");
     }
 
     private ItemStack tabStack(Tab tab) {
@@ -304,6 +325,38 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         builtVersion = menu.getViewVersion();
         builtSearch = text;
         cells.clear();
+        if (isDevicesPage()) {
+            // The overview and the device list use different layouts.
+            if (rows == 0 || lastDeviceSize != size()) {
+                lastDeviceSize = size();
+                scroll = 0;
+                relayout();
+                builtVersion = menu.getViewVersion();
+            }
+            var view = menu.getDevices();
+            if (view != null) {
+                var list = new ArrayList<Cell>();
+                for (int i = 0; i < view.entries().size(); i++) {
+                    var e = view.entries().get(i);
+                    String key = view.inType() ? e.pos().getX() + ", " + e.pos().getY() + ", " + e.pos().getZ() : e.name();
+                    if (text.isEmpty() || key.toLowerCase(Locale.ROOT).contains(text)
+                            || e.name().toLowerCase(Locale.ROOT).contains(text)) {
+                        list.add(new Cell(i, e.icon()));
+                    }
+                }
+                if (sort != SORT_STORAGE && !view.inType()) {
+                    Comparator<Cell> byName = Comparator.comparing(c -> view.entries().get(c.entry()).name().toLowerCase(Locale.ROOT));
+                    list.sort(sort == SORT_AZ ? byName : byName.reversed());
+                } else if (sort != SORT_STORAGE) {
+                    // In the list, "sort" puts problems first (A-Z) or last (Z-A).
+                    Comparator<Cell> byState = Comparator.comparingInt(c -> -view.entries().get(c.entry()).state());
+                    list.sort(sort == SORT_AZ ? byState : byState.reversed());
+                }
+                cells.addAll(list);
+            }
+            clampScroll();
+            return;
+        }
         if (isAutomationPage()) {
             var view = menu.getAutomation();
             if (view != null) {
@@ -443,6 +496,8 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             drawModulesPage(g, x, y, pinned);
         } else if (isAutomationPage()) {
             drawAutomationPage(g, x, y, mx, my);
+        } else if (isDevicesPage()) {
+            drawDevicesPage(g, x, y, mx, my);
         } else {
             drawStoragePage(g, x, y, mx, my);
         }
@@ -579,7 +634,182 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     }
 
     private int toolCount() {
-        return isAutomationPage() ? 1 : 3;
+        return isAutomationPage() || isDevicesPage() ? 1 : 3;
+    }
+
+    // ---------------------------------------------------------------- Devices page
+
+    private static String formatAe(double value) {
+        if (value >= 1_000_000_000) {
+            return String.format(Locale.ROOT, "%.1fG", value / 1_000_000_000);
+        }
+        if (value >= 1_000_000) {
+            return String.format(Locale.ROOT, "%.1fM", value / 1_000_000);
+        }
+        if (value >= 10_000) {
+            return String.format(Locale.ROOT, "%.1fk", value / 1_000);
+        }
+        return String.format(Locale.ROOT, value >= 100 ? "%.0f" : "%.1f", value);
+    }
+
+    private static int stateColor(int state) {
+        return switch (state) {
+            case DevicesViewPayload.ACTIVE -> 0xFF5AE66E;
+            case DevicesViewPayload.NO_CHANNEL -> 0xFFEB3C32;
+            case DevicesViewPayload.BOOTING -> 0xFFE8B53A;
+            default -> 0xFF46445A;
+        };
+    }
+
+    private static String stateKey(int state) {
+        return switch (state) {
+            case DevicesViewPayload.ACTIVE -> "active";
+            case DevicesViewPayload.NO_CHANNEL -> "no_channel";
+            case DevicesViewPayload.BOOTING -> "booting";
+            default -> "no_power";
+        };
+    }
+
+    private void drawDevicesPage(GuiGraphicsExtractor g, int x, int y, int mx, int my) {
+        var view = menu.getDevices();
+        boolean list = view != null && view.inType();
+        int hy = y + PANEL_Y + 4;
+        if (list) {
+            smallButton(g, x + BACK_X, hy, BACK_W, "<", inside(mx, my, BACK_X, PANEL_Y + 4, BACK_W, 13));
+            int tx = x + BACK_X + BACK_W + 4;
+            g.pose().pushMatrix();
+            g.pose().translate(tx, hy + 1);
+            g.pose().scale(0.75f, 0.75f);
+            g.item(view.titleIcon(), 0, 0);
+            g.pose().popMatrix();
+            var title = view.title() + " (" + view.entries().size() + ")";
+            g.text(font, shortName(title, W - 8 - 92 - 12 - (tx - x) - 15), tx + 15, y + PANEL_Y + 7, TEXT, false);
+        } else {
+            g.text(font, Component.translatable("gui.appliedquartermaster.tab.devices"), x + 8, y + PANEL_Y + 7, TEXT, false);
+            if (view != null && statusMessage() == null) {
+                var summary = Component.translatable("gui.appliedquartermaster.devices.summary",
+                        view.summary().devices(), view.summary().channels());
+                g.text(font, summary, x + W - 8 - 92 - 6 - font.width(summary), y + PANEL_Y + 7, TEXT_DIM, false);
+            }
+        }
+        drawGridFrame(g, x, y);
+        int gx = x + GRID_X;
+        int gy = y + gridY();
+        String message = statusMessage();
+        if (message != null || view == null) {
+            if (message != null) {
+                g.textWithWordWrap(font, Component.translatable(message), gx + 20, gy + gridH() / 2 - 8, GRID_W - 40, TEXT);
+            }
+            return;
+        }
+        int s = size();
+        int hovered = cellAt(mx, my);
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < COLS[s]; c++) {
+                int index = (scroll + r) * COLS[s] + c;
+                if (index >= cells.size()) {
+                    break;
+                }
+                var e = view.entries().get(cells.get(index).entry());
+                int cx = gx + c * CELL_W[s];
+                int cy = gy + r * CELL_H[s];
+                if (index == hovered) {
+                    g.fill(cx + 1, cy + 1, cx + CELL_W[s] - 1, cy + CELL_H[s] - 1, HOVER);
+                }
+                if (list) {
+                    drawDeviceRow(g, e, cx, cy, r);
+                } else {
+                    drawDeviceKind(g, e, cx, cy, s);
+                }
+            }
+        }
+    }
+
+    private void drawDeviceKind(GuiGraphicsExtractor g, DevicesViewPayload.Entry e, int cx, int cy, int s) {
+        int ix = cx + (CELL_W[s] - 48) / 2;
+        int iy = cy + 2;
+        g.pose().pushMatrix();
+        g.pose().translate(ix, iy);
+        g.pose().scale(3, 3);
+        g.item(e.icon(), 0, 0);
+        g.pose().popMatrix();
+        int badge = e.active() == e.count() ? 0xFF5AE66E : e.active() == 0 ? 0xFF46445A : 0xFFEB3C32;
+        badge(g, ix + 36, iy + 36, badge);
+        smallLines(g, e.name(), cx + CELL_W[s] / 2, iy + 50, CELL_W[s] - 2, 1, TEXT);
+        int offline = e.count() - e.active();
+        var sub = offline == 0
+                ? Component.translatable("gui.appliedquartermaster.devices.count", e.count())
+                : Component.translatable("gui.appliedquartermaster.devices.count_offline", e.count(), offline);
+        smallLines(g, sub.getString(), cx + CELL_W[s] / 2, iy + 57, CELL_W[s] - 2, 1, offline == 0 ? GREEN : RED);
+    }
+
+    private void drawDeviceRow(GuiGraphicsExtractor g, DevicesViewPayload.Entry e, int cx, int cy, int row) {
+        if (row % 2 == 1) {
+            g.fill(cx + 1, cy, cx + CELL_W[SIZE_LIST] - 1, cy + CELL_H[SIZE_LIST], 0x18413F54);
+        }
+        g.item(e.icon(), cx + 3, cy + 2);
+        var pos = e.pos();
+        String where = pos.getX() + ", " + pos.getY() + ", " + pos.getZ();
+        g.text(font, where, cx + 24, cy + 6, TEXT, false);
+        if (!e.dimension().isEmpty() && !e.dimension().equals("minecraft:overworld")) {
+            String dim = e.dimension().contains(":") ? e.dimension().substring(e.dimension().indexOf(':') + 1) : e.dimension();
+            smallLines(g, dim, cx + 24 + font.width(where) + 4 + font.width(dim) * 3 / 8, cy + 7, 80, 1, TEXT_DIM);
+        }
+        // State chip
+        var state = Component.translatable("gui.appliedquartermaster.devices.state." + stateKey(e.state())).getString();
+        int chipX = cx + 150;
+        g.fill(chipX, cy + 5, chipX + 6, cy + 11, OUTLINE);
+        g.fill(chipX + 1, cy + 6, chipX + 5, cy + 10, stateColor(e.state()));
+        g.text(font, state, chipX + 9, cy + 6, TEXT, false);
+        String right = (e.channels() > 0 ? e.channels() + " ch · " : "") + formatAe(e.power()) + " AE/t";
+        g.text(font, right, cx + CELL_W[SIZE_LIST] - 6 - font.width(right), cy + 6, TEXT_DIM, false);
+    }
+
+    private boolean devicesClicked(int mx, int my, int button, MouseButtonEvent event) {
+        var view = menu.getDevices();
+        if (inside(mx, my, TOOL_X, PANEL_Y + 4, 18, 18)) {
+            sort = (sort + (button == 1 ? 2 : 1)) % 3;
+            builtVersion = -1;
+            playClick();
+            return true;
+        }
+        if (view != null && view.inType() && inside(mx, my, BACK_X, PANEL_Y + 4, BACK_W, 13)) {
+            send(TabletActionPayload.DEVICE_BACK, -1, ItemStack.EMPTY, 0);
+            playClick();
+            return true;
+        }
+        if (inside(mx, my, GRID_X + GRID_W + 4, gridY(), SCROLL_W, gridH())) {
+            scrollTo(my);
+            return true;
+        }
+        if (view == null || !inGrid(mx, my) || menu.getStatus() != TabletNetwork.OK) {
+            return false;
+        }
+        int index = cellAt(mx, my);
+        if (index < 0) {
+            return true;
+        }
+        int entry = cells.get(index).entry();
+        send(view.inType() ? TabletActionPayload.DEVICE_LOCATE : TabletActionPayload.DEVICE_OPEN, entry, ItemStack.EMPTY, 0);
+        playClick();
+        return true;
+    }
+
+    private List<Component> deviceTooltip(DevicesViewPayload view, DevicesViewPayload.Entry e) {
+        var lines = new ArrayList<Component>();
+        lines.add(Component.literal(e.name()));
+        if (view.inType()) {
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.position",
+                    e.pos().getX(), e.pos().getY(), e.pos().getZ(), e.dimension()).withColor(TEXT_DIM));
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.state." + stateKey(e.state())).withColor(TEXT_DIM));
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.usage", e.channels(), formatAe(e.power())).withColor(TEXT_DIM));
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.hint_locate").withColor(HINT));
+        } else {
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.kind_detail", e.count(), e.active(),
+                    e.channels(), formatAe(e.power())).withColor(TEXT_DIM));
+            lines.add(Component.translatable("gui.appliedquartermaster.devices.hint_open").withColor(HINT));
+        }
+        return lines;
     }
 
     /** Grid well, scroll bar and search well shared by the storage and Automation pages. */
@@ -797,6 +1027,27 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             }
             lines.add(Component.translatable("gui.appliedquartermaster.info.modules", count, TabletModules.SLOTS));
             lines.add(Component.translatable("gui.appliedquartermaster.info.modules_hint"));
+        } else if (isDevicesPage()) {
+            var view = menu.getDevices();
+            if (view != null) {
+                var sum = view.summary();
+                // Energy bar
+                int bx = cx + 6;
+                int by = cy + 19;
+                int bw = cw - 12;
+                g.fill(bx, by, bx + bw, by + 6, OUTLINE);
+                g.fill(bx + 1, by + 1, bx + bw - 1, by + 5, 0xFF2A2938);
+                int filled = sum.maxStored() <= 0 ? 0 : (int) Math.round((bw - 2) * Math.min(1, sum.stored() / sum.maxStored()));
+                g.fill(bx + 1, by + 1, bx + 1 + filled, by + 5, 0xFF8E6BD9);
+                lines.add(Component.translatable("gui.appliedquartermaster.devices.energy",
+                        formatAe(sum.stored()), formatAe(sum.maxStored())));
+                lines.add(Component.translatable("gui.appliedquartermaster.devices.power",
+                        formatAe(sum.usage()), formatAe(sum.injection())));
+                lines.add(Component.translatable("gui.appliedquartermaster.devices.controller."
+                        + (sum.controller() == DevicesViewPayload.CONTROLLER_ONLINE ? "online"
+                        : sum.controller() == DevicesViewPayload.CONTROLLER_CONFLICT ? "conflict" : "none"),
+                        sum.channels()));
+            }
         } else if (isAutomationPage()) {
             var view = menu.getAutomation();
             if (view != null && view.inFarm()) {
@@ -818,7 +1069,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             lines.add(Component.translatable("gui.appliedquartermaster.info.blocks", total / 8, used, total));
             lines.add(Component.translatable("gui.appliedquartermaster.info.store_hint"));
         }
-        int ty = cy + 19;
+        int ty = cy + (ok && isDevicesPage() && menu.getDevices() != null ? 29 : 19);
         for (var line : lines) {
             for (var part : font.split(line, (int) ((cw - 12) / SMALL))) {
                 g.pose().pushMatrix();
@@ -872,6 +1123,18 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         int mx = mouseX - leftPos;
         int my = mouseY - topPos;
         int cell = cellAt(mx, my);
+        if (isDevicesPage()) {
+            var view = menu.getDevices();
+            if (cell >= 0 && view != null) {
+                g.setComponentTooltipForNextFrame(font, deviceTooltip(view, view.entries().get(cells.get(cell).entry())), mouseX, mouseY);
+                return;
+            }
+            var tooltip = tooltipAt(mx, my);
+            if (tooltip != null) {
+                g.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY);
+            }
+            return;
+        }
         if (isAutomationPage()) {
             var view = menu.getAutomation();
             if (cell >= 0 && view != null) {
@@ -936,12 +1199,19 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         if (inside(mx, my, gearX(), 0, TAB_W, TAB_H)) {
             return List.of(Component.translatable("gui.appliedquartermaster.tablet.modules"));
         }
-        if (isAutomationPage()) {
+        if (isAutomationPage() || isDevicesPage()) {
             if (inside(mx, my, TOOL_X, PANEL_Y + 4, 18, 18)) {
+                if (inDeviceList()) {
+                    return List.of(Component.translatable("gui.appliedquartermaster.devices.sort."
+                            + (sort == SORT_STORAGE ? "position" : sort == SORT_AZ ? "problems_first" : "problems_last")));
+                }
                 return List.of(Component.translatable("gui.appliedquartermaster.tablet.sort."
                         + (sort == SORT_STORAGE ? "storage" : sort == SORT_AZ ? "az" : "za")));
             }
-            var view = menu.getAutomation();
+            if (inDeviceList() && inside(mx, my, BACK_X, PANEL_Y + 4, BACK_W, 13)) {
+                return List.of(Component.translatable("gui.appliedquartermaster.devices.back"));
+            }
+            var view = isAutomationPage() ? menu.getAutomation() : null;
             if (view != null && view.inFarm()) {
                 if (inside(mx, my, BACK_X, PANEL_Y + 4, BACK_W, 13)) {
                     return List.of(Component.translatable("gui.appliedquartermaster.automation.back"));
@@ -1037,6 +1307,12 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         }
         if (isAutomationPage()) {
             if (automationClicked(mx, my, button, event.hasShiftDown(), carrying, event)) {
+                return true;
+            }
+            return super.mouseClicked(event, doubleClick);
+        }
+        if (isDevicesPage()) {
+            if (devicesClicked(mx, my, button, event)) {
                 return true;
             }
             return super.mouseClicked(event, doubleClick);

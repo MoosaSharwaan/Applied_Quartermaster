@@ -16,5 +16,7 @@ public final class ModNetwork {
                 (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onView(payload));
         registrar.playToClient(AutomationViewPayload.TYPE, AutomationViewPayload.STREAM_CODEC,
                 (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onAutomation(payload));
+        registrar.playToClient(DevicesViewPayload.TYPE, DevicesViewPayload.STREAM_CODEC,
+                (payload, context) -> io.github.moosasharwaan.appliedquartermaster.client.ClientPayloads.onDevices(payload));
     }
 }

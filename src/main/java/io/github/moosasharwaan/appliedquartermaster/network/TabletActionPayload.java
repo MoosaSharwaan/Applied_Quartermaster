@@ -28,6 +28,11 @@ public record TabletActionPayload(int containerId, int action, int entry, ItemSt
     /** Sets the icon of a farm or plate to the held (carried) item, or clears it when nothing is held. */
     public static final int SET_ICON = 16;
     public static final int RENAME = 17;
+    // Devices page
+    public static final int DEVICE_OPEN = 20;
+    public static final int DEVICE_BACK = 21;
+    /** Shows where a device is: a light beam above it and its position and direction in the action bar. */
+    public static final int DEVICE_LOCATE = 22;
 
     public TabletActionPayload(int containerId, int action, int entry, ItemStack expected, int arg) {
         this(containerId, action, entry, expected, arg, "");

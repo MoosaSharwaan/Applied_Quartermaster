@@ -95,8 +95,8 @@ public final class TabletModules {
     /** Pin value for a storage tab (Library, Armory, Tools); module slots use 0..3. */
     public static final int PIN_STORAGE = 10;
 
-    /** Number of pages after the Modules page: Library, Armory, Tools and Automation. */
-    public static final int PAGES = StorageKind.values().length + 1;
+    /** Number of pages after the Modules page: Library, Armory, Tools, Automation and Devices. */
+    public static final int PAGES = StorageKind.values().length + 2;
 
     /**
      * @return the pinned tab: 0..3 for a module slot, {@link #PIN_STORAGE} + kind for a storage tab, or -1 if none.

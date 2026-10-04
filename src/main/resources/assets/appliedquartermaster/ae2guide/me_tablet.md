@@ -28,6 +28,8 @@ The tablet reaches the network the terminal module is linked to, through a power
 ## Tabs that unlock
 
 The **Library**, **Armory**, **Tools** and **Automation** tabs appear while their block is on the linked network.
+The **Devices** tab is always there: it lists every AE2 device on the network by kind. Click a kind to see each
+device's position, state, channels and power use, and click a device to show where it is with a beam of light.
 
 * Click an item to pick it up (it swaps with the item you hold); shift-click to move it to your inventory.
 * Shift-click an item in your inventory to store it on the network.

@@ -1,6 +1,7 @@
 package io.github.moosasharwaan.appliedquartermaster.client;
 
 import io.github.moosasharwaan.appliedquartermaster.network.AutomationViewPayload;
+import io.github.moosasharwaan.appliedquartermaster.network.DevicesViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.tablet.TabletMenu;
 import net.minecraft.client.Minecraft;
@@ -9,6 +10,13 @@ import net.minecraft.client.Minecraft;
 public final class ClientPayloads {
 
     private ClientPayloads() {
+    }
+
+    public static void onDevices(DevicesViewPayload payload) {
+        var player = Minecraft.getInstance().player;
+        if (player != null && player.containerMenu instanceof TabletMenu menu && menu.containerId == payload.containerId()) {
+            menu.receiveDevices(payload);
+        }
     }
 
     public static void onAutomation(AutomationViewPayload payload) {

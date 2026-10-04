@@ -118,6 +118,30 @@ Only real free spots are drawn as boxes: two Armories holding 7 items show 9 emp
 
 See [Farm automation](#farm-automation).
 
+### Devices tab
+
+The **Devices** tab is always there while the tablet reaches a network. It lists every AE2 device on the network,
+grouped by kind, much like AE2's Network Status screen, but you can look inside each group and find the blocks.
+
+![The Devices tab](docs/screenshots/tab_devices.png)
+
+* Each kind shows its icon, how many there are, and a status badge: green when all are working, red when some are
+  offline (the count of offline ones is shown).
+* The info card on the right shows the network's stored energy as a bar, the energy figures, power use and gain, and
+  whether the ME Controller is online with how many channels are in use.
+* Click a kind to list each device of it: its position (and dimension when not the Overworld), a state chip
+  (**Active**, **No channel**, **No power** or **Starting**), the channels it carries and its power use in AE/t.
+  Hover a row for full details.
+
+![One kind's devices](docs/screenshots/tab_devices_list.png)
+
+* Click a row to **locate** the device: the tablet tells you its distance and direction, and a beam of light rises
+  from it for 10 seconds.
+* The sort button orders the list by position, problems first or problems last (A–Z or Z–A for kinds).
+  The search box filters by name or position. **<** goes back to the kinds.
+
+![Locating a device](docs/screenshots/devices_locate.png)
+
 ## ME Library
 
 Each ME Library holds **8 guide books** and uses **1 channel**. Libraries that touch pass the network along, so a row of

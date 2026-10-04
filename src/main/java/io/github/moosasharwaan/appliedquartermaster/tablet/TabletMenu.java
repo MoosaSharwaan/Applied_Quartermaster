@@ -2,7 +2,10 @@ package io.github.moosasharwaan.appliedquartermaster.tablet;
 
 import io.github.moosasharwaan.appliedquartermaster.automation.FarmControllerBlockEntity;
 import io.github.moosasharwaan.appliedquartermaster.automation.RedstonePlatePart;
+import io.github.moosasharwaan.appliedquartermaster.devices.DeviceLocator;
+import io.github.moosasharwaan.appliedquartermaster.devices.DeviceScanner;
 import io.github.moosasharwaan.appliedquartermaster.network.AutomationViewPayload;
+import io.github.moosasharwaan.appliedquartermaster.network.DevicesViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModItems;
@@ -36,6 +39,7 @@ public class TabletMenu extends AbstractContainerMenu {
 
     public static final int PAGE_MODULES = -1;
     public static final int PAGE_AUTOMATION = StorageKind.values().length;
+    public static final int PAGE_DEVICES = PAGE_AUTOMATION + 1;
 
     public static final int BUTTON_OPEN = 0;
     public static final int BUTTON_PIN = 100;
@@ -85,6 +89,15 @@ public class TabletMenu extends AbstractContainerMenu {
 
     // Client: Automation page.
     private AutomationViewPayload automation;
+
+    // Server: Devices page.
+    private final List<appeng.api.stacks.AEItemKey> kindRefs = new ArrayList<>();
+    private final List<DeviceScanner.Device> deviceRefs = new ArrayList<>();
+    private appeng.api.stacks.AEItemKey selectedKind;
+    private DevicesViewPayload lastDevices;
+
+    // Client: Devices page.
+    private DevicesViewPayload devices;
     private int ticks;
 
     // Client: the latest view from the server.
@@ -209,6 +222,15 @@ public class TabletMenu extends AbstractContainerMenu {
         return automation;
     }
 
+    public DevicesViewPayload getDevices() {
+        return devices;
+    }
+
+    public void receiveDevices(DevicesViewPayload payload) {
+        this.devices = payload;
+        this.viewVersion++;
+    }
+
     public void receiveAutomation(AutomationViewPayload payload) {
         this.automation = payload;
         this.viewVersion++;
@@ -273,6 +295,7 @@ public class TabletMenu extends AbstractContainerMenu {
                 page = newPage;
                 lastSent = null;
                 lastAutomation = null;
+                lastDevices = null;
                 return true;
             }
             return false;
@@ -313,6 +336,8 @@ public class TabletMenu extends AbstractContainerMenu {
             if (TabletNetwork.farmsPresent(network.grid())) {
                 mask |= 1 << PAGE_AUTOMATION;
             }
+            // The Devices tab is there whenever the tablet reaches a network.
+            mask |= 1 << PAGE_DEVICES;
             var kind = getPageKind();
             if (kind != null) {
                 for (var be : TabletNetwork.blocks(network.grid(), kind)) {
@@ -340,6 +365,53 @@ public class TabletMenu extends AbstractContainerMenu {
                 PacketDistributor.sendToPlayer(player, view);
             }
         }
+        if (page == PAGE_DEVICES) {
+            var view = buildDevices(network.grid());
+            if (!view.sameAs(lastDevices)) {
+                lastDevices = view;
+                PacketDistributor.sendToPlayer(player, view);
+            }
+        }
+    }
+
+    private DevicesViewPayload buildDevices(appeng.api.networking.IGrid grid) {
+        if (grid == null) {
+            kindRefs.clear();
+            deviceRefs.clear();
+            return DevicesViewPayload.empty(containerId);
+        }
+        var all = DeviceScanner.devices(grid);
+        var summary = DeviceScanner.summary(grid, all.size());
+        if (selectedKind != null) {
+            var entries = DeviceScanner.devicesOf(all, selectedKind, deviceRefs);
+            if (!entries.isEmpty()) {
+                return new DevicesViewPayload(containerId, true, DeviceScanner.name(selectedKind),
+                        DeviceScanner.icon(selectedKind), summary, entries);
+            }
+            selectedKind = null;
+        }
+        deviceRefs.clear();
+        return new DevicesViewPayload(containerId, false, "", ItemStack.EMPTY, summary, DeviceScanner.kinds(all, kindRefs));
+    }
+
+    private void handleDevicesAction(ServerPlayer player, TabletActionPayload action) {
+        int entry = action.entry();
+        switch (action.action()) {
+            case TabletActionPayload.DEVICE_OPEN -> {
+                if (selectedKind == null && entry >= 0 && entry < kindRefs.size()) {
+                    selectedKind = kindRefs.get(entry);
+                }
+            }
+            case TabletActionPayload.DEVICE_BACK -> selectedKind = null;
+            case TabletActionPayload.DEVICE_LOCATE -> {
+                if (selectedKind != null && entry >= 0 && entry < deviceRefs.size()) {
+                    DeviceLocator.locate(player, deviceRefs.get(entry));
+                }
+            }
+            default -> {
+            }
+        }
+        lastDevices = null;
     }
 
     private AutomationViewPayload buildAutomation(appeng.api.networking.IGrid grid) {
@@ -453,6 +525,11 @@ public class TabletMenu extends AbstractContainerMenu {
     // ------------------------------------------------------------------ server actions
 
     public void handleAction(ServerPlayer player, TabletActionPayload action) {
+        if (page == PAGE_DEVICES && action.action() >= TabletActionPayload.DEVICE_OPEN) {
+            handleDevicesAction(player, action);
+            broadcastChanges();
+            return;
+        }
         if (page == PAGE_AUTOMATION && action.action() >= TabletActionPayload.OPEN_FARM) {
             handleAutomationAction(player, action);
             broadcastChanges();

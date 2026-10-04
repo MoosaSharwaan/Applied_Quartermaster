@@ -166,6 +166,19 @@ public final class SelfTest {
         STEPS.add(new Step(5, () -> Minecraft.getInstance().options.hideGui = true));
         STEPS.add(new Step(30, () -> shot("05f_world_farm")));
         STEPS.add(new Step(5, () -> Minecraft.getInstance().options.hideGui = false));
+        // Devices page: overview, the list of ME Libraries, then locate one.
+        STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_DEVICES))));
+        STEPS.add(new Step(30, () -> shot("05g_devices_overview")));
+        STEPS.add(new Step(5, () -> server(p -> openDeviceKind(p, "ME Library"))));
+        STEPS.add(new Step(30, () -> shot("05h_devices_list")));
+        STEPS.add(new Step(5, () -> server(p -> automation(p, TabletActionPayload.DEVICE_LOCATE, 0))));
+        STEPS.add(new Step(10, () -> server(ServerPlayer::closeContainer)));
+        STEPS.add(new Step(5, () -> {
+            var player = Minecraft.getInstance().player;
+            player.setYRot(-75f);
+            player.setXRot(-5f);
+        }));
+        STEPS.add(new Step(20, () -> shot("05i_devices_locate_beam")));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openModule(p, tabletSlot, 0))));
         STEPS.add(new Step(40, () -> shot("06_terminal_from_tablet")));
         STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
@@ -283,6 +296,30 @@ public final class SelfTest {
         menu.handleAction(player, new TabletActionPayload(
                 menu.containerId, TabletActionPayload.STORE, -1, ItemStack.EMPTY, 0));
         AppliedQuartermaster.LOGGER.info("SELFTEST store: carried now={}", menu.getCarried());
+    }
+
+    /** Opens the device list for the kind with the given name on the Devices page. */
+    private static void openDeviceKind(ServerPlayer player, String name) {
+        if (!(player.containerMenu instanceof TabletMenu menu)) {
+            return;
+        }
+        menu.broadcastChanges();
+        var grid = io.github.moosasharwaan.appliedquartermaster.tablet.TabletNetwork.find(player, menu.getTablet()).grid();
+        if (grid == null) {
+            AppliedQuartermaster.LOGGER.error("SELFTEST devices: no network");
+            return;
+        }
+        var kinds = new java.util.ArrayList<appeng.api.stacks.AEItemKey>();
+        var entries = io.github.moosasharwaan.appliedquartermaster.devices.DeviceScanner.kinds(
+                io.github.moosasharwaan.appliedquartermaster.devices.DeviceScanner.devices(grid), kinds);
+        for (int i = 0; i < entries.size(); i++) {
+            AppliedQuartermaster.LOGGER.info("SELFTEST device kind {}: {} x{} ({} active, {} ch, {} AE/t)", i,
+                    entries.get(i).name(), entries.get(i).count(), entries.get(i).active(), entries.get(i).channels(),
+                    entries.get(i).power());
+            if (entries.get(i).name().equals(name)) {
+                automation(player, TabletActionPayload.DEVICE_OPEN, i);
+            }
+        }
     }
 
     private static void automation(ServerPlayer player, int action, int entry) {
