@@ -1,0 +1,88 @@
+bigger_ae2-26.1.2.1.jar
+SERVER STARTED
+Failed to parse MC version from NeoForge version 26.1.2.107. Using capabilities of latest known Minecraft version with Minecraft version 26.1-snapshot-1.
+client exit 0
+[22:18:28] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 01_world: Saved screenshot as aq_01_world.png
+[22:18:30] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 00_overview: Saved screenshot as aq_00_overview.png
+[22:18:32] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 01b_tablet_in_hand: Saved screenshot as aq_01b_tablet_in_hand.png
+[22:18:32] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 01c_tablet_in_hand_level: Saved screenshot as aq_01c_tablet_in_hand_level.png
+[22:18:34] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 01d_tablet_third_person: Saved screenshot as aq_01d_tablet_third_person.png
+[22:18:35] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 01e_tablet_third_person_back: Saved screenshot as aq_01e_tablet_third_person_back.png
+[22:18:37] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 02_modules: Saved screenshot as aq_02_modules.png
+[22:18:39] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 03_library_large: Saved screenshot as aq_03_library_large.png
+[22:18:40] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 03_armory_large: Saved screenshot as aq_03_armory_large.png
+[22:18:42] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 03_tools_large: Saved screenshot as aq_03_tools_large.png
+[22:18:44] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 04_armory_medium: Saved screenshot as aq_04_armory_medium.png
+[22:18:46] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05_armory_small: Saved screenshot as aq_05_armory_small.png
+[22:18:47] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST take: inventory has diamond sword=true
+[22:18:47] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST store: carried now=0 minecraft:air
+[22:18:49] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05b_armory_after_take_and_store: Saved screenshot as aq_05b_armory_after_take_and_store.png
+[22:18:51] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05c_automation_farms: Saved screenshot as aq_05c_automation_farms.png
+[22:18:53] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05d_automation_plates: Saved screenshot as aq_05d_automation_plates.png
+[22:18:55] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05e_automation_plate_on: Saved screenshot as aq_05e_automation_plate_on.png
+[22:18:55] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST farm online=true plates=2 state=Block{appliedquartermaster:me_farm_controller}[facing=west,powered=true]
+[22:18:55] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST plate side=up on=true online=true strength=15
+[22:18:55] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST plate side=west on=false online=true strength=15
+[22:18:55] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST lamp west=Block{minecraft:air} lamp up=Block{minecraft:redstone_lamp}[lit=true]
+[22:18:57] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05f_world_farm: Saved screenshot as aq_05f_world_farm.png
+[22:18:59] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05g_devices_overview: Saved screenshot as aq_05g_devices_overview.png
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 0: Creative Energy Cell x1 (1 active, 1 ch, 0.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 1: ME Armory x2 (2 active, 3 ch, 2.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 2: ME Controller x1 (1 active, 0 ch, 3.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 3: ME Farm Controller x1 (1 active, 1 ch, 1.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 4: ME Library x2 (2 active, 9 ch, 2.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 5: ME Tool Rack x1 (1 active, 1 ch, 1.0 AE/t)
+[22:19:00] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 6: ME Wireless Access Point x1 (1 active, 1 ch, 8.0 AE/t)
+[22:19:01] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05h_devices_list: Saved screenshot as aq_05h_devices_list.png
+[22:19:03] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 05i_devices_locate_beam: Saved screenshot as aq_05i_devices_locate_beam.png
+[22:19:06] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 06_terminal_from_tablet: Saved screenshot as aq_06_terminal_from_tablet.png
+[22:19:08] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 07_back_to_tablet: Saved screenshot as aq_07_back_to_tablet.png
+[22:19:09] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 08_library_block_screen: Saved screenshot as aq_08_library_block_screen.png
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST LIBRARY at BlockPos{x=-3, y=-60, z=1}: active=true items=3 state=Block{appliedquartermaster:me_library}[books=3,facing=west,powered=true]
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST ARMORY at BlockPos{x=-3, y=-59, z=1}: active=true items=7 state=Block{appliedquartermaster:me_armory}[down=false,facing=west,left=false,powered=true,right=true,up=false]
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST LIBRARY at BlockPos{x=-3, y=-60, z=2}: active=true items=0 state=Block{appliedquartermaster:me_library}[books=0,facing=west,powered=true]
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST ARMORY at BlockPos{x=-3, y=-59, z=2}: active=true items=0 state=Block{appliedquartermaster:me_armory}[down=false,facing=west,left=true,powered=true,right=false,up=false]
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST TOOLS at BlockPos{x=-3, y=-60, z=3}: active=true items=2 state=Block{appliedquartermaster:me_tool_rack}[down=false,facing=west,left=false,powered=true,right=false,up=false]
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_tablet loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_library loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_armory loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_tool_rack loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_farm_controller loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST recipe me_redstone_plate loaded=true
+[22:19:10] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST library accepts written book=true enchanted book=false sword=false
+[22:19:11] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST addons loaded: [bigger_ae2]
+[22:19:11] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST addon machines: 0 of 0 candidates from []
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 0: Creative Energy Cell x1 (1 active, 1 ch, 0.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 1: ME Armory x2 (2 active, 3 ch, 2.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 2: ME Controller x1 (1 active, 0 ch, 3.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 3: ME Farm Controller x1 (1 active, 1 ch, 1.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 4: ME Library x2 (2 active, 9 ch, 2.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 5: ME Tool Rack x1 (1 active, 1 ch, 1.0 AE/t)
+[22:19:14] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST device kind 6: ME Wireless Access Point x1 (1 active, 1 ch, 8.0 AE/t)
+[22:19:16] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 10a_addons_devices: Saved screenshot as aq_10a_addons_devices.png
+[22:19:18] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 10b_addons_modules: Saved screenshot as aq_10b_addons_modules.png
+[22:19:18] [Server thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST addon terminal opened=false
+[22:19:20] [Render thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST addon terminal screen: io.github.moosasharwaan.appliedquartermaster.client.TabletScreen@2a32be8d
+[22:19:20] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 10c_addons_terminal: Saved screenshot as aq_10c_addons_terminal.png
+[22:19:22] [Render thread/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST back from addon terminal: io.github.moosasharwaan.appliedquartermaster.client.TabletScreen@2a32be8d
+[22:19:22] [IO-Worker-2/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 10d_addons_back_to_tablet: Saved screenshot as aq_10d_addons_back_to_tablet.png
+[22:19:25] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 09_guide_applied_quartermaster: Saved screenshot as aq_09_guide_applied_quartermaster.png
+[22:19:27] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 09_guide_me_tablet: Saved screenshot as aq_09_guide_me_tablet.png
+[22:19:29] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 09_guide_farm_automation: Saved screenshot as aq_09_guide_farm_automation.png
+[22:19:32] [IO-Worker-3/INFO] [io.gi.mo.ap.AppliedQuartermaster/]: SELFTEST screenshot 09_guide_recipes: Saved screenshot as aq_09_guide_recipes.png
+----- tail
+[22:19:33] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[saves/aqtest]'/minecraft:overworld
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[saves/aqtest]'/minecraft:the_end
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[saves/aqtest]'/minecraft:the_nether
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[saves/aqtest]'/ae2:spatial_storage
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (spatial_storage): All chunks are saved
+[22:19:34] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1791152260070.json
+
+BUILD SUCCESSFUL in 1m 59s
+6 actionable tasks: 2 executed, 4 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

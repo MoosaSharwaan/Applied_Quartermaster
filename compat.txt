@@ -1,0 +1,16 @@
+MOD bigger-ae2 26.1.2.1 -> bigger_ae2-26.1.2.1.jar (requested)
+  needs ae2
+JAR bigger-ae2: modids=['bigger_ae2']
+  ITEM bigger_ae2:1024_core_crafting_accelerator=1024 Core Crafting Accelerator
+  ITEM bigger_ae2:16_core_crafting_accelerator=16 Core Crafting Accelerator
+  ITEM bigger_ae2:256_core_crafting_accelerator=256 Core Crafting Accelerator
+  ITEM bigger_ae2:4_core_crafting_accelerator=4 Core Crafting Accelerator
+  ITEM bigger_ae2:64_core_crafting_accelerator=64 Core Crafting Accelerator
+  ITEM bigger_ae2:advanced_fluid_cell_housing=Advanced Fluid Cell Housing
+  ITEM bigger_ae2:advanced_item_cell_housing=Advanced Item Cell Housing
+  ITEM bigger_ae2:digital_singularity_cell_component=Digital Singularity Cell Component
+  ITEM bigger_ae2:digital_singularity_fluid_storage_cell=Digital Singularity Fluid Storage Cell
+  ITEM bigger_ae2:digital_singularity_item_storage_cell=Digital Singularity Item Storage Cell
+  ITEM bigger_ae2:quantum_cell_component=Quantum Cell Component
+  ITEM bigger_ae2:quantum_fluid_storage_cell=Quantum Fluid Storage Cell
+  ITEM bigger_ae2:quantum_item_storage_cell=Quantum Item Storage Cell
