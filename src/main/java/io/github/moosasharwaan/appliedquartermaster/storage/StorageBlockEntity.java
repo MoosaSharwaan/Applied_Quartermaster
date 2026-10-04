@@ -51,6 +51,7 @@ public abstract class StorageBlockEntity extends BlockEntity implements IInWorld
     private final StorageKind kind;
     private final NonNullList<ItemStack> items = NonNullList.withSize(StorageKind.SLOTS, ItemStack.EMPTY);
     private final IManagedGridNode mainNode;
+    private boolean unloading;
 
     protected StorageBlockEntity(BlockEntityType<?> type, StorageKind kind, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -122,10 +123,13 @@ public abstract class StorageBlockEntity extends BlockEntity implements IInWorld
 
     /** Lights on with power and a channel; library shelves show how many books are inside. */
     protected void updateBlockState() {
-        if (level == null || level.isClientSide()) {
+        if (level == null || level.isClientSide() || isRemoved() || unloading || !level.isLoaded(worldPosition)) {
             return;
         }
-        var state = getBlockState();
+        var state = level.getBlockState(worldPosition);
+        if (!state.is(getBlockState().getBlock())) {
+            return;
+        }
         var updated = state;
         if (updated.hasProperty(StorageMachine.POWERED)) {
             updated = updated.setValue(StorageMachine.POWERED, mainNode.isActive());
@@ -153,6 +157,7 @@ public abstract class StorageBlockEntity extends BlockEntity implements IInWorld
     @Override
     public void clearRemoved() {
         super.clearRemoved();
+        unloading = false;
         GridHelper.onFirstTick(this, be -> {
             be.mainNode.create(be.getLevel(), be.getBlockPos());
             be.updateBlockState();
@@ -168,6 +173,7 @@ public abstract class StorageBlockEntity extends BlockEntity implements IInWorld
     @Override
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
+        unloading = true;
         mainNode.destroy();
     }
 

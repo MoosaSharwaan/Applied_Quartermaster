@@ -42,13 +42,13 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     private static final int TAB_W = 26;
     private static final int TAB_H = 20;
     private static final int PANEL_Y = TAB_H - 2;
-    private static final int HEADER_H = 20;
+    private static final int HEADER_H = 18;
     private static final int GRID_X = 8;
     private static final int GRID_W = 17 * 18;
     private static final int SCROLL_W = 12;
-    private static final int INV_SECTION_H = 12 + 3 * 18 + 4 + 18 + 8;
+    private static final int INV_SECTION_H = 10 + 3 * 18 + 4 + 18 + 6;
     private static final int BOX = 36;
-    private static final int MODULES_CONTENT_H = 76;
+    private static final int MODULES_CONTENT_H = 62;
     private static final int TOOL_X = -22;
 
     /** Large, Medium, Small: columns, cell size, item scale, rows at most. */
@@ -64,19 +64,21 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     private static final int SORT_ZA = 2;
 
     // ---------------------------------------------------------------- palette (AE2 / vanilla GUI)
-    private static final int OUTLINE = 0xFF000000;
-    private static final int FACE = 0xFFC6C6C6;
-    private static final int LIGHT = 0xFFFFFFFF;
-    private static final int SHADOW = 0xFF555555;
-    private static final int SLOT = 0xFF8B8B8B;
-    private static final int SLOT_DARK = 0xFF373737;
-    private static final int TAB_IDLE = 0xFFA8A8A8;
-    private static final int GRID_BG = 0xFFB4B4BC;
+    private static final int OUTLINE = 0xFF413F54;
+    private static final int FACE = 0xFFCBCCD4;
+    private static final int LIGHT = 0xFFF2F2F2;
+    private static final int SHADOW = 0xFF878FA5;
+    private static final int SLOT = 0xFFADB0C4;
+    private static final int SLOT_DARK = 0xFF878FA5;
+    private static final int TAB_IDLE = 0xFFADB0C4;
+    private static final int GRID_BG = 0xFFBDBFCC;
+    private static final int BUTTON = 0xFF4D4D67;
+    private static final int BUTTON_HOVER = 0xFF63637F;
     private static final int HOVER = 0x60FFFFFF;
     private static final int GOLD = 0xFFE8B53A;
     private static final int GOLD_DARK = 0xFF8A5E12;
-    private static final int TEXT = 0xFF404040;
-    private static final int TEXT_DIM = 0xFF707070;
+    private static final int TEXT = 0xFF413F54;
+    private static final int TEXT_DIM = 0xFF7A7D93;
     private static final int HINT = 0xFF7FD7FF;
 
     private record Tab(int module, StorageKind kind) {
@@ -102,9 +104,8 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
 
     public TabletScreen(TabletMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, W, 200);
-        var tablet = menu.getTablet();
         for (var kind : StorageKind.values()) {
-            viewSize[kind.ordinal()] = TabletModules.getViewSize(tablet, kind);
+            viewSize[kind.ordinal()] = menu.getInitialViewSize(kind);
         }
     }
 
@@ -143,7 +144,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     }
 
     private int inventoryY() {
-        return panelH + PANEL_Y - INV_SECTION_H + 12;
+        return panelH + PANEL_Y - INV_SECTION_H + 10;
     }
 
     /** Sizes the panel for the open page and screen height, then moves the slots to match. */
@@ -155,14 +156,14 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             contentH = HEADER_H + MODULES_CONTENT_H;
         } else {
             int s = size();
-            int available = height - 8 - PANEL_Y - HEADER_H - INV_SECTION_H - 6;
+            int available = height - 4 - PANEL_Y - HEADER_H - INV_SECTION_H - 4;
             rows = Math.max(1, Math.min(MAX_ROWS[s], available / CELL_H[s]));
-            contentH = HEADER_H + rows * CELL_H[s] + 4;
+            contentH = HEADER_H + rows * CELL_H[s] + 2;
         }
         panelH = contentH + INV_SECTION_H;
         int totalH = PANEL_Y + panelH;
         leftPos = (width - W) / 2;
-        topPos = Math.max(4, (height - totalH) / 2);
+        topPos = Math.max(2, (height - totalH) / 2);
 
         int moduleX0 = (W - (TabletModules.SLOTS * 40 - 4)) / 2 + (BOX - 16) / 2;
         for (int i = 0; i < TabletModules.SLOTS; i++) {
@@ -355,15 +356,16 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             }
         }
 
-        // Left toolbar (storage pages).
+        // Left toolbar (storage pages), drawn like AE2's terminal buttons.
         if (kind() != null) {
-            String[] glyphs = {sort == SORT_STORAGE ? "#" : sort == SORT_AZ ? "A" : "Z", showFree ? "□" : "■",
-                    String.valueOf(size() == 0 ? 'L' : size() == 1 ? 'M' : 'S')};
-            for (int i = 0; i < glyphs.length; i++) {
+            for (int i = 0; i < 3; i++) {
                 int bx = x + TOOL_X;
                 int by = y + PANEL_Y + 4 + i * 20;
-                bevel(g, bx, by, 18, 18, inside(mx, my, TOOL_X, PANEL_Y + 4 + i * 20, 18, 18) ? 0xFFD8D8E0 : FACE);
-                g.text(font, glyphs[i], bx + 9 - font.width(glyphs[i]) / 2, by + 5, TEXT, false);
+                g.fill(bx, by, bx + 18, by + 18, OUTLINE);
+                g.fill(bx + 1, by + 1, bx + 17, by + 17,
+                        inside(mx, my, TOOL_X, PANEL_Y + 4 + i * 20, 18, 18) ? BUTTON_HOVER : BUTTON);
+                String[] icon = i == 0 ? SORT_ICONS[sort] : i == 1 ? (showFree ? FILTER_OFF : FILTER_ON) : SIZE_ICONS[size()];
+                pixels(g, icon, bx + 3, by + 3, 0xFFF2F2F2);
             }
         }
 
@@ -374,7 +376,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         }
 
         // Inventory.
-        g.text(font, playerInventoryTitle, x + inventoryX(), y + inventoryY() - 11, TEXT, false);
+        g.text(font, playerInventoryTitle, x + inventoryX(), y + inventoryY() - 10, TEXT, false);
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 inset(g, x + inventoryX() - 1 + col * 18, y + inventoryY() - 1 + row * 18, 18, 18, SLOT);
@@ -391,7 +393,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
             var slot = menu.slots.get(i);
             int bx = x + slot.x - (BOX - 16) / 2;
             int by = y + slot.y - (BOX - 16) / 2;
-            inset(g, bx, by, BOX, BOX, i == pinned ? 0xFFD9C79A : SLOT);
+            inset(g, bx, by, BOX, BOX, i == pinned ? 0xFFE3D6B0 : SLOT);
             if (i == pinned) {
                 g.outline(bx - 1, by - 1, BOX + 2, BOX + 2, GOLD);
             }
@@ -414,7 +416,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         // Search box well.
         int sx = x + W - 8 - 92;
         int sy = y + PANEL_Y + 4;
-        inset(g, sx, sy, 92, 13, 0xFF2A2A36);
+        inset(g, sx, sy, 92, 13, 0xFF9A9FB4);
 
         int gx = x + GRID_X;
         int gy = y + gridY();
@@ -791,22 +793,14 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         g.fill(x + 1, y + TAB_H - 2, x + TAB_W - 1, y + TAB_H + 1, FACE);
     }
 
-    /** Raised vanilla-style panel with a black outline and cut corners. */
+    /** Raised panel in AE2's terminal colours: slate outline, light top-left edge, blue-grey shadow. */
     private static void panel(GuiGraphicsExtractor g, int x, int y, int w, int h) {
-        g.fill(x + 2, y, x + w - 2, y + 1, OUTLINE);
-        g.fill(x + 2, y + h - 1, x + w - 2, y + h, OUTLINE);
-        g.fill(x, y + 2, x + 1, y + h - 2, OUTLINE);
-        g.fill(x + w - 1, y + 2, x + w, y + h - 2, OUTLINE);
-        g.fill(x + 1, y + 1, x + 2, y + 2, OUTLINE);
-        g.fill(x + w - 2, y + 1, x + w - 1, y + 2, OUTLINE);
-        g.fill(x + 1, y + h - 2, x + 2, y + h - 1, OUTLINE);
-        g.fill(x + w - 2, y + h - 2, x + w - 1, y + h - 1, OUTLINE);
-        g.fill(x + 1, y + 2, x + w - 1, y + h - 2, FACE);
-        g.fill(x + 2, y + 1, x + w - 2, y + h - 1, FACE);
-        g.fill(x + 2, y + 1, x + w - 3, y + 3, LIGHT);
-        g.fill(x + 1, y + 2, x + 3, y + h - 3, LIGHT);
-        g.fill(x + 3, y + h - 3, x + w - 2, y + h - 1, SHADOW);
-        g.fill(x + w - 3, y + 3, x + w - 1, y + h - 2, SHADOW);
+        g.fill(x, y, x + w, y + h, OUTLINE);
+        g.fill(x + 1, y + 1, x + w - 1, y + h - 1, FACE);
+        g.fill(x + 1, y + 1, x + w - 2, y + 2, LIGHT);
+        g.fill(x + 1, y + 1, x + 2, y + h - 2, LIGHT);
+        g.fill(x + 2, y + h - 2, x + w - 1, y + h - 1, SHADOW);
+        g.fill(x + w - 2, y + 2, x + w - 1, y + h - 1, SHADOW);
     }
 
     /** Raised box (tabs, buttons). */
@@ -848,12 +842,38 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
     };
 
     private static void gear(GuiGraphicsExtractor g, int x, int y, int color) {
-        for (int row = 0; row < GEAR.length; row++) {
-            for (int col = 0; col < GEAR[row].length(); col++) {
-                if (GEAR[row].charAt(col) == '#') {
+        pixels(g, GEAR, x, y, color);
+    }
+
+    private static void pixels(GuiGraphicsExtractor g, String[] art, int x, int y, int color) {
+        for (int row = 0; row < art.length; row++) {
+            for (int col = 0; col < art[row].length(); col++) {
+                if (art[row].charAt(col) == '#') {
                     g.fill(x + col, y + row, x + col + 1, y + row + 1, color);
                 }
             }
         }
     }
+
+    // 12x12 toolbar icons: sort (storage order, A-Z, Z-A), free-spot filter, view size (Large, Medium, Small).
+    private static final String[][] SORT_ICONS = {
+            {"............", ".####.####..", ".#..#.#..#..", ".####.####..", "............", ".####.####..",
+                    ".#..#.#..#..", ".####.####..", "............", "............", "............", "............"},
+            {".##.....###.", "#..#......#.", "####.....#..", "#..#....#...", "#..#....###.", "............",
+                    ".....#......", ".....#......", "...#####....", "....###.....", ".....#......", "............"},
+            {"###......##.", "..#.....#..#", ".#......####", "#.......#..#", "###.....#..#", "............",
+                    ".....#......", ".....#......", "...#####....", "....###.....", ".....#......", "............"},
+    };
+    private static final String[] FILTER_OFF = {"############", "#..........#", ".#........#.", "..#......#..", "...#....#...",
+            "....#..#....", "....#..#....", "....#..#....", "....#..#....", "....#..#....", ".....##.....", "............"};
+    private static final String[] FILTER_ON = {"############", "############", ".##########.", "..########..", "...######...",
+            "....####....", "....####....", "....####....", "....####....", "....####....", ".....##.....", "............"};
+    private static final String[][] SIZE_ICONS = {
+            {"#####.#####.", "#...#.#...#.", "#...#.#...#.", "#...#.#...#.", "#####.#####.", "............",
+                    "#####.#####.", "#...#.#...#.", "#...#.#...#.", "#...#.#...#.", "#####.#####.", "............"},
+            {"###.###.###.", "#.#.#.#.#.#.", "###.###.###.", "............", "###.###.###.", "#.#.#.#.#.#.",
+                    "###.###.###.", "............", "###.###.###.", "#.#.#.#.#.#.", "###.###.###.", "............"},
+            {"##.##.##.##.", "##.##.##.##.", "............", "##.##.##.##.", "##.##.##.##.", "............",
+                    "##.##.##.##.", "##.##.##.##.", "............", "##.##.##.##.", "##.##.##.##.", "............"},
+    };
 }

@@ -29,6 +29,12 @@ neoForge {
         server {
             server()
         }
+        // Development self-test: builds a test network in the world "aqtest", screenshots every tablet page, quits.
+        selftest {
+            client()
+            systemProperty 'appliedquartermaster.selftest', 'true'
+            programArguments.addAll('--quickPlaySingleplayer', 'aqtest', '--width', '1920', '--height', '1080')
+        }
     }
 }
 

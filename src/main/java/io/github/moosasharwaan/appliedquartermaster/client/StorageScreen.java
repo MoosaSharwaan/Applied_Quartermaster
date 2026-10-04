@@ -19,21 +19,21 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         super.extractBackground(g, mouseX, mouseY, partialTick);
         int x = leftPos;
         int y = topPos;
-        g.fill(x + 2, y, x + imageWidth - 2, y + imageHeight, 0xFF000000);
-        g.fill(x, y + 2, x + imageWidth, y + imageHeight - 2, 0xFF000000);
-        g.fill(x + 1, y + 1, x + imageWidth - 1, y + imageHeight - 1, 0xFFC6C6C6);
-        g.fill(x + 2, y + 1, x + imageWidth - 3, y + 3, 0xFFFFFFFF);
-        g.fill(x + 1, y + 2, x + 3, y + imageHeight - 3, 0xFFFFFFFF);
-        g.fill(x + 3, y + imageHeight - 3, x + imageWidth - 2, y + imageHeight - 1, 0xFF555555);
-        g.fill(x + imageWidth - 3, y + 3, x + imageWidth - 1, y + imageHeight - 2, 0xFF555555);
+        g.fill(x + 2, y, x + imageWidth - 2, y + imageHeight, 0xFF413F54);
+        g.fill(x, y + 2, x + imageWidth, y + imageHeight - 2, 0xFF413F54);
+        g.fill(x + 1, y + 1, x + imageWidth - 1, y + imageHeight - 1, 0xFFCBCCD4);
+        g.fill(x + 2, y + 1, x + imageWidth - 3, y + 3, 0xFFF2F2F2);
+        g.fill(x + 1, y + 2, x + 3, y + imageHeight - 3, 0xFFF2F2F2);
+        g.fill(x + 3, y + imageHeight - 3, x + imageWidth - 2, y + imageHeight - 1, 0xFF878FA5);
+        g.fill(x + imageWidth - 3, y + 3, x + imageWidth - 1, y + imageHeight - 2, 0xFF878FA5);
         for (var slot : menu.slots) {
             int sx = x + slot.x - 1;
             int sy = y + slot.y - 1;
-            g.fill(sx, sy, sx + 18, sy + 18, 0xFF8B8B8B);
-            g.fill(sx, sy, sx + 17, sy + 1, 0xFF373737);
-            g.fill(sx, sy, sx + 1, sy + 17, 0xFF373737);
-            g.fill(sx + 1, sy + 17, sx + 18, sy + 18, 0xFFFFFFFF);
-            g.fill(sx + 17, sy + 1, sx + 18, sy + 18, 0xFFFFFFFF);
+            g.fill(sx, sy, sx + 18, sy + 18, 0xFFADB0C4);
+            g.fill(sx, sy, sx + 17, sy + 1, 0xFF878FA5);
+            g.fill(sx, sy, sx + 1, sy + 17, 0xFF878FA5);
+            g.fill(sx + 1, sy + 17, sx + 18, sy + 18, 0xFFF2F2F2);
+            g.fill(sx + 17, sy + 1, sx + 18, sy + 18, 0xFFF2F2F2);
         }
     }
 

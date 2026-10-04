@@ -54,6 +54,7 @@ public class TabletMenu extends AbstractContainerMenu {
     };
     private boolean loading;
     private int page;
+    private final int initialViewSizes;
 
     // Server: what was last sent, and where each sent item lives.
     private record Ref(StorageBlockEntity be, int slot) {
@@ -71,7 +72,16 @@ public class TabletMenu extends AbstractContainerMenu {
     private int viewVersion;
 
     public TabletMenu(int id, Inventory inventory, int tabletSlot, int page) {
+        this(id, inventory, tabletSlot, page, -1);
+    }
+
+    /**
+     * @param viewSizes the tablet's packed view sizes, sent with the open request so the client screen starts with
+     *                  the right size even before the tablet stack itself has synced; -1 to read the tablet.
+     */
+    public TabletMenu(int id, Inventory inventory, int tabletSlot, int page, int viewSizes) {
         super(ModMenus.TABLET.get(), id);
+        this.initialViewSizes = viewSizes;
         this.playerInventory = inventory;
         this.tabletSlot = tabletSlot;
         this.page = page;
@@ -115,6 +125,13 @@ public class TabletMenu extends AbstractContainerMenu {
 
     public int getDefaultTab() {
         return TabletModules.getDefault(getTablet());
+    }
+
+    public int getInitialViewSize(StorageKind kind) {
+        if (initialViewSizes < 0) {
+            return TabletModules.getViewSize(getTablet(), kind);
+        }
+        return Math.min(2, (initialViewSizes >> (kind.ordinal() * 2)) & 3);
     }
 
     public int getPage() {

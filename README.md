@@ -3,7 +3,7 @@
 An addon for [Applied Energistics 2](https://github.com/AppliedEnergistics/Applied-Energistics-2) that puts your whole ME network in your hands.
 The **ME Tablet** is a handheld hub with a tab for each part of your base, and four new blocks give your guide books, weapons, tools and farms a proper home on the network.
 
-> **Status: early development.** The items and blocks are registered and load in game; the network features, screens and the tablet are being built in stages. See the roadmap below.
+> **Status: early development.** The tablet, its modules and the Library, Armory and Tool Rack work on an AE2 network. Farm automation and recipes are next. See the roadmap below.
 
 ![ME Tablet and its app icons](docs/images/preview_sheet.png)
 
@@ -71,10 +71,16 @@ The jar appears in `build/libs/`. Put it in your mods folder next to AE2.
 
 ## Roadmap
 
-1. Tablet item, tabs, Modules page, Inventory module (opens the AE2 terminal).
-2. ME Library and the Library tab; ME Armory, ME Tool Rack and their tabs.
+1. ~~Tablet item, tabs, Modules page, Inventory module (opens the AE2 terminal).~~ Done.
+2. ~~ME Library and the Library tab; ME Armory, ME Tool Rack and their tabs.~~ Done.
 3. ME Farm Controller, ME Redstone Plate and the Automation tab.
 4. Recipes, guide pages and polish.
+
+## Development self-test
+
+`./gradlew runSelftest` starts the game, builds a small test network in the singleplayer world `aqtest`
+(create it first, a superflat world works best), opens every tablet page, saves screenshots to
+`run/screenshots/aq_*.png` and quits. It is switched off in normal play.
 
 ## Credits and licence
 

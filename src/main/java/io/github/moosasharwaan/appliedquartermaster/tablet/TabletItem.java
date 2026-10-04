@@ -1,6 +1,7 @@
 package io.github.moosasharwaan.appliedquartermaster.tablet;
 
 import appeng.items.tools.powered.WirelessTerminalItem;
+import io.github.moosasharwaan.appliedquartermaster.registry.ModComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -53,6 +54,8 @@ public class TabletItem extends Item {
                 buf -> {
                     buf.writeVarInt(tabletSlot);
                     buf.writeVarInt(page + 1);
+                    buf.writeVarInt(player.getInventory().getItem(tabletSlot)
+                            .getOrDefault(ModComponents.TABLET_VIEW_SIZES, 0));
                 });
     }
 
