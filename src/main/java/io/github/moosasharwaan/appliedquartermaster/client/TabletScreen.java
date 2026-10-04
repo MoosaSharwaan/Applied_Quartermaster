@@ -652,15 +652,6 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         return String.format(Locale.ROOT, value >= 100 ? "%.0f" : "%.1f", value);
     }
 
-    private static int stateColor(int state) {
-        return switch (state) {
-            case DevicesViewPayload.ACTIVE -> 0xFF5AE66E;
-            case DevicesViewPayload.NO_CHANNEL -> 0xFFEB3C32;
-            case DevicesViewPayload.BOOTING -> 0xFFE8B53A;
-            default -> 0xFF46445A;
-        };
-    }
-
     private static String stateKey(int state) {
         return switch (state) {
             case DevicesViewPayload.ACTIVE -> "active";
@@ -733,8 +724,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         g.pose().scale(3, 3);
         g.item(e.icon(), 0, 0);
         g.pose().popMatrix();
-        int badge = e.active() == e.count() ? 0xFF5AE66E : e.active() == 0 ? 0xFF46445A : 0xFFEB3C32;
-        badge(g, ix + 36, iy + 36, badge);
+        dot(g, ix + 42.5f, iy + 42.5f, 8, e.active() == e.count());
         smallLines(g, e.name(), cx + CELL_W[s] / 2, iy + 50, CELL_W[s] - 2, 1, TEXT);
         int offline = e.count() - e.active();
         var sub = offline == 0
@@ -758,8 +748,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         // State chip
         var state = Component.translatable("gui.appliedquartermaster.devices.state." + stateKey(e.state())).getString();
         int chipX = cx + 150;
-        g.fill(chipX, cy + 5, chipX + 6, cy + 11, OUTLINE);
-        g.fill(chipX + 1, cy + 6, chipX + 5, cy + 10, stateColor(e.state()));
+        dot(g, chipX + 3, cy + 8, 6, e.state() == DevicesViewPayload.ACTIVE);
         g.text(font, state, chipX + 9, cy + 6, TEXT, false);
         String right = (e.channels() > 0 ? e.channels() + " ch · " : "") + formatAe(e.power()) + " AE/t";
         g.text(font, right, cx + CELL_W[SIZE_LIST] - 6 - font.width(right), cy + 6, TEXT_DIM, false);
@@ -922,11 +911,9 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
                     g.item(e.icon(), 0, 0);
                 }
                 g.pose().popMatrix();
-                // Status badge: green running, red off, dark offline.
-                int badge = inFarm
-                        ? (e.state() == 2 ? 0xFF5AE66E : e.state() == 1 ? 0xFFEB3C32 : 0xFF46445A)
-                        : (e.state() == 0 ? 0xFF46445A : e.on() > 0 ? 0xFF5AE66E : 0xFFEB3C32);
-                badge(g, ix + 36, iy + 36, badge);
+                // Status light: green when running, red when off or offline.
+                boolean good = inFarm ? e.state() == 2 : e.state() != 0 && e.on() > 0;
+                dot(g, ix + 42.5f, iy + 42.5f, 8, good);
                 smallLines(g, e.name(), cx + CELL_W[s] / 2, iy + 50, CELL_W[s] - 2, 1, TEXT);
                 Component sub;
                 int color;
@@ -1010,9 +997,7 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         inset(g, cx, cy, cw, ch, 0xFFC0C2CE);
         String message = statusMessage();
         boolean ok = message == null;
-        int dot = ok ? 0xFF5AE66E : 0xFFEB3C32;
-        g.fill(cx + 6, cy + 7, cx + 11, cy + 12, OUTLINE);
-        g.fill(cx + 7, cy + 8, cx + 10, cy + 11, dot);
+        dot(g, cx + 8.5f, cy + 9.5f, 6, ok);
         g.text(font, Component.translatable(ok ? "gui.appliedquartermaster.info.connected" : "gui.appliedquartermaster.info.not_connected"),
                 cx + 15, cy + 6, TEXT, false);
         var lines = new ArrayList<Component>();
@@ -1092,12 +1077,29 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
         g.text(font, label, x + (w - font.width(label)) / 2, y + 3, 0xFFF2F2F2, false);
     }
 
-    private static void badge(GuiGraphicsExtractor g, int x, int y, int color) {
-        g.fill(x, y, x + 13, y + 13, OUTLINE);
-        g.fill(x + 1, y + 1, x + 12, y + 12, 0xFF21203A);
-        for (int gx = 0; gx < 3; gx++) {
-            for (int gy = 0; gy < 3; gy++) {
-                g.fill(x + 2 + gx * 4, y + 2 + gy * 4, x + 3 + gx * 4 + 1, y + 3 + gy * 4 + 1, color);
+    private static final int LIGHT_GREEN = 0xFF5AE66E;
+    private static final int LIGHT_RED = 0xFFEB3C32;
+
+    /** A round status light: green when ok, red otherwise. Drawn at quarter-pixel resolution so it looks round. */
+    private static void dot(GuiGraphicsExtractor g, float centerX, float centerY, float diameter, boolean ok) {
+        g.pose().pushMatrix();
+        g.pose().translate(centerX, centerY);
+        g.pose().scale(0.25f, 0.25f);
+        int outer = Math.round(diameter * 2);
+        circle(g, outer, OUTLINE);
+        circle(g, outer - 3, ok ? LIGHT_GREEN : LIGHT_RED);
+        // Small highlight so it reads as a light
+        int h = Math.max(2, outer / 4);
+        g.fill(-outer / 2, -outer / 2, -outer / 2 + h, -outer / 2 + h, 0x66FFFFFF);
+        g.pose().popMatrix();
+    }
+
+    private static void circle(GuiGraphicsExtractor g, int radius, int color) {
+        for (int y = -radius; y < radius; y++) {
+            double dy = y + 0.5;
+            int half = (int) Math.round(Math.sqrt(Math.max(0, radius * radius - dy * dy)));
+            if (half > 0) {
+                g.fill(-half, y, half, y + 1, color);
             }
         }
     }

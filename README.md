@@ -125,7 +125,7 @@ grouped by kind, much like AE2's Network Status screen, but you can look inside 
 
 ![The Devices tab](docs/screenshots/tab_devices.png)
 
-* Each kind shows its icon, how many there are, and a status badge: green when all are working, red when some are
+* Each kind shows its icon, how many there are, and a status light: green when all are working, red when any are
   offline (the count of offline ones is shown).
 * The info card on the right shows the network's stored energy as a bar, the energy figures, power use and gain, and
   whether the ME Controller is online with how many channels are in use.
@@ -223,7 +223,7 @@ The **Automation** tab appears when a Farm Controller is on your network.
 | Anywhere | Sneak-right-click | Clears the icon |
 | With JEI | Drag an item from JEI onto a farm or plate | Uses it as the icon |
 
-Each farm has a **status badge**: green when running, red when everything is off, dark when offline. Plates without
+Each farm has a **status light**: green when running, red when everything is off or the farm is offline. Plates without
 their own icon show their light ring in its current colour. New plates are named after the side they face ("Top plate",
 "West plate").
 
