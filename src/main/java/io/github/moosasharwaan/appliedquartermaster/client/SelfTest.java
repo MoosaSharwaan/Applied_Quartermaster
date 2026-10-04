@@ -73,6 +73,18 @@ public final class SelfTest {
             return;
         }
         var mc = Minecraft.getInstance();
+        if (mc.screen instanceof net.neoforged.neoforge.client.gui.LoadingErrorScreen warnings) {
+            // Another mod's load warning (not an error): press "Proceed" so the test world still opens.
+            try {
+                var field = net.neoforged.neoforge.client.gui.LoadingErrorScreen.class.getDeclaredField("nextScreenTask");
+                field.setAccessible(true);
+                AppliedQuartermaster.LOGGER.info("SELFTEST skipping mod load warnings screen");
+                ((Runnable) field.get(warnings)).run();
+            } catch (ReflectiveOperationException e) {
+                AppliedQuartermaster.LOGGER.error("SELFTEST could not skip the warnings screen", e);
+            }
+            return;
+        }
         if (mc.player == null || mc.getSingleplayerServer() == null) {
             return;
         }
@@ -193,6 +205,27 @@ public final class SelfTest {
         STEPS.add(new Step(30, () -> shot("08_library_block_screen")));
         STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
         STEPS.add(new Step(10, () -> server(SelfTest::report)));
+        // Other AE2 addons (only when the compatibility test run installed some).
+        if (SelfTestAddons.present()) {
+            STEPS.add(new Step(5, () -> server(p -> SelfTestAddons.setUp(p, tabletSlot, origin, origin.above()))));
+            STEPS.add(new Step(60, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_DEVICES))));
+            STEPS.add(new Step(10, () -> server(p -> openDeviceKind(p, ""))));
+            STEPS.add(new Step(30, () -> shot("10a_addons_devices")));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_MODULES))));
+            STEPS.add(new Step(30, () -> shot("10b_addons_modules")));
+            STEPS.add(new Step(5, () -> server(p -> AppliedQuartermaster.LOGGER.info("SELFTEST addon terminal opened={}",
+                    TabletItem.openModule(p, tabletSlot, SelfTestAddons.MODULE_SLOT)))));
+            STEPS.add(new Step(40, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST addon terminal screen: {}", Minecraft.getInstance().screen);
+                shot("10c_addons_terminal");
+            }));
+            STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
+            STEPS.add(new Step(30, () -> {
+                AppliedQuartermaster.LOGGER.info("SELFTEST back from addon terminal: {}", Minecraft.getInstance().screen);
+                shot("10d_addons_back_to_tablet");
+            }));
+            STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
+        }
         for (var page : List.of("applied_quartermaster", "me_tablet", "farm_automation", "recipes")) {
             STEPS.add(new Step(5, () -> guideme.GuidesCommon.openGuide(Minecraft.getInstance().player,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "guide"),

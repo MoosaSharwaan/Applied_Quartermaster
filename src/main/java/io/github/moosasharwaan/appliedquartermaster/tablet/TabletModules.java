@@ -3,7 +3,11 @@ package io.github.moosasharwaan.appliedquartermaster.tablet;
 import appeng.items.tools.powered.WirelessTerminalItem;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModComponents;
 import io.github.moosasharwaan.appliedquartermaster.storage.StorageKind;
+import io.github.moosasharwaan.appliedquartermaster.AppliedQuartermaster;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 
@@ -16,18 +20,23 @@ public final class TabletModules {
     private TabletModules() {
     }
 
-    /** Number of upgrade slots (wireless boosters). */
+    /** Number of upgrade slots (range upgrades). */
     public static final int UPGRADE_SLOTS = 2;
 
-    private static final net.minecraft.resources.Identifier AE2_BOOSTER =
-            net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "wireless_booster");
-    private static final net.minecraft.resources.Identifier INFINITY_BOOSTER =
-            net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2wtlib", "infinity_booster_card");
+    /** Each one adds the Wireless Access Point's range again (AE2's Wireless Booster). */
+    public static final TagKey<Item> RANGE_BOOSTERS = tag("tablet_range_boosters");
+    /** No range limit inside the access point's dimension (e.g. AEInfinityBooster's Infinity Card). */
+    public static final TagKey<Item> INFINITE_RANGE = tag("tablet_infinite_range");
+    /** No range limit and works from any dimension (e.g. AE2WTLib's Infinity Booster Card, AEInfinityBooster's Dimension Card). */
+    public static final TagKey<Item> ANY_DIMENSION = tag("tablet_any_dimension");
 
-    /** AE2's Wireless Booster (each one adds the base range again) or AE2WTLib's Infinity Booster Card (no limit). */
+    private static TagKey<Item> tag(String name) {
+        return TagKey.create(Registries.ITEM, AppliedQuartermaster.id(name));
+    }
+
+    /** Range upgrades from AE2 and any addon listed in the tablet's upgrade tags. */
     public static boolean isUpgrade(ItemStack stack) {
-        var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());
-        return AE2_BOOSTER.equals(id) || INFINITY_BOOSTER.equals(id);
+        return stack.is(RANGE_BOOSTERS) || stack.is(INFINITE_RANGE) || stack.is(ANY_DIMENSION);
     }
 
     public static NonNullList<ItemStack> readUpgrades(ItemStack tablet) {
@@ -40,20 +49,31 @@ public final class TabletModules {
         tablet.set(ModComponents.TABLET_UPGRADES, ItemContainerContents.fromItems(upgrades));
     }
 
-    /** Number of AE2 Wireless Boosters installed. */
+    /** Number of range boosters installed. */
     public static int boosters(ItemStack tablet) {
         int n = 0;
         for (var stack : readUpgrades(tablet)) {
-            if (AE2_BOOSTER.equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+            if (stack.is(RANGE_BOOSTERS)) {
                 n += stack.getCount();
             }
         }
         return n;
     }
 
+    /** True with an unlimited-range upgrade (same dimension, or any dimension). */
     public static boolean hasInfiniteRange(ItemStack tablet) {
         for (var stack : readUpgrades(tablet)) {
-            if (INFINITY_BOOSTER.equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+            if (stack.is(INFINITE_RANGE) || stack.is(ANY_DIMENSION)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** True with an upgrade that also reaches access points in other dimensions. */
+    public static boolean worksAcrossDimensions(ItemStack tablet) {
+        for (var stack : readUpgrades(tablet)) {
+            if (stack.is(ANY_DIMENSION)) {
                 return true;
             }
         }

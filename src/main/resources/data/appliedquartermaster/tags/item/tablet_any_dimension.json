@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "aeinfinitybooster:dimension_card",
+      "required": false
+    },
+    {
+      "id": "ae2wtlib:infinity_booster_card",
+      "required": false
+    }
+  ]
+}

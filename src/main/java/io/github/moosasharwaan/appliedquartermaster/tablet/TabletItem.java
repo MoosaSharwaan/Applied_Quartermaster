@@ -65,7 +65,16 @@ public class TabletItem extends Item {
         var module = TabletModules.get(tablet, moduleSlot);
         if (module.getItem() instanceof WirelessTerminalItem terminal) {
             TabletModuleLocator.flush(player);
-            return terminal.openFromInventory(player, new TabletModuleLocator(tabletSlot, moduleSlot));
+            var locator = new TabletModuleLocator(tabletSlot, moduleSlot);
+            // Terminals built on AE2WTLib (its own, AdvancedAE's and others) pick their menu themselves.
+            if (io.github.moosasharwaan.appliedquartermaster.integration.ae2wtlib.WtlibCompat.isLoaded()) {
+                var opened = io.github.moosasharwaan.appliedquartermaster.integration.ae2wtlib.WtlibCompat
+                        .tryOpen(terminal, player, locator);
+                if (opened != null) {
+                    return opened;
+                }
+            }
+            return terminal.openFromInventory(player, locator);
         }
         return false;
     }

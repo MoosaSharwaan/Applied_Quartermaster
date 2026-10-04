@@ -47,24 +47,28 @@ public final class TabletNetwork {
                 continue;
             }
             anyLinked = true;
-            if (inRange(player, grid, TabletModules.boosters(tablet), TabletModules.hasInfiniteRange(tablet))) {
+            if (inRange(player, grid, TabletModules.boosters(tablet), TabletModules.hasInfiniteRange(tablet),
+                    TabletModules.worksAcrossDimensions(tablet))) {
                 return new Result(grid, OK);
             }
         }
         return new Result(null, !anyTerminal ? NO_TERMINAL : !anyLinked ? NOT_LINKED : OUT_OF_RANGE);
     }
 
-    private static boolean inRange(Player player, IGrid grid, int boosters, boolean infinite) {
+    private static boolean inRange(Player player, IGrid grid, int boosters, boolean infinite, boolean anyDimension) {
         for (var wap : grid.getMachines(WirelessAccessPointBlockEntity.class)) {
             if (!wap.isActive()) {
                 continue;
             }
-            if (infinite) {
+            if (anyDimension) {
                 return true;
             }
             var location = wap.getLocation();
             if (location.getLevel() != player.level()) {
                 continue;
+            }
+            if (infinite) {
+                return true;
             }
             var pos = location.getPos();
             double dx = pos.getX() + 0.5 - player.getX();

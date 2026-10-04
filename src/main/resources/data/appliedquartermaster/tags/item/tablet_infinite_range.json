@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "aeinfinitybooster:infinity_card",
+      "required": false
+    }
+  ]
+}

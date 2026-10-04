@@ -566,6 +566,9 @@ public class TabletScreen extends AbstractContainerScreen<TabletMenu> {
 
     private String rangeText() {
         var tablet = menu.getTablet();
+        if (TabletModules.worksAcrossDimensions(tablet)) {
+            return Component.translatable("gui.appliedquartermaster.tablet.range_any_dimension").getString();
+        }
         if (TabletModules.hasInfiniteRange(tablet)) {
             return Component.translatable("gui.appliedquartermaster.tablet.range_infinite").getString();
         }

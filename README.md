@@ -28,7 +28,8 @@ guide books, weapons, tools and farms a home on the network.
 6. [Recipes](#recipes)
 7. [In-game guide](#in-game-guide)
 8. [Troubleshooting](#troubleshooting)
-9. [Requirements, download and building](#requirements)
+9. [Other AE2 addons](#other-ae2-addons)
+10. [Requirements, download and building](#requirements)
 
 ## Getting started
 
@@ -77,7 +78,8 @@ Open it with the **gear** at the top right.
 #### Upgrades and battery
 
 - **Upgrades (2 slots):** each AE2 **Wireless Booster** adds the access point's range again (up to 4 per slot), so two
-  boosters triple it. An AE2WTLib **Infinity Booster Card** removes the range limit.
+  boosters triple it. With [AEInfinityBooster](https://modrinth.com/mod/aeinfinitybooster), its **Infinity Range
+  Booster** removes the range limit in the access point's dimension, and its **Dimension Card** works from any dimension.
 - **Battery:** the charge of your terminal module. Charge the terminal in an AE2 Charger as usual.
 
 ![The AE2 Wireless Terminal opened from the tablet](docs/screenshots/terminal_from_tablet.png)
@@ -257,6 +259,50 @@ and all recipes. Hold **G** (the guide key) over any of the mod's items to jump 
 | A block's lights are off | The block has no power or no channel. A normal cable carries 8 channels. |
 | Plates are dark | The Farm Controller is offline: check that its network port has power and a channel. |
 
+## Other AE2 addons
+
+Applied Quartermaster doesn't need any other addon, and doesn't change how they work. Where they meet the tablet:
+
+- **Terminals:** any wireless terminal built on AE2's goes in a module slot and opens its own screen from the tablet,
+  including AE2WTLib's (pattern access, pattern encoding, universal) and AdvancedAE's Wireless Quantum Crafter Terminal.
+- **Range upgrades:** AE2's Wireless Booster, and AEInfinityBooster's Infinity Range Booster and Dimension Card.
+- **Devices tab:** every addon machine on the network shows up with its own icon, state, channels and power.
+  Multiblock parts (crafting units, AdvancedAE's quantum computer) appear once the multiblock is built, as in AE2.
+- **Storage blocks:** addon weapons and tools go in the ME Armory, and addon tools (for example the ME Placement Tools)
+  in the ME Tool Rack.
+
+Tested in the game with the NeoForge 26.1.2 builds of these addons, each on its own and all together:
+
+| Addon | Tested version | What was checked |
+| --- | --- | --- |
+| AE2 Wireless Terminals (AE2WTLib) | 26.1.1-beta | Its terminals in module slots; the Pattern Access Terminal opens from the tablet and Esc returns to it |
+| AdvancedAE | 26.1.7 | Its wireless terminal in a module slot; its machines in the Devices tab |
+| AEInfinityBooster | 26.1.2-1.0.0.57 | Both cards fit the upgrade slots and set unlimited range (same dimension, or any dimension) |
+| AE2 Lightning Tech | 1.0.1alpha | Its machines in the Devices tab; its tool in the Tool Rack |
+| AE2 Crystal Science | 26.1.2-1.1.12 | Its machines in the Devices tab; its swords and tools in the Armory |
+| ME Placement Tool | 2.1.3-beta1 | Its three tools in the Tool Rack |
+| Bigger AE2 | 26.1.2.1 | Loads alongside; no overlap |
+| AE2 OMNI Cells | 1.1.7 | Loads alongside; no overlap |
+| AE2 Import Export Card | 26.1.2-2.3.1 | Loads alongside; no overlap |
+| AE2 Toggleable View Cell | 26.1-1.0.1 | Loads alongside; no overlap |
+| Myotus Lib | 26.1.2-26.0.0 | Loads alongside; no overlap |
+
+AE2 Lightning Tech shows a "Warning while loading mods" screen at start-up about its own code; click
+**Proceed to main menu** and it works normally. That warning comes from Lightning Tech, not this mod.
+
+### For modpack makers
+
+Which items fit where is set by item tags, so other addons can be added with a datapack or KubeJS:
+
+| Tag | Used for |
+| --- | --- |
+| `appliedquartermaster:tablet_range_boosters` | Upgrade slot: each one adds the access point's range again |
+| `appliedquartermaster:tablet_infinite_range` | Upgrade slot: no range limit in the access point's dimension |
+| `appliedquartermaster:tablet_any_dimension` | Upgrade slot: no range limit, from any dimension |
+| `appliedquartermaster:library_books` / `library_blocked` | Extra books for the ME Library, or books it must refuse |
+| `appliedquartermaster:armory_items` | Extra items for the ME Armory |
+| `appliedquartermaster:tool_rack_items` | Extra items for the ME Tool Rack |
+
 ## Requirements
 
 | | Version |
@@ -264,7 +310,8 @@ and all recipes. Hold **G** (the guide key) over any of the mod's items to jump 
 | Minecraft | 26.1.2 |
 | NeoForge | 26.1.2.107 or newer |
 | Applied Energistics 2 | 26.1.8-alpha or newer |
-| AE2 Wireless Terminals (AE2WTLib) | Optional: universal terminals and the Infinity Booster Card |
+| AE2 Wireless Terminals (AE2WTLib) | Optional: more wireless terminals for the module slots |
+| AEInfinityBooster | Optional: unlimited range and cross-dimension cards for the upgrade slots |
 | JEI | Optional: drag items onto farms and plates to set their icons |
 
 ## Download

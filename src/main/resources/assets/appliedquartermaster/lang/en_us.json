@@ -75,6 +75,7 @@
   "gui.appliedquartermaster.tablet.battery": "Battery",
   "gui.appliedquartermaster.tablet.range": "Range ×%s",
   "gui.appliedquartermaster.tablet.range_infinite": "Unlimited range",
+  "gui.appliedquartermaster.tablet.range_any_dimension": "Any distance, any dimension",
   "gui.appliedquartermaster.tablet.battery_tooltip": "Charge of your terminal module. Charge the terminal in an AE2 Charger.",
   "gui.appliedquartermaster.tablet.upgrades_tooltip": "Wireless Booster: adds the access point's range again (up to 4 per slot). Infinity Booster Card (AE2WTLib): unlimited range.",
   "gui.appliedquartermaster.tab.devices": "Devices",
