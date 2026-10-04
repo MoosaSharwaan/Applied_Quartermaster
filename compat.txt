@@ -1,0 +1,18 @@
+MOD myotus-lib 26.1.2-26.0.0 -> Myotus-26.1.2-26.0.0.jar (requested)
+  needs ae2
+JAR myotus-lib: modids=['myotus']
+  ITEM myotus:compat_processor=Compat Processor
+  ITEM myotus:printed_compat_processor=Printed Compat Processor
+  ITEM myotus:compat_press=Inscriber Compat Press
+  ITEM myotus:charged_ender_pearl=Charged Ender Pearl
+  ITEM myotus:ender_pearl_block=Ender Pearl Block
+  ITEM myotus:charged_ender_pearl_block=Charged Ender Pearl Block
+  ITEM myotus:myotus_upgrade_card=Myotus Upgrade Card
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/ender_pearl.json
+  TAG data/myotus/tags/item/
+  TAG data/myotus/tags/item/ae2cs/
+  TAG data/myotus/tags/item/ae2cs/blank_print_presses.json
