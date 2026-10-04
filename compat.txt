@@ -1,0 +1,147 @@
+MOD ae2-crystal-science 26.1.2-1.1.12 -> ae2cs-26.1.2-neoforge-1.1.12.jar (requested)
+  needs ae2
+JAR ae2-crystal-science: modids=['ae2cs']
+  ITEM ae2cs:ender_quartz_block=Ender Quartz Block
+  ITEM ae2cs:resonating_crystal_block=Resonating Crystal Block
+  ITEM ae2cs:meteor_crystal_block=Meteor Crystal Block
+  ITEM ae2cs:redstone_crystal_block=Redstone Crystal Block
+  ITEM ae2cs:quantum_crystal_block=Quantum Crystal Block
+  ITEM ae2cs:rose_quartz_block=Rose Quartz Block
+  ITEM ae2cs:irradiated_crystal_block=Irradiated Crystal Block
+  ITEM ae2cs:silicon_block=Silicon Block
+  ITEM ae2cs:certus_quartz_ore=Certus Quartz Ore
+  ITEM ae2cs:deepslate_certus_quartz_ore=Deepslate Certus Quartz Ore
+  ITEM ae2cs:charged_certus_quartz_ore=Charged Certus Quartz Ore
+  ITEM ae2cs:deepslate_charged_certus_quartz_ore=Charged Deepslate Certus Quartz Ore
+  ITEM ae2cs:crystal_growth_chamber=Crystal Growth Chamber
+  ITEM ae2cs:circuit_etcher=Circuit Etcher
+  ITEM ae2cs:quartz_grindstone=Quartz Grindstone
+  ITEM ae2cs:crystal_pulverizer=Crystal Pulverizer
+  ITEM ae2cs:crystal_vibration_chamber=Crystal Vibration Chamber
+  ITEM ae2cs:crystal_aggregator=Crystal Aggregator
+  ITEM ae2cs:entropy_variation_reaction_chamber=Entropy Variation Chamber
+  ITEM ae2cs:ender_broadcaster=ME Ender Broadcaster
+  ITEM ae2cs:ender_emitter=ME Ender Emitter
+  ITEM ae2cs:ender_interface=ME Ender Interface
+  ITEM ae2cs:extended_ender_interface=Ex ME Ender Interface
+  ITEM ae2cs:integrated_interface=ME Integrated Interface
+  ITEM ae2cs:extended_integrated_interface=Ex ME Integrated Interface
+  ITEM ae2cs:resonating_pattern_provider=Resonating Pattern Provider
+  ITEM ae2cs:extended_resonating_pattern_provider=Ex Resonating Pattern Provider
+  ITEM ae2cs:simple_pattern_provider=Basic Pattern Provider
+  ITEM ae2cs:meteorite_pattern_provider=Meteorite Pattern Provider
+  ITEM ae2cs:quartz_oscillator_clock=Quartz Oscillator Clock
+  ITEM ae2cs:ender_interface_part=ME Ender Interface
+  ITEM ae2cs:extended_ender_interface_part=Ex ME Ender Interface
+  ITEM ae2cs:integrated_interface_part=ME Integrated Interface
+  ITEM ae2cs:extended_integrated_interface_part=Ex ME Integrated Interface
+  ITEM ae2cs:resonating_pattern_provider_part=Resonating Pattern Provider
+  ITEM ae2cs:extended_resonating_pattern_provider_part=Ex Resonating Pattern Provider
+  ITEM ae2cs:simple_pattern_provider_part=Basic Pattern Provider
+  ITEM ae2cs:meteorite_pattern_provider_part=Meteorite Pattern Provider
+  ITEM ae2cs:quartz_oscillator_clock_part=Quartz Oscillator Clock
+  ITEM ae2cs:purified_certus_quartz_crystal=Purified Certus Quartz Crystal
+  ITEM ae2cs:purified_fluix_crystal=Purified Fluix Crystal
+  ITEM ae2cs:purified_nether_quartz_crystal=Purified Nether Quartz Crystal
+  ITEM ae2cs:purified_ender_quartz=Purified Ender Quartz
+  ITEM ae2cs:purified_meteor_crystal=Purified Meteor Crystal
+  ITEM ae2cs:purified_resonating_crystal=Purified Resonating Crystal
+  ITEM ae2cs:purified_entro_crystal=Purified Entro Crystal
+  ITEM ae2cs:purified_redstone_crystal=Purified Redstone Crystal
+  ITEM ae2cs:purified_quantum_crystal=Purified Quantum Crystal
+  ITEM ae2cs:purified_rose_quartz=Purified Rose Quartz
+  ITEM ae2cs:purified_irradiated_crystal=Purified Irradiated Crystal
+  ITEM ae2cs:purified_ember_crystal=Purified Ember Crystal
+  ITEM ae2cs:certus_quartz_seed=Certus Quartz Seed
+  ITEM ae2cs:fluix_crystal_seed=Fluix Crystal Seed
+  ITEM ae2cs:nether_quartz_seed=Nether Quartz Seed
+  ITEM ae2cs:ender_quartz_seed=Ender Quartz Seed
+  ITEM ae2cs:meteor_seed=Meteor Seed
+  ITEM ae2cs:resonating_seed=Resonating Seed
+  ITEM ae2cs:entro_crystal_seed=Entro Crystal Seed
+  ITEM ae2cs:redstone_crystal_seed=Redstone Crystal Seed
+  ITEM ae2cs:quantum_crystal_seed=Quantum Crystal Seed
+  ITEM ae2cs:rose_quartz_seed=Rose Quartz Seed
+  ITEM ae2cs:irradiated_seed=Irradiated Crystal Seed
+  ITEM ae2cs:ember_seed=Ember Crystal Seed
+  ITEM ae2cs:nether_quartz_dust=Nether Quartz Dust
+  ITEM ae2cs:resonating_crystal_dust=Resonating Crystal Dust
+  ITEM ae2cs:redstone_crystal_dust=Redstone Crystal Dust
+  ITEM ae2cs:quantum_crystal_dust=Quantum Crystal Dust
+  ITEM ae2cs:irradiated_crystal_dust=Irradiated Crystal Dust
+  ITEM ae2cs:resonating_print_press=Inscriber Resonating Press
+  ITEM ae2cs:resonating_circuit_print=Resonating Circuit Print
+  ITEM ae2cs:resonating_processor=Resonating Processor
+  ITEM ae2cs:simple_circuit_print=Basic Circuit Print
+  ITEM ae2cs:simple_processor=Basic Processor
+  ITEM ae2cs:blank_print_press=Inscriber Blank Press
+  ITEM ae2cs:ender_blank_print_press=Inscriber Ender Blank Press
+  ITEM ae2cs:crystal_growth_card=Crystal Growth Card
+  ITEM ae2cs:ender_linker=Ender Linker
+  ITEM ae2cs:resonating_pattern=Resonating Pattern
+  ITEM ae2cs:resonating_pattern_converter=Resonating Pattern Converter
+  ITEM ae2cs:ender_crystal_sword=Ender Crystal Sword
+  ITEM ae2cs:ender_crystal_axe=Ender Crystal Axe
+  ITEM ae2cs:ender_crystal_pickaxe=Ender Crystal Pickaxe
+  ITEM ae2cs:ender_crystal_shovel=Ender Crystal Shovel
+  ITEM ae2cs:ender_crystal_hoe=Ender Crystal Hoe
+  ITEM ae2cs:meteor_crystal_sword=Meteor Crystal Sword
+  ITEM ae2cs:meteor_crystal_axe=Meteor Crystal Axe
+  ITEM ae2cs:meteor_crystal_pickaxe=Meteor Crystal Pickaxe
+  ITEM ae2cs:meteor_crystal_shovel=Meteor Crystal Shovel
+  ITEM ae2cs:meteor_crystal_hoe=Meteor Crystal Hoe
+  ITEM ae2cs:resonating_crystal_sword=Resonating Crystal Sword
+  ITEM ae2cs:resonating_crystal_axe=Resonating Crystal Axe
+  ITEM ae2cs:resonating_crystal_pickaxe=Resonating Crystal Pickaxe
+  ITEM ae2cs:resonating_crystal_shovel=Resonating Crystal Shovel
+  ITEM ae2cs:resonating_crystal_hoe=Resonating Crystal Hoe
+  ITEM ae2cs:flour=Flour
+  ITEM ae2cs:wooden_gear=Wooden Gear
+  ITEM ae2cs:extended_ender_interface_upgrade=Ex Ender Interface Upgrade
+  ITEM ae2cs:extended_integrated_interface_upgrade=Ex Integrated Interface Upgrade
+  ITEM ae2cs:extended_resonating_pattern_provider_upgrade=Ex Resonating Pattern Provider Upgrade
+  ITEM ae2cs:ender_interface_upgrade=Ender Interface Upgrade
+  ITEM ae2cs:integrated_interface_upgrade=Integrated Interface Upgrade
+  ITEM ae2cs:resonating_pattern_provider_upgrade=Resonating Pattern Provider Upgrade
+  ITEM ae2cs:pattern_provider_upgrade=Pattern Provider Upgrade
+  ITEM ae2cs:meteor_pattern_provider_upgrade=Self-Assembling Pattern Provider Upgrade
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/all_fluix.json
+  TAG data/ae2/tags/item/inscriber_presses.json
+  TAG data/ae2cs/tags/item/
+  TAG data/ae2cs/tags/item/crystal_seeds.json
+  TAG data/ae2cs/tags/item/pure_crystal.json
+  TAG data/ae2cs/tags/item/aecs/
+  TAG data/ae2cs/tags/item/aecs/machine.json
+  TAG data/ae2cs/tags/item/aecs/part.json
+  TAG data/ae2cs/tags/item/pure_crystal/
+  TAG data/ae2cs/tags/item/pure_crystal/certus_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/ember_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/ender_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/entro_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/fluix.json
+  TAG data/ae2cs/tags/item/pure_crystal/irradiated_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/meteor_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/nether_quartz.json
+  TAG data/ae2cs/tags/item/pure_crystal/quantum_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/redstone_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/resonating_crystal.json
+  TAG data/ae2cs/tags/item/pure_crystal/rose_quartz.json
+  TAG data/ae2cs/tags/item/storage_blocks/
+  TAG data/ae2cs/tags/item/storage_blocks/pure_crystal.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/dusts.json
+  TAG data/c/tags/item/flours.json
+  TAG data/c/tags/item/gears.json
+  TAG data/c/tags/item/gems.json
+  TAG data/c/tags/item/ores.json
+  TAG data/c/tags/item/storage_blocks.json
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/quantum_alloy.json
+  TAG data/c/tags/item/dusts/quartz.json
+  TAG data/c/tags/item/dusts/redstone_crystal.json
+  TAG data/c/tags/item/dusts/resonating.json
+  TAG data/c/tags/item/flours/
+  TAG data/c/tags/item/flours/wheat.json
+  TAG data/c/tags/item/gears/
+  TAG data/c/tags/item/gears/wood.json
