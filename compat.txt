@@ -1,0 +1,106 @@
+MOD advancedae 26.1.7 -> AdvancedAE-26.1.7.jar (requested)
+  needs ae2
+  needs geckolib
+MOD geckolib 5.5.2 -> geckolib-neoforge-26.1.2-5.5.2.jar (dependency of advancedae)
+JAR advancedae: modids=['advanced_ae']
+  ITEM advanced_ae:adv_pattern_provider=Advanced Extended Pattern Provider
+  ITEM advanced_ae:data_entangler=Quantum Data Entangler
+  ITEM advanced_ae:quantum_accelerator=Quantum Computer Accelerator
+  ITEM advanced_ae:quantum_alloy_block=Quantum Alloy Block
+  ITEM advanced_ae:quantum_alloy_slab=Quantum Alloy Slab
+  ITEM advanced_ae:quantum_alloy_stairs=Quantum Alloy Stairs
+  ITEM advanced_ae:quantum_alloy_wall=Quantum Alloy Wall
+  ITEM advanced_ae:quantum_core=Quantum Computer Core
+  ITEM advanced_ae:quantum_crafter=Quantum Crafter
+  ITEM advanced_ae:quantum_infusion_block=Quantum Infusion
+  ITEM advanced_ae:quantum_multi_threader=Quantum Computer Multi-Threader
+  ITEM advanced_ae:quantum_storage_128=128M Quantum Computer Storage
+  ITEM advanced_ae:quantum_storage_256=256M Quantum Computer Storage
+  ITEM advanced_ae:quantum_structure=Quantum Computer Structural Glass
+  ITEM advanced_ae:quantum_unit=Quantum Crafting Unit
+  ITEM advanced_ae:reaction_chamber=Reaction Chamber
+  ITEM advanced_ae:small_adv_pattern_provider=Advanced Pattern Provider
+  ITEM advanced_ae:adv_pattern_encoder=Advanced Pattern Encoder
+  ITEM advanced_ae:adv_pattern_provider_capacity_upgrade=Advanced Pattern Provider Capacity Upgrade
+  ITEM advanced_ae:adv_pattern_provider_part=Advanced Extended Pattern Provider
+  ITEM advanced_ae:adv_pattern_provider_upgrade=Advanced Pattern Provider Upgrade
+  ITEM advanced_ae:adv_processing_pattern=Advanced Processing Pattern
+  ITEM advanced_ae:advanced_io_bus_part=ME Advanced IO Bus
+  ITEM advanced_ae:attack_speed_card=Attack Speed Card
+  ITEM advanced_ae:auto_feeding_card=Auto Feeding Card
+  ITEM advanced_ae:auto_stock_card=Auto Stock Card
+  ITEM advanced_ae:camo_card=Camo Card
+  ITEM advanced_ae:evasion_card=Evasion Card
+  ITEM advanced_ae:flight_card=Flight Card
+  ITEM advanced_ae:flight_drift_card=Flight Drift Card
+  ITEM advanced_ae:hp_buffer_card=HP Buffer Card
+  ITEM advanced_ae:import_export_bus_part=ME Import Export Bus
+  ITEM advanced_ae:jump_height_card=Jump Height Card
+  ITEM advanced_ae:lava_immunity_card=Lava Immunity Card
+  ITEM advanced_ae:luck_card=Luck Card
+  ITEM advanced_ae:magnet_card=Magnet Card
+  ITEM advanced_ae:night_vision_card=Night Vision Card
+  ITEM advanced_ae:pick_craft_card=Pick Craft Card
+  ITEM advanced_ae:portable_workbench_card=Portable Workbench Card
+  ITEM advanced_ae:printed_quantum_processor=Printed Quantum Circuit
+  ITEM advanced_ae:quantum_alloy=Quantum Alloy
+  ITEM advanced_ae:quantum_alloy_plate=Quantum Alloy Plate
+  ITEM advanced_ae:quantum_boots=Quantum Boots
+  ITEM advanced_ae:quantum_chestplate=Quantum Chestplate
+  ITEM advanced_ae:quantum_crafter_terminal_part=Quantum Crafter Terminal
+  ITEM advanced_ae:quantum_helmet=Quantum Helmet
+  ITEM advanced_ae:quantum_infused_dust=Quantum Infused Dust
+  ITEM advanced_ae:quantum_infusion_bucket=Quantum Infusion Bucket
+  ITEM advanced_ae:quantum_leggings=Quantum Leggings
+  ITEM advanced_ae:quantum_processor=Quantum Processor
+  ITEM advanced_ae:quantum_processor_press=Inscriber Quantum Press
+  ITEM advanced_ae:quantum_storage_component=Quantum Storage Component
+  ITEM advanced_ae:quantum_upgrade_base=Quantum Upgrade Base Card
+  ITEM advanced_ae:reach_card=Reach Card
+  ITEM advanced_ae:recharging_card=ME Recharging Card
+  ITEM advanced_ae:regeneration_card=Regeneration Card
+  ITEM advanced_ae:shattered_singularity=Shattered Singularity
+  ITEM advanced_ae:small_adv_pattern_provider_part=Advanced Pattern Provider
+  ITEM advanced_ae:sprint_speed_card=Sprint Speed Card
+  ITEM advanced_ae:step_assist_card=Step Assist Card
+  ITEM advanced_ae:stock_export_bus_part=ME Stock Export Bus
+  ITEM advanced_ae:strength_card=Strength Card
+  ITEM advanced_ae:swim_speed_card=Swim Speed Card
+  ITEM advanced_ae:throughput_monitor=ME Throughput Monitor
+  ITEM advanced_ae:throughput_monitor_configurator=Throughput Monitor Configurator
+  ITEM advanced_ae:walk_speed_card=Walk Speed Card
+  ITEM advanced_ae:water_breathing_card=Water Breathing Card
+  ITEM advanced_ae:wireless_quantum_crafter_terminal=Wireless Quantum Crafter Terminal
+  TERMREF net/pedroksl/advanced_ae/AdvancedAE.class
+  TERMREF net/pedroksl/advanced_ae/common/helpers/QuantumCrafterWirelessTermMenuHost.class
+  TERMREF net/pedroksl/advanced_ae/common/items/QuantumCrafterWirelessTerminalItem.class
+  TERMREF net/pedroksl/advanced_ae/xmod/wtlib/AE2wtlibPlugin.class
+  TAG data/advanced_ae/tags/item/
+  TAG data/advanced_ae/tags/item/adv_pattern_provider.json
+  TAG data/ae2/tags/item/
+  TAG data/ae2/tags/item/pattern_provider.json
+  TAG data/c/tags/item/
+  TAG data/c/tags/item/armors.json
+  TAG data/c/tags/item/buckets.json
+  TAG data/c/tags/item/dusts.json
+  TAG data/c/tags/item/ingots.json
+  TAG data/c/tags/item/plates.json
+  TAG data/c/tags/item/storage_blocks.json
+  TAG data/c/tags/item/dusts/
+  TAG data/c/tags/item/dusts/shattered_singularity.json
+  TAG data/c/tags/item/plates/
+  TAG data/c/tags/item/plates/quantum_alloy.json
+  TAG data/c/tags/item/storage_blocks/
+  TAG data/c/tags/item/storage_blocks/quantum_alloy.json
+  TAG data/c/tags/item/tools/
+  TAG data/c/tags/item/tools/wrench.json
+  TAG data/curios/tags/item/
+  TAG data/curios/tags/item/adv_pattern_encoder.json
+  TAG data/minecraft/tags/item/
+  TAG data/minecraft/tags/item/chest_armor.json
+  TAG data/minecraft/tags/item/foot_armor.json
+  TAG data/minecraft/tags/item/head_armor.json
+  TAG data/minecraft/tags/item/leg_armor.json
+  TAG data/minecraft/tags/item/slabs.json
+  TAG data/minecraft/tags/item/stairs.json
+JAR geckolib: modids=[]
