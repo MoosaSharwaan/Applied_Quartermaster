@@ -1,0 +1,22 @@
+MOD applied-energistics-2-wireless-terminals 26.1.1-beta -> ae2wtlib-26.1.1-beta.jar (requested)
+  needs ae2
+JAR applied-energistics-2-wireless-terminals: modids=['ae2wtlib']
+  ITEM ae2wtlib:quantum_bridge_card=Quantum Bridge Card
+  ITEM ae2wtlib:magnet_card=Magnet Card
+  ITEM ae2wtlib:wireless_pattern_encoding_terminal=Wireless Pattern Encoding Terminal
+  ITEM ae2wtlib:wireless_pattern_access_terminal=Wireless Pattern Access Terminal
+  ITEM ae2wtlib:wireless_universal_terminal=Wireless Universal Terminal
+  TERMREF de/mari_023/ae2wtlib/AE2wtlib.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibCreativeTab.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibForge.class
+  TERMREF de/mari_023/ae2wtlib/AE2wtlibItems.class
+  TERMREF de/mari_023/ae2wtlib/hotkeys/RestockHotkeyAction.class
+  TERMREF de/mari_023/ae2wtlib/wat/ItemWAT.class
+  TERMREF de/mari_023/ae2wtlib/wat/WATMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wct/ItemWCT.class
+  TERMREF de/mari_023/ae2wtlib/wct/WCTMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wet/ItemWET.class
+  TERMREF de/mari_023/ae2wtlib/wet/WETMenuHost.class
+  TERMREF de/mari_023/ae2wtlib/wut/recipe/Common.class
+  TAG data/curios/tags/item/
+  TAG data/curios/tags/item/curio.json
