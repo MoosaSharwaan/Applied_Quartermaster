@@ -35,6 +35,13 @@ neoForge {
             systemProperty 'appliedquartermaster.selftest', 'true'
             programArguments.addAll('--quickPlaySingleplayer', 'aqtest', '--width', '1920', '--height', '1080')
         }
+        // Development benchmark: server tick time with small and huge networks, and with the tablet open.
+        perftest {
+            client()
+            systemProperty 'appliedquartermaster.selftest', 'true'
+            systemProperty 'appliedquartermaster.perf', 'true'
+            programArguments.addAll('--quickPlaySingleplayer', 'aqtest', '--width', '1280', '--height', '720')
+        }
     }
 }
 

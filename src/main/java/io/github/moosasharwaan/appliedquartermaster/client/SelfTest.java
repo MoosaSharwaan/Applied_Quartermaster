@@ -115,6 +115,12 @@ public final class SelfTest {
 
     private static void plan() {
         STEPS.clear();
+        if (SelfTestPerf.ENABLED) {
+            // Benchmark only: build the tablet, then the server-side benchmark runs and quits the game.
+            STEPS.add(new Step(0, () -> server(SelfTest::build)));
+            STEPS.add(new Step(40, () -> server(p -> SelfTestPerf.start(p, tabletSlot))));
+            return;
+        }
         STEPS.add(new Step(0, () -> server(SelfTest::build)));
         STEPS.add(new Step(10, () -> server(SelfTest::buildFarm)));
         STEPS.add(new Step(80, () -> {

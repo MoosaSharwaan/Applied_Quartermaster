@@ -316,9 +316,42 @@ public class TabletMenu extends AbstractContainerMenu {
     @Override
     public void broadcastChanges() {
         super.broadcastChanges();
-        if (playerInventory.player instanceof ServerPlayer player && (lastSent == null || ++ticks % 5 == 0)) {
+        if (playerInventory.player instanceof ServerPlayer player && (lastSent == null || ++ticks >= refreshInterval)) {
+            ticks = 0;
+            long start = System.nanoTime();
             sendView(player);
+            long took = System.nanoTime() - start;
+            // Refresh 4 times a second, but back off on very large networks so the tablet never costs much.
+            refreshInterval = took > 2_000_000 ? 20 : took > 500_000 ? 10 : 5;
+            perfNanos += took;
+            perfCalls++;
+            perfMaxNanos = Math.max(perfMaxNanos, took);
         }
+    }
+
+    private int refreshInterval = 5;
+
+    // Time spent refreshing open tablets, for the development benchmark.
+    private static long perfNanos;
+    private static long perfCalls;
+    private static long perfMaxNanos;
+
+    public static void resetPerf() {
+        perfNanos = 0;
+        perfCalls = 0;
+        perfMaxNanos = 0;
+    }
+
+    public static long perfNanos() {
+        return perfNanos;
+    }
+
+    public static long perfCalls() {
+        return perfCalls;
+    }
+
+    public static long perfMaxNanos() {
+        return perfMaxNanos;
     }
 
     private void sendView(ServerPlayer player) {
@@ -527,11 +560,13 @@ public class TabletMenu extends AbstractContainerMenu {
     public void handleAction(ServerPlayer player, TabletActionPayload action) {
         if (page == PAGE_DEVICES && action.action() >= TabletActionPayload.DEVICE_OPEN) {
             handleDevicesAction(player, action);
+            ticks = refreshInterval; // show the result of a click straight away
             broadcastChanges();
             return;
         }
         if (page == PAGE_AUTOMATION && action.action() >= TabletActionPayload.OPEN_FARM) {
             handleAutomationAction(player, action);
+            ticks = refreshInterval; // show the result of a click straight away
             broadcastChanges();
             return;
         }

@@ -353,6 +353,17 @@ first; a superflat world works best) and opens every tablet page and guide page.
 redstone output, saves screenshots to `run/screenshots/aq_*.png` and quits. It is switched off in normal play. The
 screenshots in this README come from it.
 
+### Performance benchmark
+
+`./gradlew runPerftest` builds small (64-block) and huge (4,096-block) networks out of AE2, AdvancedAE (if installed)
+and Applied Quartermaster blocks, plus 50 farms with 300 Redstone Plates, and measures the server's tick time with each.
+Then it opens the tablet on a huge network on every tab and measures the time spent refreshing it. Results are logged as
+`PERF` lines.
+
+Last results: the mod's blocks cost the same as AE2's own blocks (no measurable difference, even at 4,096 blocks), and
+the plates and farm controllers cost nothing measurable. With the tablet open on a 4,100-device network, its refresh
+takes about 3 ms once a second, on any tab.
+
 ## Credits and licence
 
 Code and art by MoosaSharwaan. Early design mockups are kept in [`docs/design`](docs/design).
