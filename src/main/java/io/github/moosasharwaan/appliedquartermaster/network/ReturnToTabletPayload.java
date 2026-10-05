@@ -25,7 +25,7 @@ public record ReturnToTabletPayload() implements CustomPacketPayload {
         if (context.player() instanceof ServerPlayer player
                 && player.containerMenu instanceof AEBaseMenu menu
                 && menu.getLocator() instanceof TabletModuleLocator locator) {
-            TabletItem.openTablet(player, locator.tabletSlot(), io.github.moosasharwaan.appliedquartermaster.tablet.TabletMenu.PAGE_MODULES);
+            TabletItem.openTablet(player, locator.tabletSlot(), io.github.moosasharwaan.appliedquartermaster.tablet.TabletMenu.PAGE_HOME);
         }
     }
 }

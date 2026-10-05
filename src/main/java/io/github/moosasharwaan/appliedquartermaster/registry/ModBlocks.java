@@ -21,13 +21,13 @@ public final class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(AppliedQuartermaster.MOD_ID);
 
-    /** Stores up to 8 guide books; unlocks the tablet's Library tab. */
+    /** Stores up to 8 guide books; unlocks the tablet's Library app. */
     public static final DeferredBlock<LibraryBlock> ME_LIBRARY = machine("me_library", LibraryBlock::new);
-    /** Stores up to 8 weapons and mining tools; unlocks the Armory tab. */
+    /** Stores up to 8 weapons and mining tools; unlocks the Armory app. */
     public static final DeferredBlock<ConnectedMachineBlock> ME_ARMORY = machine("me_armory", p -> new ConnectedMachineBlock(p, ArmoryBlockEntity::new));
-    /** Stores up to 8 utility tools (wrenches, memory cards...); unlocks the Tools tab. */
+    /** Stores up to 8 utility tools (wrenches, memory cards...); unlocks the Tools app. */
     public static final DeferredBlock<ConnectedMachineBlock> ME_TOOL_RACK = machine("me_tool_rack", p -> new ConnectedMachineBlock(p, ToolRackBlockEntity::new));
-    /** Groups the Redstone Plates of one farm; unlocks the Automation tab. */
+    /** Groups the Redstone Plates of one farm; unlocks the Farms app. */
     public static final DeferredBlock<FarmControllerBlock> ME_FARM_CONTROLLER = machine("me_farm_controller", FarmControllerBlock::new);
 
     private ModBlocks() {

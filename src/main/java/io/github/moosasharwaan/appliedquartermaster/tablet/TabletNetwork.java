@@ -90,12 +90,12 @@ public final class TabletNetwork {
         };
     }
 
-    /** True when at least one block of this kind is on the grid (unlocks its tab). */
+    /** True when at least one block of this kind is on the grid (unlocks its app). */
     public static boolean present(IGrid grid, StorageKind kind) {
         return grid.getMachineNodes(blockEntityClass(kind)).iterator().hasNext();
     }
 
-    /** True when at least one Farm Controller is on the grid (unlocks the Automation tab). */
+    /** True when at least one Farm Controller is on the grid (unlocks the Farms app). */
     public static boolean farmsPresent(IGrid grid) {
         return grid.getMachineNodes(FarmControllerBlockEntity.class).iterator().hasNext();
     }

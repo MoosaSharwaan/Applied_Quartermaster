@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * Development self-test for other AE2 addons. Only does anything when addons are installed (the compatibility
  * test run downloads them into the mods folder): checks which of their items the tablet and storage blocks take,
- * puts their machines on the test network for the Devices tab, and puts one of their terminals in a module slot.
+ * puts their machines on the test network for the Network app, and puts one of their terminals in a module slot.
  */
 final class SelfTestAddons {
 

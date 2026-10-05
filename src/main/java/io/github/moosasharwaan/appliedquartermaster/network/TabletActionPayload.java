@@ -28,11 +28,16 @@ public record TabletActionPayload(int containerId, int action, int entry, ItemSt
     /** Sets the icon of a farm or plate to the held (carried) item, or clears it when nothing is held. */
     public static final int SET_ICON = 16;
     public static final int RENAME = 17;
+    /** Sets a plate's signal strength to {@code arg} (1 to 15). */
+    public static final int SET_STRENGTH = 18;
     // Devices page
     public static final int DEVICE_OPEN = 20;
     public static final int DEVICE_BACK = 21;
     /** Shows where a device is: a light beam above it and its position and direction in the action bar. */
     public static final int DEVICE_LOCATE = 22;
+    // Statistics view
+    /** Falling stock period: {@code arg} 0 = 10 minutes, 1 = 1 hour, 2 = 1 day. */
+    public static final int STATS_PERIOD = 30;
 
     public TabletActionPayload(int containerId, int action, int entry, ItemStack expected, int arg) {
         this(containerId, action, entry, expected, arg, "");

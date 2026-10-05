@@ -8,7 +8,7 @@ navigation:
 # Applied Quartermaster
 
 Applied Quartermaster puts your whole ME network in your hands. The <ItemLink id="appliedquartermaster:me_tablet" />
-is a handheld hub with a tab for each part of your base, and four blocks give your guide books, weapons, tools and
+is a handheld tablet with an app for each part of your base, and four blocks give your guide books, weapons, tools and
 farms a home on the network.
 
 <Row gap="16">
@@ -19,7 +19,7 @@ farms a home on the network.
 <BlockImage id="appliedquartermaster:me_farm_controller" scale="3" />
 </Row>
 
-* [ME Tablet](me_tablet.md): modules, tabs and the default tab
+* [ME Tablet](me_tablet.md): apps, modules and network statistics
 * [ME Library](me_library.md): guide books on the network
 * [ME Armory and ME Tool Rack](me_armory.md): weapons, mining tools and utility tools
 * [Farm automation](farm_automation.md): the ME Farm Controller and ME Redstone Plates

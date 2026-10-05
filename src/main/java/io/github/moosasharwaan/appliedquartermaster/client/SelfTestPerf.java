@@ -126,6 +126,14 @@ public final class SelfTestPerf {
         PHASES.add(new Phase("Mixed x4096, tablet open: Library tab", MEASURE_TICKS, () -> openTablet(0), true));
         PHASES.add(new Phase("Mixed x4096, tablet open: Devices tab", MEASURE_TICKS, () -> openTablet(TabletMenu.PAGE_DEVICES), true));
         PHASES.add(new Phase("Mixed x4096, tablet open: Devices list of 2048", MEASURE_TICKS, SelfTestPerf::openDeviceList, true));
+        // Statistics with a full item list: 8 drives of 256k cells holding one stack of every item in the game.
+        PHASES.add(new Phase("build stock", 1, SelfTestPerf::stockDrives, false));
+        PHASES.add(new Phase("boot stock", 100, SelfTestPerf::fillStock, false));
+        PHASES.add(new Phase("history", 20, SelfTestPerf::stockHistory, false));
+        PHASES.add(new Phase("history timings", 20, SelfTestPerf::stockTimings, false));
+        PHASES.add(new Phase("Mixed x4096 + every item, tablet open: Statistics", MEASURE_TICKS,
+                () -> openTablet(TabletMenu.PAGE_STATS), true));
+        PHASES.add(new Phase("Mixed x4096 + every item, tablet closed", MEASURE_TICKS, SelfTestPerf::closeTablet, true));
         PHASES.add(new Phase("close", 20, SelfTestPerf::closeTablet, false));
         PHASES.add(new Phase("clear", 60, SelfTestPerf::clear, false));
         PHASES.add(new Phase("empty world again", MEASURE_TICKS, () -> { }, true));
@@ -272,6 +280,92 @@ public final class SelfTestPerf {
             }
         }
         TabletItem.openTablet(p, tabletSlot, page);
+    }
+
+    private static appeng.api.networking.IGrid tabletGrid() {
+        var p = player();
+        return io.github.moosasharwaan.appliedquartermaster.tablet.TabletNetwork.find(p, p.getInventory().getItem(tabletSlot)).grid();
+    }
+
+    private static void stockDrives() {
+        var start = core();
+        for (int i = 0; i < 8; i++) {
+            var pos = start.offset(-1, i, 0);
+            set(pos, AEBlocks.DRIVE.block().defaultBlockState());
+            if (level.getBlockEntity(pos) instanceof appeng.blockentity.storage.DriveBlockEntity drive) {
+                for (int c = 0; c < 10; c++) {
+                    drive.getInternalInventory().setItemDirect(c, AEItems.ITEM_CELL_256K.stack());
+                }
+            }
+        }
+    }
+
+    private static void fillStock() {
+        var grid = tabletGrid();
+        if (grid == null) {
+            AppliedQuartermaster.LOGGER.error("PERF stock: no network");
+            return;
+        }
+        int stored = 0;
+        for (var item : BuiltInRegistries.ITEM) {
+            if (item == net.minecraft.world.item.Items.AIR) {
+                continue;
+            }
+            long done = grid.getStorageService().getInventory().insert(appeng.api.stacks.AEItemKey.of(item), 1000,
+                    Actionable.MODULATE, appeng.api.networking.security.IActionSource.empty());
+            if (done > 0) {
+                stored++;
+            }
+        }
+        AppliedQuartermaster.LOGGER.info("PERF stock: {} item types stored", stored);
+    }
+
+    /** A snapshot "11 minutes ago", then every other item loses some, so Falling stock has thousands of candidates. */
+    private static void stockHistory() {
+        var grid = tabletGrid();
+        if (grid == null) {
+            return;
+        }
+        long now = level.getServer().getTickCount();
+        var history = io.github.moosasharwaan.appliedquartermaster.devices.StockHistory.track(grid, now);
+        long t0 = System.nanoTime();
+        history.sample(grid, now - 13_200);
+        long t1 = System.nanoTime();
+        int i = 0;
+        for (var item : BuiltInRegistries.ITEM) {
+            if (i++ % 2 == 0 && item != net.minecraft.world.item.Items.AIR) {
+                grid.getStorageService().getInventory().extract(appeng.api.stacks.AEItemKey.of(item), 1 + i % 900,
+                        Actionable.MODULATE, appeng.api.networking.security.IActionSource.empty());
+            }
+        }
+        long t2 = System.nanoTime();
+        var stats = io.github.moosasharwaan.appliedquartermaster.devices.NetworkStats.build(0, grid, 0, now);
+        long t3 = System.nanoTime();
+        AppliedQuartermaster.LOGGER.info("PERF stock history: first snapshot of {} types {} us; first statistics build {} us",
+                stats.storage().itemTypes(), (t1 - t0) / 1000, (t3 - t2) / 1000);
+        stockNow = now;
+    }
+
+    private static long stockNow;
+
+    /** Warm timings, a few ticks later (AE2's cached item list has caught up with the extractions by then). */
+    private static void stockTimings() {
+        var grid = tabletGrid();
+        if (grid == null) {
+            return;
+        }
+        var history = io.github.moosasharwaan.appliedquartermaster.devices.StockHistory.track(grid, stockNow);
+        for (int round = 0; round < 5; round++) {
+            long t0 = System.nanoTime();
+            history.sample(grid, stockNow - 13_200);
+            long t1 = System.nanoTime();
+            var stats = io.github.moosasharwaan.appliedquartermaster.devices.NetworkStats.build(0, grid, 0, stockNow);
+            long t2 = System.nanoTime();
+            history.falling(grid, stockNow, 12_000, 6);
+            long t3 = System.nanoTime();
+            AppliedQuartermaster.LOGGER.info("PERF stock round {}: snapshot {} us, statistics build {} us (falling part {} us, {} shown)",
+                    round, (t1 - t0) / 1000, (t2 - t1) / 1000, (t3 - t2) / 1000, stats.falling().size());
+        }
     }
 
     private static void openDeviceList() {

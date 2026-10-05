@@ -12,6 +12,13 @@ public final class ClientPayloads {
     private ClientPayloads() {
     }
 
+    public static void onStats(io.github.moosasharwaan.appliedquartermaster.network.NetworkStatsPayload payload) {
+        var player = Minecraft.getInstance().player;
+        if (player != null && player.containerMenu instanceof TabletMenu menu && menu.containerId == payload.containerId()) {
+            menu.receiveStats(payload);
+        }
+    }
+
     public static void onDevices(DevicesViewPayload payload) {
         var player = Minecraft.getInstance().player;
         if (player != null && player.containerMenu instanceof TabletMenu menu && menu.containerId == payload.containerId()) {

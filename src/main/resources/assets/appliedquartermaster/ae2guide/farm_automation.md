@@ -33,11 +33,12 @@ powers the block it faces (strength 1 to 15).
 * Green light: on. Red: off. Dark: the farm's controller is offline.
 * Right-click a plate to switch it; sneak and right-click to change its strength.
 
-## Automation tab
+## Farms app
 
-The tablet's **Automation** tab lists every farm. Click a farm to see its plates, click a plate to switch it, scroll over
-it to change its strength, or use **All on** and **All off**. Right-click a farm or plate to rename it, and click it while
-holding any item to use that item as its icon.
+The tablet's **Farms** app lists every farm, each with a switch for all its plates. Click a farm to see its plates: click
+a plate's switch to turn it on or off, click its strength bar (or scroll over it) to set the strength, or use **All on**
+and **All off**. The pencil renames a plate; right-click a farm or plate to rename it too, and click it while holding any
+item to use that item as its icon.
 
 <RecipeFor id="appliedquartermaster:me_farm_controller" />
 <RecipeFor id="appliedquartermaster:me_redstone_plate" />

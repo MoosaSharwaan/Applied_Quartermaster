@@ -14,7 +14,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 /** Reads and writes the modules stored on a tablet stack. */
 public final class TabletModules {
 
-    /** Number of module slots on the Modules page. */
+    /** Number of module slots on the Settings app. */
     public static final int SLOTS = 4;
 
     private TabletModules() {
@@ -112,14 +112,14 @@ public final class TabletModules {
         write(tablet, modules);
     }
 
-    /** Pin value for a storage tab (Library, Armory, Tools); module slots use 0..3. */
+    /** Pin value for a storage app (Library, Armory, Tools); module slots use 0..3. */
     public static final int PIN_STORAGE = 10;
 
-    /** Number of pages after the Modules page: Library, Armory, Tools, Automation and Devices. */
+    /** Number of pages after the Settings app: Library, Armory, Tools, Automation and Devices. */
     public static final int PAGES = StorageKind.values().length + 2;
 
     /**
-     * @return the pinned tab: 0..3 for a module slot, {@link #PIN_STORAGE} + kind for a storage tab, or -1 if none.
+     * @return the pinned app: 0..3 for a module slot, {@link #PIN_STORAGE} + kind for a storage app, or -1 if none.
      */
     public static int getDefault(ItemStack tablet) {
         Integer value = tablet.get(ModComponents.TABLET_DEFAULT_MODULE);
@@ -135,7 +135,7 @@ public final class TabletModules {
         return -1;
     }
 
-    /** Pins the tab, or unpins it if it was already pinned. */
+    /** Pins the app, or unpins it if it was already pinned. */
     public static void togglePin(ItemStack tablet, int pin) {
         boolean validModule = pin >= 0 && pin < SLOTS && !get(tablet, pin).isEmpty();
         boolean validStorage = pin >= PIN_STORAGE && pin < PIN_STORAGE + PAGES;
@@ -146,7 +146,7 @@ public final class TabletModules {
         }
     }
 
-    /** View size per storage tab: 0 = Large, 1 = Medium, 2 = Small. */
+    /** View size per storage app: 0 = Large, 1 = Medium, 2 = Small. */
     public static int getViewSize(ItemStack tablet, StorageKind kind) {
         int packed = tablet.getOrDefault(ModComponents.TABLET_VIEW_SIZES, 0);
         return Math.min(2, (packed >> (kind.ordinal() * 2)) & 3);

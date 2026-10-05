@@ -89,6 +89,9 @@ public final class SelfTest {
             return;
         }
         ticks++;
+        if (mc.screen != null) {
+            mouseAway(mc);
+        }
         if (step == -1) {
             if (ticks < 60) {
                 return;
@@ -146,6 +149,8 @@ public final class SelfTest {
         STEPS.add(new Step(5, () -> Minecraft.getInstance().options.setCameraType(net.minecraft.client.CameraType.THIRD_PERSON_BACK)));
         STEPS.add(new Step(15, () -> shot("01e_tablet_third_person_back")));
         STEPS.add(new Step(5, () -> Minecraft.getInstance().options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON)));
+        STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_HOME))));
+        STEPS.add(new Step(30, () -> shot("01f_home")));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_MODULES))));
         STEPS.add(new Step(30, () -> shot("02_modules")));
         for (var kind : StorageKind.values()) {
@@ -197,6 +202,15 @@ public final class SelfTest {
             player.setXRot(-5f);
         }));
         STEPS.add(new Step(20, () -> shot("05i_devices_locate_beam")));
+        // Network statistics: a drive with a cell and items, a fake snapshot from 11 minutes ago, then use some up.
+        STEPS.add(new Step(5, () -> server(SelfTest::buildStats)));
+        STEPS.add(new Step(20, () -> server(SelfTest::storeStock)));
+        STEPS.add(new Step(10, () -> server(SelfTest::consumeStock)));
+        STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlot, TabletMenu.PAGE_STATS))));
+        STEPS.add(new Step(10, () -> server(p -> action(p, TabletActionPayload.STATS_PERIOD, 0, 0))));
+        STEPS.add(new Step(40, () -> shot("05j_statistics")));
+        STEPS.add(new Step(5, () -> server(p -> action(p, TabletActionPayload.STATS_PERIOD, 0, 2))));
+        STEPS.add(new Step(30, () -> shot("05k_statistics_day")));
         STEPS.add(new Step(5, () -> server(p -> TabletItem.openModule(p, tabletSlot, 0))));
         STEPS.add(new Step(40, () -> shot("06_terminal_from_tablet")));
         STEPS.add(new Step(5, () -> ClientPacketDistributor.sendToServer(new ReturnToTabletPayload())));
@@ -211,6 +225,15 @@ public final class SelfTest {
         STEPS.add(new Step(30, () -> shot("08_library_block_screen")));
         STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
         STEPS.add(new Step(10, () -> server(SelfTest::report)));
+        // Out of range: take the access point away, open the tablet, then put it back.
+        STEPS.add(new Step(5, () -> server(p -> p.level().setBlock(origin.above(),
+                net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3))));
+        STEPS.add(new Step(10, () -> server(p -> TabletItem.openTablet(p, tabletSlot, StorageKind.ARMORY.ordinal()))));
+        STEPS.add(new Step(30, () -> shot("07b_no_network")));
+        STEPS.add(new Step(5, () -> server(p -> {
+            p.closeContainer();
+            p.level().setBlock(origin.above(), AEBlocks.WIRELESS_ACCESS_POINT.block().defaultBlockState(), 3);
+        })));
         // Other AE2 addons (only when the compatibility test run installed some).
         if (SelfTestAddons.present()) {
             STEPS.add(new Step(5, () -> server(p -> SelfTestAddons.setUp(p, tabletSlot, origin, origin.above()))));
@@ -277,6 +300,28 @@ public final class SelfTest {
             STEPS.add(new Step(5, () -> Minecraft.getInstance().setScreen(null)));
             STEPS.add(new Step(5, () -> server(p -> p.setGameMode(GameType.CREATIVE))));
         }
+        // The same screens at GUI scale 3 and 2 (more room: the tablet grows up to 520 x 330).
+        for (int scale : new int[] {3, 2}) {
+            STEPS.add(new Step(5, () -> {
+                var mc = Minecraft.getInstance();
+                mc.options.guiScale().set(scale);
+                mc.resizeGui();
+            }));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlotNow(), TabletMenu.PAGE_HOME))));
+            STEPS.add(new Step(30, () -> shot("12_scale" + scale + "_home")));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlotNow(), TabletMenu.PAGE_STATS))));
+            STEPS.add(new Step(30, () -> shot("12_scale" + scale + "_statistics")));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openTablet(p, tabletSlotNow(), StorageKind.ARMORY.ordinal()))));
+            STEPS.add(new Step(30, () -> shot("12_scale" + scale + "_armory")));
+            STEPS.add(new Step(5, () -> server(p -> TabletItem.openModule(p, tabletSlotNow(), 0))));
+            STEPS.add(new Step(40, () -> shot("12_scale" + scale + "_terminal")));
+            STEPS.add(new Step(5, () -> server(ServerPlayer::closeContainer)));
+        }
+        STEPS.add(new Step(5, () -> {
+            var mc = Minecraft.getInstance();
+            mc.options.guiScale().set(0);
+            mc.resizeGui();
+        }));
         for (var page : List.of("applied_quartermaster", "me_tablet", "farm_automation", "recipes")) {
             STEPS.add(new Step(5, () -> guideme.GuidesCommon.openGuide(Minecraft.getInstance().player,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("ae2", "guide"),
@@ -285,6 +330,29 @@ public final class SelfTest {
         }
         STEPS.add(new Step(5, () -> Minecraft.getInstance().setScreen(null)));
         STEPS.add(new Step(20, () -> Minecraft.getInstance().stop()));
+    }
+
+    private static boolean mouseWarned;
+
+    /** The tablet's slot: the curio slot once the Curios steps put it there. */
+    private static int tabletSlotNow() {
+        return curioSlot != Integer.MIN_VALUE ? curioSlot : tabletSlot;
+    }
+
+    /** Keeps the (virtual) mouse in the top left corner so screenshots show no hover tooltips. */
+    private static void mouseAway(Minecraft mc) {
+        try {
+            for (var name : List.of("xpos", "ypos")) {
+                var field = net.minecraft.client.MouseHandler.class.getDeclaredField(name);
+                field.setAccessible(true);
+                field.setDouble(mc.mouseHandler, 1.0);
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            if (!mouseWarned) {
+                mouseWarned = true;
+                AppliedQuartermaster.LOGGER.warn("SELFTEST could not move the mouse: {}", e.toString());
+            }
+        }
     }
 
     private static int curioSlot = Integer.MIN_VALUE;
@@ -421,6 +489,81 @@ public final class SelfTest {
                 automation(player, TabletActionPayload.DEVICE_OPEN, i);
             }
         }
+    }
+
+    private static void action(ServerPlayer player, int action, int entry, int arg) {
+        if (player.containerMenu instanceof TabletMenu menu) {
+            menu.broadcastChanges();
+            menu.handleAction(player, new TabletActionPayload(menu.containerId, action, entry, ItemStack.EMPTY, arg));
+        }
+    }
+
+    /** An ME Drive under the controller with a 64k cell, filled with a few kinds of items. */
+    private static void buildStats(ServerPlayer player) {
+        var level = player.level();
+        var pos = origin.below();
+        level.setBlock(pos, AEBlocks.DRIVE.block().defaultBlockState(), 3);
+        if (level.getBlockEntity(pos) instanceof appeng.blockentity.storage.DriveBlockEntity drive) {
+            drive.getInternalInventory().setItemDirect(0, AEItems.ITEM_CELL_64K.stack());
+            drive.getInternalInventory().setItemDirect(1, AEItems.ITEM_CELL_16K.stack());
+        }
+    }
+
+    private static appeng.api.networking.IGrid grid(ServerPlayer player) {
+        var node = appeng.api.networking.GridHelper.getNodeHost(player.level(), origin);
+        if (node == null) {
+            return null;
+        }
+        for (var dir : Direction.values()) {
+            var n = node.getGridNode(dir);
+            if (n != null && n.getGrid() != null) {
+                return n.getGrid();
+            }
+        }
+        return null;
+    }
+
+    private static void insert(appeng.api.networking.IGrid grid, net.minecraft.world.item.Item item, long amount) {
+        grid.getStorageService().getInventory().insert(appeng.api.stacks.AEItemKey.of(item), amount,
+                Actionable.MODULATE, appeng.api.networking.security.IActionSource.empty());
+    }
+
+    private static void extract(appeng.api.networking.IGrid grid, net.minecraft.world.item.Item item, long amount) {
+        grid.getStorageService().getInventory().extract(appeng.api.stacks.AEItemKey.of(item), amount,
+                Actionable.MODULATE, appeng.api.networking.security.IActionSource.empty());
+    }
+
+    private static void storeStock(ServerPlayer player) {
+        var grid = grid(player);
+        if (grid == null) {
+            AppliedQuartermaster.LOGGER.error("SELFTEST stats: no grid at the controller");
+            return;
+        }
+        insert(grid, Items.COBBLESTONE, 12_000);
+        insert(grid, Items.IRON_INGOT, 2_400);
+        insert(grid, Items.COAL, 900);
+        insert(grid, Items.REDSTONE, 640);
+        insert(grid, Items.DIAMOND, 120);
+        insert(grid, Items.OAK_LOG, 512);
+        insert(grid, Items.BREAD, 64);
+        insert(grid, AEItems.CERTUS_QUARTZ_CRYSTAL.asItem(), 300);
+    }
+
+    /** Records the stored items as they were 11 minutes ago, then takes some out so they show as falling. */
+    private static void consumeStock(ServerPlayer player) {
+        var grid = grid(player);
+        if (grid == null) {
+            return;
+        }
+        long now = player.level().getServer().getTickCount();
+        var history = io.github.moosasharwaan.appliedquartermaster.devices.StockHistory.track(grid, now);
+        history.sample(grid, now - 13_200);
+        extract(grid, Items.COAL, 780);
+        extract(grid, Items.IRON_INGOT, 900);
+        extract(grid, Items.BREAD, 64);
+        extract(grid, Items.DIAMOND, 30);
+        extract(grid, Items.COBBLESTONE, 1_500);
+        AppliedQuartermaster.LOGGER.info("SELFTEST stats falling: {}", history.falling(grid, now, 12_000, 6).items());
     }
 
     private static void automation(ServerPlayer player, int action, int entry) {

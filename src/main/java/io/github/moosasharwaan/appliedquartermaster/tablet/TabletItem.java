@@ -12,8 +12,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 /**
- * The ME Tablet. Right-click opens the pinned tab (for a terminal module, the real AE2 terminal; for a
- * storage tab, that page of the tablet); with nothing pinned, or while sneaking, it opens the Modules page.
+ * The ME Tablet. Right-click opens the pinned app (for a terminal module, the real AE2 terminal; for a
+ * storage app, that page of the tablet); with nothing pinned, or while sneaking, it opens the home screen.
  */
 public class TabletItem extends Item {
 
@@ -36,7 +36,7 @@ public class TabletItem extends Item {
 
     /**
      * Opens the tablet in the given slot (inventory or Curios, see {@link TabletSlots}) the way right-click does:
-     * the pinned tab, or the Modules page when nothing is pinned or {@code modulesPage} is set.
+     * the pinned app, or the home screen when nothing is pinned or {@code modulesPage} (sneaking) is set.
      */
     public static void open(ServerPlayer player, int slot, boolean modulesPage) {
         var stack = TabletSlots.tablet(player, slot);
@@ -53,7 +53,7 @@ public class TabletItem extends Item {
                 return;
             }
         }
-        openTablet(player, slot, TabletMenu.PAGE_MODULES);
+        openTablet(player, slot, TabletMenu.PAGE_HOME);
     }
 
     /** Opens the tablet screen for the tablet in the given slot (inventory or Curios). */

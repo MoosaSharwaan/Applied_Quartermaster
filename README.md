@@ -1,8 +1,8 @@
 # Applied Quartermaster
 
 An addon for [Applied Energistics 2](https://github.com/AppliedEnergistics/Applied-Energistics-2) that puts your whole ME
-network in your hands. The **ME Tablet** is a handheld hub with a tab for each part of your base, and four blocks give your
-guide books, weapons, tools and farms a home on the network.
+network in your hands. The **ME Tablet** is a handheld tablet with an app for each part of your base, and four blocks give
+your guide books, weapons, tools and farms a home on the network.
 
 > **Status: beta.** Built for **All the Mods 11** (Minecraft 26.1.2, NeoForge). Every screenshot below is real: the mod's
 > automated self-test took them in game. Feedback and bug reports are welcome in [Issues](../../issues).
@@ -11,7 +11,7 @@ guide books, weapons, tools and farms a home on the network.
 
 | Block or item | What it does |
 | --- | --- |
-| **ME Tablet** | Handheld hub: opens your AE2 terminals and has a tab for each kind of storage block on your network |
+| **ME Tablet** | Handheld tablet: opens your AE2 terminals, shows your network's devices and statistics, and has an app for each kind of storage block on your network |
 | **ME Library** | Holds 8 guide books; read them from the tablet |
 | **ME Armory** | Holds 8 weapons and mining tools |
 | **ME Tool Rack** | Holds 8 utility tools (wrenches, memory cards, network tools…) |
@@ -36,10 +36,10 @@ guide books, weapons, tools and farms a home on the network.
 1. **Craft an ME Tablet** ([recipe](#recipes)).
 2. **Link a wireless terminal** to your network the normal AE2 way: put an AE2 *Wireless Terminal* (or *Wireless
    Crafting Terminal*, or an AE2WTLib universal terminal) in a *Wireless Access Point*.
-3. **Right-click the tablet.** It opens on the **Modules** page. Put the linked terminal in a module slot, and a tab with
-   the terminal's icon appears at the top.
+3. **Right-click the tablet.** It opens on its home screen. Open **Settings** and put the linked terminal in a module
+   slot: an app with the terminal's icon appears on the home screen and in the dock.
 4. **Place your storage blocks** (ME Library, ME Armory, ME Tool Rack, ME Farm Controller) on that network. As soon as one
-   is on the network, its tab appears on the tablet.
+   is on the network, its app lights up on the tablet.
 
 The tablet reaches the network through a powered Wireless Access Point in range, exactly like the terminal itself. Add
 Wireless Boosters to the tablet for more range (see [Upgrades and battery](#upgrades-and-battery)).
@@ -59,33 +59,55 @@ its flat icon.
 
 ### Opening it
 
-- **Right-click:** opens the *pinned* tab (see below). With nothing pinned, it opens the Modules page.
-- **Sneak + right-click:** always opens the Modules page.
+- **Right-click:** opens the *pinned* app (see below). With nothing pinned, it opens the home screen.
+- **Sneak + right-click:** always opens the home screen.
 - **Open ME Tablet key:** opens the tablet from anywhere you carry it: your hand, your inventory or a Curios slot. It
-  behaves like right-click (sneak for the Modules page). It has no key by default, like AE2's terminal keys: set one
+  behaves like right-click (sneak for the home screen). It has no key by default, like AE2's terminal keys: set one
   under *Options → Controls → Key Binds → Applied Quartermaster*.
 - **Esc** closes the tablet. In an AE2 terminal opened from the tablet, **Esc goes back to the tablet** instead.
+
+### Home screen and dock
+
+The tablet looks and works like a small tablet in AE2's Wireless Terminal colours. The status bar on top shows whether
+it reaches your network, the in-game day and time, and the battery. The home screen shows the time and one app for each
+part of your base; the **dock** at the bottom switches between apps from anywhere, and the button on the right edge goes
+back home.
+
+![The tablet's home screen](docs/screenshots/tablet_home.png)
+
+| App | What it does |
+| --- | --- |
+| **Wireless Terminal** (one per module) | Opens that AE2 terminal inside the tablet's frame |
+| **Network** | Every device on the network, and network statistics |
+| **Farms** | Switch farms and their redstone plates on and off |
+| **Library**, **Armory**, **Tools** | What is stored in those blocks across the network |
+| **Settings** | Terminal modules, range upgrades and battery |
+
+Apps whose block isn't on the network yet are dimmed. **Right-click** an app (on the home screen or in the dock) to
+**pin** it: the tablet then opens straight on that app, and the app gets a gold corner. Right-click it again to unpin.
+
+Storage apps show your inventory as **Pockets** on the right, so you can move items both ways without closing the
+tablet.
 
 ### Wearing it (Curios)
 
 With [Curios API](https://modrinth.com/mod/curios) installed, the tablet fits in the **curio** slot, the same slot
 AE2WTLib's terminals use. The mod adds one curio slot to players for it. Worn there, it does everything it does in your
-hand: open it with the **Open ME Tablet** key, and its terminals, Devices tab and storage tabs all work, with module
-changes saved back to the worn tablet.
+hand: open it with the **Open ME Tablet** key, and its terminals and apps all work, with module changes saved back to the
+worn tablet.
 
 ![The ME Tablet worn in the curio slot](docs/screenshots/tablet_curios.png)
 
-### Modules page
+### Settings
 
-Open it with the **gear** at the top right.
+Open the **Settings** app (the gear).
 
-![The Modules page with a Wireless Terminal module, two Wireless Boosters and the battery](docs/screenshots/tablet_modules.png)
+![Settings: a Wireless Terminal module, two Wireless Boosters and the battery](docs/screenshots/tablet_modules.png)
 
-- **Module slots (4):** each terminal you put here gets its own tab. Clicking that tab opens the **real AE2 terminal**, with
-  everything it normally does (search, crafting, sorting). The terminal's settings, power and crafting grid are saved back
-  into the module.
-- **Pin:** click the small pin on a module (or right-click any tab) to make it the tab that opens first. The pinned tab
-  has a gold pin. Click again to unpin.
+- **Module slots (4):** each terminal you put here gets its own app. The app opens the **real AE2 terminal**, with
+  everything it normally does (search, crafting, sorting), inside the tablet's frame: the **Tablet** button in its status
+  bar (or Esc) takes you back. The terminal's settings, power and crafting grid are saved back into the module.
+- **Pin:** click the small pin on a module to make its terminal the app that opens first.
 
 #### Upgrades and battery
 
@@ -94,20 +116,25 @@ Open it with the **gear** at the top right.
   Booster** removes the range limit in the access point's dimension, and its **Dimension Card** works from any dimension.
 - **Battery:** the charge of your terminal module. Charge the terminal in an AE2 Charger as usual.
 
-![The AE2 Wireless Terminal opened from the tablet](docs/screenshots/terminal_from_tablet.png)
+![The AE2 Wireless Terminal opened from the tablet, in the tablet's frame](docs/screenshots/terminal_from_tablet.png)
 
-### Storage tabs: Library, Armory and Tools
+When the tablet can't reach the network (no module, terminal not linked, or out of range) its apps say so, with a
+shortcut to Settings:
 
-Each tab shows everything stored in that kind of block across your whole network, in AE2's terminal style.
+![Out of reach of the network](docs/screenshots/tablet_no_network.png)
 
-![The Armory tab, Large view](docs/screenshots/tab_armory_large.png)
+### Storage apps: Library, Armory and Tools
+
+Each app shows everything stored in that kind of block across your whole network.
+
+![The Armory app, Large view](docs/screenshots/tab_armory_large.png)
 
 | Action | What happens |
 | --- | --- |
 | **Click** an item | Picks it up onto your cursor. If you are already holding an item, the two swap. |
 | **Shift-click** an item | Moves it into your inventory. |
-| **Click** a book (Library tab) | Opens the book to read. Right-click picks it up instead. |
-| **Shift-click** an item in your inventory | Stores it in the first free spot on the network. |
+| **Click** a book (Library app) | Opens the book to read. Right-click picks it up instead. |
+| **Shift-click** an item in your Pockets | Stores it in the first free spot on the network. |
 | **Click an empty box** while holding an item | Stores the held item. |
 | **Scroll** | Scrolls the list. |
 | **Search** box | Filters by name. Right-click the box to clear it. |
@@ -115,28 +142,28 @@ Each tab shows everything stored in that kind of block across your whole network
 Only real free spots are drawn as boxes: two Armories holding 7 items show 9 empty boxes. The counter in the header
 (`7 / 16`) shows used and total spots.
 
-**Left toolbar:**
+**Buttons in the app bar:**
 
 - **Sort:** storage order, A–Z or Z–A.
 - **Filter:** show or hide the free spots.
-- **View size:** Large (5 per row, big icons with names), Medium (8 per row) or Small (17 per row, AE2 size). Each tab
-  remembers its own size.
+- **View size:** Large (big icons with names), Medium or Small (AE2 size). Each app remembers its own size.
 
 <p>
 <img src="docs/screenshots/tab_armory_medium.png" alt="Medium view" width="49%">
 <img src="docs/screenshots/tab_armory_small.png" alt="Small view" width="49%">
 </p>
 
-### Automation tab
+### Farms app
 
 See [Farm automation](#farm-automation).
 
-### Devices tab
+### Network app: Devices
 
-The **Devices** tab is always there while the tablet reaches a network. It lists every AE2 device on the network,
-grouped by kind, much like AE2's Network Status screen, but you can look inside each group and find the blocks.
+The **Network** app is always there while the tablet reaches a network. Its **Devices** view lists every AE2 device on
+the network, grouped by kind, much like AE2's Network Status screen, but you can look inside each group and find the
+blocks.
 
-![The Devices tab](docs/screenshots/tab_devices.png)
+![The Network app's Devices view](docs/screenshots/tab_devices.png)
 
 * Each kind shows its icon, how many there are, and a status light: green when all are working, red when any are
   offline (the count of offline ones is shown).
@@ -146,12 +173,30 @@ grouped by kind, much like AE2's Network Status screen, but you can look inside 
 
 ![One kind's devices](docs/screenshots/tab_devices_list.png)
 
-* Click a row to **locate** the device: the tablet tells you its distance and direction, and a beam of light rises
-  from it for 10 seconds.
+* Click a row (or its **Locate** button) to find the device: the tablet tells you its distance and direction, and a
+  beam of light rises from it for 10 seconds.
 * The sort button orders the list by position, problems first or problems last (A–Z or Z–A for kinds).
   The search box filters by name or position. **<** goes back to the kinds.
 
 ![Locating a device](docs/screenshots/devices_locate.png)
+
+### Network app: Statistics
+
+Switch to **Statistics** at the top of the Network app.
+
+![Network statistics with falling stock](docs/screenshots/network_statistics.png)
+
+* **Storage used:** bytes used and free in the cells of your ME Drives and ME Chests.
+* **Item types:** types stored and how many more the cells can take.
+* **Items stored:** the total count, the number of cells and the fluids stored.
+* **Energy:** stored AE, and whether the controller is online with how many channels are in use.
+* **Items by mod:** which mods the stored items come from, largest first.
+* **Falling stock:** items whose amount went down compared with **10 minutes**, **1 hour** or **1 day** ago: by how
+  much, how many are left and roughly when they run out at that rate. Rows that run out within two hours are red.
+
+The tablet starts noting a network's stock the first time it reaches it, then every 10 minutes (one pass over AE2's own
+item list, kept in memory only, not saved). Until enough time has passed, the list says how far back it can compare.
+The view updates every 5 seconds while open and costs nothing while closed.
 
 ## ME Library
 
@@ -159,12 +204,12 @@ Each ME Library holds **8 guide books** and uses **1 channel**. Libraries that t
 libraries needs only one cable (up to 8 on a normal cable). The shelves on the sides show how many books are inside, and
 the lights glow only while the block has power and a channel.
 
-![The Library tab](docs/screenshots/tab_library.png)
+![The Library app](docs/screenshots/tab_library.png)
 
 - **Accepted:** guide books from any mod (Patchouli, Modonomicon, GuideME and others), written books and books and quills.
   Items whose name says book, guide, manual, journal, codex, lexicon and so on are accepted too.
 - **Not accepted:** blank books, enchanted books and Apothic Enchanting's tomes.
-- **Reading:** click a book on the Library tab. Written books open right away; guide books open as if you had
+- **Reading:** click a book in the Library app. Written books open right away; guide books open as if you had
   right-clicked them.
 - **Right-click the block** to open its own 8 slots:
 
@@ -183,7 +228,7 @@ Pack makers can add or block items with the item tags `appliedquartermaster:libr
   one cabinet.
 - Blocks face you when you place them. Their lights glow only with power and a channel.
 
-![The Tools tab](docs/screenshots/tab_tools.png)
+![The Tools app](docs/screenshots/tab_tools.png)
 
 Pack makers can extend them with the item tags `appliedquartermaster:armory_items` and
 `appliedquartermaster:tool_rack_items`.
@@ -215,7 +260,7 @@ power, the same way you place a P2P tunnel. Up to 6 plates fit around one cable.
 
 ### 3. Control farms from the tablet
 
-The **Automation** tab appears when a Farm Controller is on your network.
+The **Farms** app lights up when a Farm Controller is on your network.
 
 <p>
 <img src="docs/screenshots/tab_automation_farms.png" alt="The farm list" width="49%">
@@ -225,8 +270,10 @@ The **Automation** tab appears when a Farm Controller is on your network.
 | Where | Action | What happens |
 | --- | --- | --- |
 | Farm list | Click a farm | Opens it to show its plates |
-| Inside a farm | Click a plate | Switches it on or off |
-| Inside a farm | Scroll over a plate | Changes its signal strength |
+| Farm list | Click a farm's switch | Switches all its plates on or off |
+| Inside a farm | Click a plate's switch | Switches it on or off |
+| Inside a farm | Click the strength bar, or scroll over a plate | Sets its signal strength (1 to 15) |
+| Inside a farm | Click the pencil | Renames the plate |
 | Inside a farm | **All on** / **All off** | Switches every plate of the farm |
 | Inside a farm | **<** | Goes back to the farm list |
 | Anywhere | Right-click a farm or plate | Renames it |
@@ -264,9 +311,9 @@ and all recipes. Hold **G** (the guide key) over any of the mod's items to jump 
 
 | What you see | Fix |
 | --- | --- |
-| *Install a Wireless Terminal module…* | Put a wireless terminal in a module slot on the Modules page. |
-| *Link the Wireless Terminal module to your network…* | Link the terminal in a Wireless Access Point, then put it back in the tablet. |
-| *Out of range…* | Get closer to a powered Wireless Access Point, or add Wireless Boosters to the tablet. |
+| *No terminal module* | Put a wireless terminal in a module slot in Settings. |
+| *Terminal not linked* | Link the terminal in a Wireless Access Point, then put it back in the tablet. |
+| *Out of range* | Get closer to a powered Wireless Access Point, or add Wireless Boosters to the tablet. |
 | *No ME Library (Armory, Tool Rack, Farm Controller) on this network* | Place one on the network the terminal is linked to. |
 | A block's lights are off | The block has no power or no channel. A normal cable carries 8 channels. |
 | Plates are dark | The Farm Controller is offline: check that its network port has power and a channel. |
@@ -280,7 +327,7 @@ Applied Quartermaster doesn't need any other addon, and doesn't change how they 
 - **Curios:** wear the tablet in the curio slot and open it with the Open ME Tablet key (see
   [Wearing it](#wearing-it-curios)).
 - **Range upgrades:** AE2's Wireless Booster, and AEInfinityBooster's Infinity Range Booster and Dimension Card.
-- **Devices tab:** every addon machine on the network shows up with its own icon, state, channels and power.
+- **Network app:** every addon machine on the network shows up with its own icon, state, channels and power.
   Multiblock parts (crafting units, AdvancedAE's quantum computer) appear once the multiblock is built, as in AE2.
 - **Storage blocks:** addon weapons and tools go in the ME Armory, and addon tools (for example the ME Placement Tools)
   in the ME Tool Rack.
@@ -290,10 +337,10 @@ Tested in the game with the NeoForge 26.1.2 builds of these addons, each on its 
 | Addon | Tested version | What was checked |
 | --- | --- | --- |
 | AE2 Wireless Terminals (AE2WTLib) | 26.1.1-beta | Its terminals in module slots; the Pattern Access Terminal opens from the tablet and Esc returns to it |
-| AdvancedAE | 26.1.7 | Its wireless terminal in a module slot; its machines in the Devices tab |
+| AdvancedAE | 26.1.7 | Its wireless terminal in a module slot; its machines in the Network app |
 | AEInfinityBooster | 26.1.2-1.0.0.57 | Both cards fit the upgrade slots and set unlimited range (same dimension, or any dimension) |
-| AE2 Lightning Tech | 1.0.1alpha | Its machines in the Devices tab; its tool in the Tool Rack |
-| AE2 Crystal Science | 26.1.2-1.1.12 | Its machines in the Devices tab; its swords and tools in the Armory |
+| AE2 Lightning Tech | 1.0.1alpha | Its machines in the Network app; its tool in the Tool Rack |
+| AE2 Crystal Science | 26.1.2-1.1.12 | Its machines in the Network app; its swords and tools in the Armory |
 | ME Placement Tool | 2.1.3-beta1 | Its three tools in the Tool Rack |
 | Bigger AE2 | 26.1.2.1 | Loads alongside; no overlap |
 | AE2 OMNI Cells | 1.1.7 | Loads alongside; no overlap |
@@ -349,7 +396,7 @@ The jar appears in `build/libs/`. Put it in your mods folder next to AE2.
 ### Development self-test
 
 `./gradlew runSelftest` starts the game, builds a small test network in the singleplayer world `aqtest` (create it
-first; a superflat world works best) and opens every tablet page and guide page. It checks storing, taking, recipes and
+first; a superflat world works best) and opens every tablet app (at GUI scales 4, 3 and 2) and guide page. It checks storing, taking, recipes and
 redstone output, saves screenshots to `run/screenshots/aq_*.png` and quits. It is switched off in normal play. The
 screenshots in this README come from it.
 
@@ -357,12 +404,14 @@ screenshots in this README come from it.
 
 `./gradlew runPerftest` builds small (64-block) and huge (4,096-block) networks out of AE2, AdvancedAE (if installed)
 and Applied Quartermaster blocks, plus 50 farms with 300 Redstone Plates, and measures the server's tick time with each.
-Then it opens the tablet on a huge network on every tab and measures the time spent refreshing it. Results are logged as
+Then it opens the tablet on a huge network in every app, including Statistics with one of every item in the game
+stored, and measures the time spent refreshing it. Results are logged as
 `PERF` lines.
 
 Last results: the mod's blocks cost the same as AE2's own blocks (no measurable difference, even at 4,096 blocks), and
 the plates and farm controllers cost nothing measurable. With the tablet open on a 4,100-device network, its refresh
-takes about 3 ms once a second, on any tab.
+takes about 3 ms once a second, in any app. Statistics on a network holding all 1,876 items in the game take about 2 ms
+every 5 seconds, only while that view is open; the stock note taken every 10 minutes takes about 0.5 ms.
 
 ## Credits and licence
 

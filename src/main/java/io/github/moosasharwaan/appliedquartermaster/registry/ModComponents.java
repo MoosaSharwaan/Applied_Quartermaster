@@ -21,11 +21,11 @@ public final class ModComponents {
             builder -> builder.persistent(ItemContainerContents.CODEC)
                     .networkSynchronized(ItemContainerContents.STREAM_CODEC));
 
-    /** The pinned tab that opens first (module slot 0..3, or 10 + storage kind); absent when nothing is pinned. */
+    /** The pinned app that opens first (module slot 0..3, or 10 + storage kind); absent when nothing is pinned. */
     public static final DataComponentType<Integer> TABLET_DEFAULT_MODULE = register("tablet_default_module",
             builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
-    /** Remembered view size (Large, Medium, Small) for each storage tab, 2 bits per tab. */
+    /** Remembered view size (Large, Medium, Small) for each storage app, 2 bits per app. */
     public static final DataComponentType<Integer> TABLET_VIEW_SIZES = register("tablet_view_sizes",
             builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 

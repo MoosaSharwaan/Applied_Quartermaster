@@ -19,7 +19,7 @@ glow only with power and a channel.
 It takes guide books from any mod (Patchouli, Modonomicon, GuideME and others) and written books. It does not take
 blank books, enchanted books or Apothic tomes.
 
-Right-click the block to open its slots, or use the tablet's **Library** tab: click a book to read it, shift-click to
+Right-click the block to open its slots, or use the tablet's **Library** app: click a book to read it, shift-click to
 take it.
 
 <RecipeFor id="appliedquartermaster:me_library" />

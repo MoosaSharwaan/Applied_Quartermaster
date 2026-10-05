@@ -6,6 +6,7 @@ import io.github.moosasharwaan.appliedquartermaster.devices.DeviceLocator;
 import io.github.moosasharwaan.appliedquartermaster.devices.DeviceScanner;
 import io.github.moosasharwaan.appliedquartermaster.network.AutomationViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.DevicesViewPayload;
+import io.github.moosasharwaan.appliedquartermaster.network.NetworkStatsPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletActionPayload;
 import io.github.moosasharwaan.appliedquartermaster.network.TabletViewPayload;
 import io.github.moosasharwaan.appliedquartermaster.registry.ModItems;
@@ -29,21 +30,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The tablet screen's menu. Pages: the Modules page ({@link #PAGE_MODULES}) and one page per storage kind
- * (Library, Armory, Tools), whose items live in blocks on the linked AE2 network and are sent to the client
- * with {@link TabletViewPayload}.
+ * The tablet screen's menu. Pages: the home screen ({@link #PAGE_HOME}), Settings ({@link #PAGE_MODULES}), one page
+ * per storage kind (Library, Armory, Tools, whose items live in blocks on the linked AE2 network and are sent to the
+ * client with {@link TabletViewPayload}), Farms, and the Network app's Devices and Statistics views.
  * <p>
- * Buttons: {@code 0..3} open a module, {@code 100 + pin} pins a tab, {@code 200 + page + 1} switches page.
+ * Buttons: {@code 0..3} open a module, {@code 100 + pin} pins an app, {@code 200 + page + 2} switches page.
  */
 public class TabletMenu extends AbstractContainerMenu {
 
+    /** The home screen with the app icons. */
+    public static final int PAGE_HOME = -2;
+    /** Settings: module slots, range upgrades and the battery. */
     public static final int PAGE_MODULES = -1;
     public static final int PAGE_AUTOMATION = StorageKind.values().length;
     public static final int PAGE_DEVICES = PAGE_AUTOMATION + 1;
+    /** The Network app's Statistics view (not a separate app: it shares the Network icon and pin). */
+    public static final int PAGE_STATS = PAGE_DEVICES + 1;
 
     public static final int BUTTON_OPEN = 0;
     public static final int BUTTON_PIN = 100;
     public static final int BUTTON_PAGE = 200;
+
+    /** The menu button that switches to a page. */
+    public static int pageButton(int page) {
+        return BUTTON_PAGE + page + 2;
+    }
 
     /** Default slot layout (the screen moves slots to fit the page). */
     public static final int MODULE_Y = 50;
@@ -98,6 +109,14 @@ public class TabletMenu extends AbstractContainerMenu {
 
     // Client: Devices page.
     private DevicesViewPayload devices;
+
+    // Server: Statistics view (refreshed about every 5 seconds while open).
+    private NetworkStatsPayload lastStats;
+    private int statsPeriod = 1;
+    private long nextStats;
+
+    // Client: Statistics view.
+    private NetworkStatsPayload stats;
     private int ticks;
 
     // Client: the latest view from the server.
@@ -150,6 +169,11 @@ public class TabletMenu extends AbstractContainerMenu {
     }
 
     /** X of the 16px item area of a module slot. */
+    /** Pages that show the player's inventory (Pockets): the storage apps and Settings. */
+    public static boolean hasPockets(int page) {
+        return page == PAGE_MODULES || (page >= 0 && page < StorageKind.values().length);
+    }
+
     public static int moduleSlotX(int i) {
         return MODULE_X0 + i * MODULE_STEP;
     }
@@ -226,6 +250,15 @@ public class TabletMenu extends AbstractContainerMenu {
         return devices;
     }
 
+    public NetworkStatsPayload getStats() {
+        return stats;
+    }
+
+    public void receiveStats(NetworkStatsPayload payload) {
+        this.stats = payload;
+        this.viewVersion++;
+    }
+
     public void receiveDevices(DevicesViewPayload payload) {
         this.devices = payload;
         this.viewVersion++;
@@ -289,18 +322,15 @@ public class TabletMenu extends AbstractContainerMenu {
         if (!(player instanceof ServerPlayer serverPlayer)) {
             return false;
         }
-        if (id >= BUTTON_PAGE - 1 && id <= BUTTON_PAGE + TabletModules.PAGES) {
-            int newPage = id - BUTTON_PAGE - 1;
-            if (newPage >= PAGE_MODULES && newPage < TabletModules.PAGES) {
-                page = newPage;
-                lastSent = null;
-                lastAutomation = null;
-                lastDevices = null;
-                return true;
-            }
-            return false;
+        if (id >= BUTTON_PAGE && id <= pageButton(PAGE_STATS)) {
+            page = id - BUTTON_PAGE - 2;
+            lastSent = null;
+            lastAutomation = null;
+            lastDevices = null;
+            lastStats = null;
+            return true;
         }
-        if (id >= BUTTON_PIN && id < BUTTON_PAGE - 1) {
+        if (id >= BUTTON_PIN && id < BUTTON_PAGE) {
             TabletModules.togglePin(getTablet(), id - BUTTON_PIN);
             return true;
         }
@@ -369,7 +399,7 @@ public class TabletMenu extends AbstractContainerMenu {
             if (TabletNetwork.farmsPresent(network.grid())) {
                 mask |= 1 << PAGE_AUTOMATION;
             }
-            // The Devices tab is there whenever the tablet reaches a network.
+            // The Network app is there whenever the tablet reaches a network.
             mask |= 1 << PAGE_DEVICES;
             var kind = getPageKind();
             if (kind != null) {
@@ -396,6 +426,22 @@ public class TabletMenu extends AbstractContainerMenu {
             if (!view.sameAs(lastAutomation)) {
                 lastAutomation = view;
                 PacketDistributor.sendToPlayer(player, view);
+            }
+        }
+        if (network.grid() != null) {
+            // Start remembering this network's stock (for Falling stock) the first time a tablet reaches it.
+            io.github.moosasharwaan.appliedquartermaster.devices.StockHistory.track(network.grid(), player.level().getServer().getTickCount());
+        }
+        if (page == PAGE_STATS && network.grid() != null) {
+            long now = player.level().getServer().getTickCount();
+            if (lastStats == null || now >= nextStats) {
+                nextStats = now + 100;
+                var view = io.github.moosasharwaan.appliedquartermaster.devices.NetworkStats.build(containerId,
+                        network.grid(), statsPeriod, now);
+                if (!io.github.moosasharwaan.appliedquartermaster.devices.NetworkStats.same(view, lastStats)) {
+                    lastStats = view;
+                    PacketDistributor.sendToPlayer(player, view);
+                }
             }
         }
         if (page == PAGE_DEVICES) {
@@ -514,6 +560,11 @@ public class TabletMenu extends AbstractContainerMenu {
                     plate.setStrength(plate.getStrength() + action.arg());
                 }
             }
+            case TabletActionPayload.SET_STRENGTH -> {
+                if (plate != null) {
+                    plate.setStrength(action.arg());
+                }
+            }
             case TabletActionPayload.ALL_ON, TabletActionPayload.ALL_OFF -> {
                 var target = farm != null ? farm : selectedFarm;
                 if (target != null) {
@@ -558,6 +609,13 @@ public class TabletMenu extends AbstractContainerMenu {
     // ------------------------------------------------------------------ server actions
 
     public void handleAction(ServerPlayer player, TabletActionPayload action) {
+        if (action.action() == TabletActionPayload.STATS_PERIOD) {
+            statsPeriod = Math.max(0, Math.min(2, action.arg()));
+            lastStats = null;
+            ticks = refreshInterval;
+            broadcastChanges();
+            return;
+        }
         if (page == PAGE_DEVICES && action.action() >= TabletActionPayload.DEVICE_OPEN) {
             handleDevicesAction(player, action);
             ticks = refreshInterval; // show the result of a click straight away
@@ -794,6 +852,12 @@ public class TabletMenu extends AbstractContainerMenu {
         @Override
         public boolean mayPickup(Player player) {
             return getContainerSlot() != tabletSlot && super.mayPickup(player);
+        }
+
+        /** The inventory ("Pockets") only shows on the storage apps and Settings. */
+        @Override
+        public boolean isActive() {
+            return hasPockets(page);
         }
 
         @Override
