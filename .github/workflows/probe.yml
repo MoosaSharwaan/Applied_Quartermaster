@@ -1,0 +1,27 @@
+name: Probe
+on:
+  push:
+    branches: [ api-probe ]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '25' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build
+        run: |
+          ./gradlew build --no-daemon -q > probe.txt 2>&1; echo "exit $?" >> probe.txt
+          mkdir -p out && cp build/libs/*.jar out/ && ls -l out >> probe.txt
+      - name: Publish output
+        if: always()
+        run: |
+          git config user.name probe; git config user.email probe@example.com
+          git checkout --orphan probe-out
+          git rm -rfq --cached .
+          git add -f probe.txt out
+          git commit -qm out
+          git push -f origin probe-out
