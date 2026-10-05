@@ -1,0 +1,36 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/runner/.gradle/wrapper/dists/gradle-9.2.1-bin/2t0n5ozlw9xmuyvbp7dnzaxug/gradle-9.2.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Loaded 127 artifacts from /home/runner/work/Applied_Quartermaster/Applied_Quartermaster/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+[1m*** Started working on [4mdownloadManifest[0m[0m
+  ↓ https://launchermeta.mojang.com/mc/game/version_manifest_v2.json
+ [1m[92m✓[0m Completed [4mdownloadManifest[0m in 0.57s
+[1m*** Started working on [4mdownloadJson[0m[0m
+ [1m[92m✓[0m Completed [4mdownloadJson[0m in 0.00s
+[1m*** Started working on [4mdownloadClient[0m[0m
+[1m*** Started working on [4mdownloadServer[0m[0m
+ [1m[92m✓[0m Completed [4mdownloadClient[0m in 0.04s
+ [1m[92m✓[0m Completed [4mdownloadServer[0m in 0.04s
+[1m*** Started working on [4mpreProcessJar[0m[0m
+ [1m[92m♻[0m Used cache of [4mpreProcessJar[0m in 0.00s
+[1m*** Started working on [4mdecompile[0m[0m
+ [1m[92m♻[0m Used cache of [4mdecompile[0m in 0.00s
+[1m*** Started working on [4mpatch[0m[0m
+ [1m[92m♻[0m Used cache of [4mpatch[0m in 0.00s
+[1m*** Started working on [4mapplyNeoforgePatches[0m[0m
+ [1m[92m♻[0m Used cache of [4mapplyNeoforgePatches[0m in 0.00s
+[1m*** Started working on [4mtransformSources[0m[0m
+ [1m[92m♻[0m Used cache of [4mtransformSources[0m in 0.00s
+[1m*** Started working on [4mrecompile[0m[0m
+ [1m[92m♻[0m Used cache of [4mrecompile[0m in 0.00s
+[1m*** Started working on [4mmergeWithSources[0m[0m
+ [1m[92m♻[0m Used cache of [4mmergeWithSources[0m in 0.00s
+Total runtime: 2.30s
+
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+exit 0
+total 428
+-rw-r--r-- 1 runner runner 434239 Oct  5 10:53 appliedquartermaster-26.1.2-0.1.0.jar
